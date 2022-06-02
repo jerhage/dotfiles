@@ -116,6 +116,7 @@ nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 " Lazygit
 nnoremap <silent> <leader>gg :Lazygit<CR>
 
+nnoremap <leader>ss <cmd>e %:h<cr>
 " Consider consolidating all vim.lsp fns to lspconfig.lua
 nnoremap <leader>def :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>for :lua vim.lsp.buf.formatting()<CR>
