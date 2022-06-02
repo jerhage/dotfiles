@@ -35,14 +35,25 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'junegunn/fzf', { 'do': {-> fzf#install()} }
 Plug 'junegunn/fzf.vim'
 
+" New and need to be organized
+Plug 'numToStr/Comment.nvim'
+Plug 'cljoly/telescope-repo.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
+Plug 'kdheepak/lazygit.nvim'
+
 " Display color of hexvalues
 Plug 'norcalli/nvim-colorizer.lua'
 call plug#end()
 
 colorscheme gruvbox
 
-" Lua stuff
+
 lua require("kimchicoder")
+
+" Lua stuff
 
 " Lsp Installer config
 " Need to set up options
@@ -85,9 +96,25 @@ nnoremap <leader>fu :lua require('telescope.builtin').lsp_references()<CR>
 nnoremap <leader>faf :lua require('telescope.builtin').live_grep({grep_open_files=true, cwd = vim.fn.expand('%:p:h')})<cr>
 nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
 nnoremap <leader>fif :lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
+nnoremap <leader>gd :lua require('telescope').extensions.repo.list({search_dirs = {"~/Documents/coding"}})<CR>
 
 " Cd to current buffer + print
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" Vim movements for window navigation
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-l> :wincmd l<CR>
+" Trouble
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+
+" Lazygit
+nnoremap <silent> <leader>gg :Lazygit<CR>
 
 " Consider consolidating all vim.lsp fns to lspconfig.lua
 nnoremap <leader>def :lua vim.lsp.buf.hover()<CR>

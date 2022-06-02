@@ -1,0 +1,10 @@
+require("kimchicoder.lspconfig")
+require("kimchicoder.lspkind")
+require("kimchicoder.cmp")
+require("kimchicoder.lsp_installer_nvim")
+require("kimchicoder.cmp")
+require("kimchicoder.lspstatus")
+require("kimchicoder.comments")
+require("kimchicoder.gitsigns")
+require("kimchicoder.trouble")
+
