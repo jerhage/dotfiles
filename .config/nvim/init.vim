@@ -70,12 +70,24 @@ EOF
 
 
 " Remaps with dependencies on plugins
+" nnoremap <leader>fg :lua require('telescope.builtin').git_files()<CR>
+" nnoremap <leader>ff :lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
+" nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
+" nnoremap <leader>df :lua require('telescope.builtin').lsp_definitions({jump_type = "never"})<CR>
+" nnoremap <leader>fu :lua require('telescope.builtin').lsp_references()<CR>
+" nnoremap <leader>fif :lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
+
 nnoremap <leader>fg :lua require('telescope.builtin').git_files()<CR>
-nnoremap <leader>ff :lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
-nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
+nnoremap <leader>ff :lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('%:p:h') })<cr>
+nnoremap <leader>fF :lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>df :lua require('telescope.builtin').lsp_definitions({jump_type = "never"})<CR>
 nnoremap <leader>fu :lua require('telescope.builtin').lsp_references()<CR>
+nnoremap <leader>faf :lua require('telescope.builtin').live_grep({grep_open_files=true, cwd = vim.fn.expand('%:p:h')})<cr>
+nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
 nnoremap <leader>fif :lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
+
+" Cd to current buffer + print
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Consider consolidating all vim.lsp fns to lspconfig.lua
 nnoremap <leader>def :lua vim.lsp.buf.hover()<CR>
