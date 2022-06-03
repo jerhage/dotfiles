@@ -8,4 +8,7 @@ require("kimchicoder.comments")
 require("kimchicoder.gitsigns")
 require("kimchicoder.trouble")
 require("kimchicoder.treesitter")
+require("kimchicoder.whichkey")
+require("kimchicoder.project")
+require("kimchicoder.lualine")
 

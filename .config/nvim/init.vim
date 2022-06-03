@@ -43,6 +43,9 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'kdheepak/lazygit.nvim'
+Plug 'folke/which-key.nvim'
+Plug 'ahmedkhalf/project.nvim'
+Plug 'ryanoasis/vim-devicons'
 
 " Display color of hexvalues
 Plug 'norcalli/nvim-colorizer.lua'
@@ -92,11 +95,20 @@ nnoremap <leader>fg :lua require('telescope.builtin').git_files()<CR>
 nnoremap <leader>ff :lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('%:p:h') })<cr>
 nnoremap <leader>fF :lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>df :lua require('telescope.builtin').lsp_definitions({jump_type = "never"})<CR>
-nnoremap <leader>fu :lua require('telescope.builtin').lsp_references()<CR>
-nnoremap <leader>faf :lua require('telescope.builtin').live_grep({grep_open_files=true, cwd = vim.fn.expand('%:p:h')})<cr>
+nnoremap <leader>ref :lua require('telescope.builtin').lsp_references()<CR>
+" nnoremap <leader>faf :lua require('telescope.builtin').live_grep({grep_open_files=true, cwd = vim.fn.expand('%:p:h')})<cr>
+nnoremap <leader>faf :lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
 nnoremap <leader>fif :lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
 nnoremap <leader>gd :lua require('telescope').extensions.repo.list({search_dirs = {"~/Documents/coding"}})<CR>
+
+" Consider consolidating all vim.lsp fns to lspconfig.lua
+nnoremap <leader>def :lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>for :lua vim.lsp.buf.formatting()<CR>
+nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>hi :lua vim.lsp.buf.document_highlight()<CR>
+" nnoremap <leader>fa :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+nnoremap <leader>ca  :lua vim.lsp.buf.code_action()<CR>
 
 " Cd to current buffer + print
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -113,14 +125,10 @@ nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
 nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 
+" Project switching
+nnoremap <leader>pr :Telescope projects<cr>
+
 " Lazygit
 nnoremap <silent> <leader>gg :Lazygit<CR>
 
 nnoremap <leader>ss <cmd>e %:h<cr>
-" Consider consolidating all vim.lsp fns to lspconfig.lua
-nnoremap <leader>def :lua vim.lsp.buf.hover()<CR>
-nnoremap <leader>for :lua vim.lsp.buf.formatting()<CR>
-nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>hi :lua vim.lsp.buf.document_highlight()<CR>
-" nnoremap <leader>fa :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
-nnoremap <leader>ca  :lua vim.lsp.buf.code_action()<CR>
