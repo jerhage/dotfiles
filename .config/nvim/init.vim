@@ -1,5 +1,5 @@
 " Source whatever you need
-source $HOME/.vimrc
+source $HOME/.config/nvim/.vimrc
 
 " Get plugins first so subsequet settings depending on plugins work
 call plug#begin('~/.config/nvim/plugged')
@@ -57,8 +57,6 @@ colorscheme gruvbox
 
 
 lua require("kimchicoder")
-
-" Lua stuff
 
 " Lsp Installer config
 " Need to set up options

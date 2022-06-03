@@ -11,5 +11,5 @@ require("kimchicoder.treesitter")
 require("kimchicoder.whichkey")
 require("kimchicoder.project")
 require("kimchicoder.lualine")
-require("kimchicoder.catppuccin")
+require("kimchicoder.catppuccin-config")
 
