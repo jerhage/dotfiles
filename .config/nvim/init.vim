@@ -46,6 +46,8 @@ Plug 'kdheepak/lazygit.nvim'
 Plug 'folke/which-key.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'rhysd/git-messenger.vim'
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 " Display color of hexvalues
 Plug 'norcalli/nvim-colorizer.lua'
@@ -100,7 +102,7 @@ nnoremap <leader>ref :lua require('telescope.builtin').lsp_references()<CR>
 nnoremap <leader>faf :lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
 nnoremap <leader>fif :lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
-nnoremap <leader>gd :lua require('telescope').extensions.repo.list({search_dirs = {"~/Documents/coding"}})<CR>
+nnoremap <leader>gw :lua require('telescope').extensions.repo.list({search_dirs = {"~/Documents/coding"}})<CR>
 
 " Consider consolidating all vim.lsp fns to lspconfig.lua
 nnoremap <leader>def :lua vim.lsp.buf.hover()<CR>
@@ -110,6 +112,11 @@ nnoremap <leader>hi :lua vim.lsp.buf.document_highlight()<CR>
 " nnoremap <leader>fa :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>ca  :lua vim.lsp.buf.code_action()<CR>
 
+"
+nnoremap <leader>gb :lua require('gitsigns').blame_line()<CR>
+nnoremap <leader>gp :lua require('gitsigns').preview_hunk()<CR>
+nnoremap <leader>gd :lua require('gitsigns').diffthis()<CR>
+nnoremap <leader>gm <cmd>GitMessenger<CR>
 " Cd to current buffer + print
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
