@@ -2,7 +2,7 @@ set shell=zsh
 set encoding=UTF-8
 set guifont=mononoki\ Nerd\ Font
 set list lcs=tab:▸\ ,eol:↲,trail:~,precedes:«,extends:» " Set characters
-
+set laststatus=3
 " Remaps
 :imap jj <Esc>
 let mapleader=" "
@@ -32,6 +32,8 @@ set colorcolumn=80
 " set autochdir
 
 highlight Normal guibg=none
+" Not working?
+highlight WinSeparator guibg=none
 
 
 syntax on

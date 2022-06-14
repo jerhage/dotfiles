@@ -25,10 +25,14 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'onsails/lspkind-nvim'
+Plug 'L3MON4D3/LuaSnip'
 Plug 'nvim-lua/lsp-status.nvim'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 Plug 'L3MON4D3/LuaSnip'
 
@@ -84,19 +88,12 @@ EOF
 
 
 " Remaps with dependencies on plugins
-" nnoremap <leader>fg :lua require('telescope.builtin').git_files()<CR>
-" nnoremap <leader>ff :lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>
-" nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
-" nnoremap <leader>df :lua require('telescope.builtin').lsp_definitions({jump_type = "never"})<CR>
-" nnoremap <leader>fu :lua require('telescope.builtin').lsp_references()<CR>
-" nnoremap <leader>fif :lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
-
+" Telescope
 nnoremap <leader>fg :lua require('telescope.builtin').git_files()<CR>
 nnoremap <leader>ff :lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('%:p:h') })<cr>
 nnoremap <leader>fF :lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>df :lua require('telescope.builtin').lsp_definitions({jump_type = "never"})<CR>
 nnoremap <leader>ref :lua require('telescope.builtin').lsp_references()<CR>
-" nnoremap <leader>faf :lua require('telescope.builtin').live_grep({grep_open_files=true, cwd = vim.fn.expand('%:p:h')})<cr>
 nnoremap <leader>faf :lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fs :lua require('telescope.builtin').grep_string()<CR>
 nnoremap <leader>fif :lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>
@@ -107,14 +104,14 @@ nnoremap <leader>def :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>for :lua vim.lsp.buf.formatting()<CR>
 nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>hi :lua vim.lsp.buf.document_highlight()<CR>
-" nnoremap <leader>fa :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 nnoremap <leader>ca  :lua vim.lsp.buf.code_action()<CR>
 
-"
+" Gitsigns
 nnoremap <leader>gb :lua require('gitsigns').blame_line()<CR>
 nnoremap <leader>gp :lua require('gitsigns').preview_hunk()<CR>
 nnoremap <leader>gd :lua require('gitsigns').diffthis()<CR>
 nnoremap <leader>gm <cmd>GitMessenger<CR>
+
 " Cd to current buffer + print
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
@@ -123,6 +120,7 @@ nnoremap <C-h> :wincmd h<CR>
 nnoremap <C-j> :wincmd j<CR>
 nnoremap <C-k> :wincmd k<CR>
 nnoremap <C-l> :wincmd l<CR>
+
 " Trouble
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
