@@ -137,15 +137,14 @@ export PATH="$GOPATH/bin:$PATH"
 export PATH="$PATH:$HOME/coding/addies/flutter/bin"
 
 export PATH="$PATH:`pwd`/flutter/bin"
-export PATH="$PATH:/home/jh/.asdf/installs/python/3.11.3/bin"
 
 export NVM_DIR=~/.nvm
-# source $(brew --prefix nvm)/nvm.sh
+source $(brew --prefix nvm)/nvm.sh
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
 
-# . /opt/homebrew/opt/asdf/libexec/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 export OPENAI_API_KEY="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"
 
@@ -162,4 +161,4 @@ if [ -f '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-# complete -o nospace -C /opt/homebrew/bin/terraform terraform
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
