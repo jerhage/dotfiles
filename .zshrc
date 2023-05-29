@@ -147,7 +147,6 @@ complete -o nospace -C /usr/local/bin/terraform terraform
 
 # . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
-export OPENAI_API_KEY="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"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
