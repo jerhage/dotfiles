@@ -147,6 +147,7 @@ export PATH="$PATH:$HOME/coding/addies/flutter/bin"
 export PATH="$PATH:`pwd`/flutter/bin"
 export PATH="$PATH:/home/jh/.asdf/installs/python/3.11.3/bin"
 export PATH="$PATH:/home/jh/.local/bin"
+export PATH="$PATH:/home/jh/.cargo/bin"
 # export NVM_DIR=~/.nvm
 # source $(brew --prefix nvm)/nvm.sh
 
