@@ -12,7 +12,7 @@ ZSH_DISABLE_COMPFIX=true
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jh/.oh-my-zsh"
+# export ZSH="/Users/jh/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -82,7 +82,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages docker docker-compose)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -113,7 +113,13 @@ alias gitlog="git log --all  --decorate --oneline --graph"
 # alias update-nvim-master='asdf uninstall neovim ref:master && asdf install neovim ref:master'
 alias ch="~./tmux-ch.sh"
 # Random config
-
+. "$HOME/.asdf/asdf.sh"
+alias update-nvim-stable='asdf uninstall neovim stable && asdf install neovim stable'
+# alias ll="ls -lah"
+# Should make conditional incase exa isn't installed so I can use on any system (default to normal ls)
+alias ll="exa -lah"
+alias ls="exa -ah"
+alias z="zoxide"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -138,15 +144,17 @@ export PATH="$PATH:$HOME/coding/addies/flutter/bin"
 
 export PATH="$PATH:`pwd`/flutter/bin"
 export PATH="$PATH:/home/jh/.asdf/installs/python/3.11.3/bin"
-
-export NVM_DIR=~/.nvm
+export PATH="$PATH:/home/jh/.local/bin"
+# export NVM_DIR=~/.nvm
 # source $(brew --prefix nvm)/nvm.sh
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform
-
+# autoload -U +X bashcompinit && bashcompinit
+autoload -U +X compinit && compinit
+# complete -o nospace -C /usr/local/bin/terraform terraform
+. "$HOME/.asdf/asdf.sh"
 # . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
+export OPENAI_API_KEY="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"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -162,3 +170,7 @@ if [ -f '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Us
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # complete -o nospace -C /opt/homebrew/bin/terraform terraform
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
