@@ -120,6 +120,8 @@ alias update-nvim-stable='asdf uninstall neovim stable && asdf install neovim st
 alias ll="exa -lah"
 alias ls="exa -ah"
 alias z="zoxide"
+## stow command assumes target as parent dir if not specified. This ensures HOME no matter where stow is called
+alias stow="stow --target=${HOME}"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

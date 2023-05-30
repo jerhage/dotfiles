@@ -14,7 +14,8 @@ $git_status\
 right_format = """
 [](fg:#8250df)\
 $time\
-$all
+$nodejs
+$python
 $character
 """
 
