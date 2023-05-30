@@ -7,6 +7,8 @@ end
 
 config.enable_scroll_bar=true
 config.font = wezterm.font 'JetBrains Mono Nerd Font'
+config.window_decorations = "NONE"
+config.enable_tab_bar = false
 
 
 return config
