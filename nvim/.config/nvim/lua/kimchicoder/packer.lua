@@ -8,6 +8,11 @@ return require("packer").startup(function(use)
     use("wbthomason/packer.nvim")
     use("glepnir/lspsaga.nvim")
 
+    -- nvim noice for windows and cmd tool thing
+    use("folke/noice.nvim")
+    use("MunifTanjim/nui.nvim")
+    use("rcarriga/nvim-notify")
+    --
     use("nvim-tree/nvim-web-devicons")
     use({
         "nvim-telescope/telescope.nvim",
@@ -51,13 +56,6 @@ return require("packer").startup(function(use)
     use({
         "folke/trouble.nvim",
         requires = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require("trouble").setup({
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            })
-        end,
     })
     use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
     use("nvim-treesitter/playground")
