@@ -122,7 +122,7 @@ alias ls="exa -ah"
 alias z="zoxide"
 ## stow command assumes target as parent dir if not specified. This ensures HOME no matter where stow is called
 alias stow="stow --target=${HOME}"
-alias zc="zellij -l ~/dotfiles/zellij/.config/zellij/layouts/code.kdl"
+alias zc="zellij -l ~/dotfiles/zellij/.config/zellij/layouts/code_compact.kdl"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 

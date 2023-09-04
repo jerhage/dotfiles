@@ -11,27 +11,22 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
-    -- Packer can manage itself
-    "glepnir/lspsaga.nvim",
-
+local plugins = {
     -- nvim noice for windows and cmd tool thing
     "folke/noice.nvim",
     "MunifTanjim/nui.nvim",
     "rcarriga/nvim-notify",
     --
-    "nvim-tree/nvim-web-devicons",
+    { "nvim-tree/nvim-web-devicons", lazy = true },
     {
         "nvim-telescope/telescope.nvim",
         version = "0.1.0",
-        -- or                            , branch = '0.1.x',
         dependencies = { { "nvim-lua/plenary.nvim" } },
     },
 
     -- Color Schemes
     "folke/tokyonight.nvim",
     "rebelot/kanagawa.nvim",
-
     { "catppuccin/nvim", name = "catppuccin" },
     {
         "rose-pine/neovim",
@@ -42,11 +37,8 @@ require("lazy").setup({
     },
 
     -- Status Line
-    {
         "nvim-lualine/lualine.nvim",
-        name = "nvim-lualine",
-        dependencies = { "nvim-tree/nvim-web-devicons", lazy = true },
-    },
+
     -- Comment
     {
         "numToStr/Comment.nvim",
@@ -63,7 +55,8 @@ require("lazy").setup({
     ---
     {
         "folke/trouble.nvim",
-        dependencies = "nvim-tree/nvim-web-devicons",
+        lazy = true
+        --    dependencies = "nvim-tree/nvim-web-devicons",
     },
     "nvim-treesitter/nvim-treesitter",
     "nvim-treesitter/playground",
@@ -72,33 +65,42 @@ require("lazy").setup({
     "ThePrimeagen/harpoon",
     "tpope/vim-fugitive",
     "mbbill/undotree",
-    {
-        "VonHeikemen/lsp-zero.nvim",
-        dependencies = {
-            -- LSP Support
-            { "neovim/nvim-lspconfig" },
-            { "williamboman/mason.nvim" },
-            { "williamboman/mason-lspconfig.nvim" },
+    "onsails/lspkind.nvim",
+    -- LSP Support
+    { "neovim/nvim-lspconfig" },
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "WhoIsSethDaniel/mason-tool-installer.nvim" },
 
-            -- Autocompletion
-            { "hrsh7th/nvim-cmp" },
-            { "hrsh7th/cmp-buffer" },
-            { "hrsh7th/cmp-path" },
-            { "saadparwaiz1/cmp_luasnip" },
-            { "hrsh7th/cmp-nvim-lsp" },
-            { "hrsh7th/cmp-nvim-lua" },
+    -- Autocompletion
+    { "hrsh7th/nvim-cmp" },
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-path" },
+    { "saadparwaiz1/cmp_luasnip" },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/cmp-nvim-lua" },
 
-            -- Snippets
-            { "L3MON4D3/LuaSnip" },
-            { "rafamadriz/friendly-snippets" },
-        },
-    },
+    -- Snippets
+    { "L3MON4D3/LuaSnip" },
+    { "rafamadriz/friendly-snippets" },
     "kdheepak/lazygit.nvim",
-    {
-        'kdheepak/tabline.nvim',
-        config = function()
-        end,
-        dependencies = { { 'hoob3rt/lualine.nvim', lazy = true },
-            { 'kyazdani42/nvim-web-devicons', lazy = true, name = "web-devicons2", } }
-    },
-})
+
+    -- {
+    --     'kdheepak/tabline.nvim',
+    --     config = function()
+    --     end,
+    --     dependencies = { { 'hoob3rt/lualine.nvim', lazy = true },
+    --         { 'kyazdani42/nvim-web-devicons', lazy = true, name = "web-devicons2", } }
+    -- },
+
+    -- Debugger
+    "mfussenegger/nvim-dap",
+    'rcarriga/nvim-dap-ui',
+    'theHamsta/nvim-dap-virtual-text',
+    "jay-babu/mason-nvim-dap.nvim",
+
+}
+
+local opts = {}
+
+require("lazy").setup(plugins, opts)

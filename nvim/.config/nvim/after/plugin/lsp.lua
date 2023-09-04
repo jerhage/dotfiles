@@ -1,75 +1,153 @@
-local lsp = require("lsp-zero")
+-- requiring necessary plugins
+-- mason
+local installed, Mason = pcall(require, "mason")
+if not installed then
+	vim.notify("Plugin 'mason' not installed ")
+	return
+end
 
-lsp.preset("recommended")
+-- Mason lspconfig
+local installed, MasonLspConfig = pcall(require, "mason-lspconfig")
+if not installed then
+	vim.notify("Plugin 'mason-lspconfig' not installed ")
+	return
+end
 
-lsp.ensure_installed({
-  'tsserver',
-  'eslint',
-  'lua_ls',
-  -- 'rust_analyzer',
+-- Mason nvim dap
+local installed, MasonNvimDap = pcall(require, "mason-nvim-dap")
+if not installed then
+	vim.notify("Plugin 'mason-nvim-dap' not installed ")
+	return
+end
+
+-- Mason tool installer
+local installed, MasonToolInstaller = pcall(require, "mason-tool-installer")
+if not installed then
+	vim.notify("Plugin 'mason-tool-installer' not installed ")
+	return
+end
+
+-- #############################################################################
+-- Lsp config
+local installed, LspConfig = pcall(require, "lspconfig")
+if not installed then
+	vim.notify("Plugin 'lspconfig' not installed ")
+	return
+end
+
+-- cmp_nvim_lsp
+local installed, CmpNvimLsp = pcall(require, "cmp_nvim_lsp")
+if not installed then
+	vim.notify("Plugin 'cmp-nvim-lsp' not installed ")
+	return
+end
+
+-- #############################################################################
+-- Setting up plugins
+
+Mason.setup({
+	ui = {
+		icons = {
+			package_installed = "✓",
+			package_pending = "➜",
+			package_uninstalled = "✗",
+		},
+	},
 })
 
--- Fix Undefined global 'vim'
-lsp.configure('lua_ls', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
+-- Masong Lsp config
+
+MasonLspConfig.setup({
+	ensure_installed = {
+		"lua_ls",
+		"cssls",
+		"marksman",
+	},
 })
 
-
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+-- Mason automatically installs required tools for nvim-dap
+MasonNvimDap.setup({
+	ensure_installed = { "python", "stylua" },
+	handlers = {}, -- sets up dap in the predefined manner
 })
 
--- disable completion with tab
--- this helps with copilot setup
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
+-- Mason Tool Installer
+MasonToolInstaller.setup({
+	-- a list of all tools you want to ensure are installed upon
+	-- start; they should be the names Mason uses for each tool
+	ensure_installed = {
+		-- you can turn off/on auto_update per tool
+		{ "bash-language-server", auto_update = true },
+		{ "lua-language-server", auto_update = true },
+		{ "vim-language-server", auto_update = true },
+		{ "stylua", auto_update = true },
+		{ "editorconfig-checker" },
+		{ "html-lsp" },
+		{ "css-lsp" },
+		{ "pyright" },
+		{ "black" },
+		{ "autopep8" },
+		{ "json-lsp" },
+		{ "prettier" },
+	},
 
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+	auto_update = false,
+	run_on_start = true,
+	start_delay = 3000, -- 3 second delay
+	debounce_hours = 5, -- at least 5 hours between attempts to install/update
 })
 
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
+-- #############################################################################
+-- Managing language servers individually
+
+local capabilities = CmpNvimLsp.default_capabilities()
+
+-- pyright
+-- LspConfig.pyright.setup({
+-- 	capabilities = capabilities,
+-- })
+-- tsserver
+LspConfig.tsserver.setup({
+	capabilities = capabilities,
+})
+-- rust_analyzer
+LspConfig.rust_analyzer.setup({
+	capabilities = capabilities,
+	-- Server-specific settings. See `:help lspconfig-setup`
+	settings = {
+		["rust-analyzer"] = {},
+	},
 })
 
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-  -- vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-  vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-  vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-  vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-  vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-  vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
-  vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
---
-lsp.setup()
-
-vim.diagnostic.config({
-    virtual_text = true,
+-- html
+LspConfig.html.setup({
+	capabilities = capabilities,
 })
 
-require('lspconfig').tsserver.setup {
-    single_file_support = true,
-    filetypes = {'typescript', 'javascript', 'typescriptreact', 'typescript.tsx'},
-    on_attach = function(client, bufnr)
-        print('tsserver attached')
-    end,
-}
+-- Lua LS
+LspConfig.lua_ls.setup({
+	capabilities = capabilities,
+})
+
+-- CSS LS
+LspConfig.cssls.setup({
+	capabilities = capabilities,
+})
+
+-- Tailwind
+-- Support for tailwind auto completion
+-- install the tailwind server : "sudo npm install -g @tailwindcss/language-server"
+LspConfig.tailwindcss.setup({
+	capabilities = capabilities,
+})
+
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[LSP] Definition" })
+-- vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "" })
+vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, { desc = "[LSP] Workspace Symbol" })
+vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, { desc = "[LSP] Open Float" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_next, { desc = "[LSP] Go to Next" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, { desc = "[LSP] Go to Previous" })
+vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, { desc = "[LSP] Code Action" })
+vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, { desc = "[LSP] References" })
+vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, { desc = "[LSP] Rename" })
+vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "[LSP] Signature Help" })
