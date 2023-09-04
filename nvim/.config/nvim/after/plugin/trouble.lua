@@ -1,4 +1,10 @@
-require("trouble").setup({
+local installed, Trouble = pcall(require, "trouble")
+if not installed then
+	vim.notify("Plugin 'trouble' is not installed")
+	return
+end
+
+Trouble.setup({
     {
     position = "bottom", -- position of the list can be: bottom, top, left, right
     height = 10, -- height of the trouble list when position is top or bottom

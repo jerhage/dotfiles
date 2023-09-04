@@ -1,4 +1,10 @@
-require("noice").setup({
+local installed, Noice = pcall(require, "noice")
+if not installed then
+	vim.notify("Plugin 'noice' is not installed")
+	return
+end
+
+Noice.setup({
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
     override = {
