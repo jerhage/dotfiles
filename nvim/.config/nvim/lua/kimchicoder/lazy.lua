@@ -64,8 +64,11 @@ local plugins = {
     "nvim-lua/plenary.nvim",
     "ThePrimeagen/harpoon",
     { "tpope/vim-fugitive" },
-    { "mbbill/undotree"},
+    { "mbbill/undotree" },
     "onsails/lspkind.nvim",
+
+    "lewis6991/gitsigns.nvim",
+
     -- LSP Support
     --    { "neovim/nvim-lspconfig" },
     {

@@ -144,16 +144,44 @@ LspConfig.tsserver.setup({
 -- install the tailwind server : "sudo npm install -g @tailwindcss/language-server"
 LspConfig.tailwindcss.setup({
     capabilities = capabilities,
+    filetypes = {
+        "html",
+        "css",
+        "scss",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "svelte",
+    },
+    root_dir = function(fname)
+        return require("lspconfig").util.root_pattern("tailwind.config.cjs", "tailwind.config.js", "postcss.config.js")(
+            fname
+        )
+    end,
 })
 
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[LSP] Definition" })
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "" })
-vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, { desc = "[LSP] Workspace Symbol" })
-vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, { desc = "[LSP] Open Float" })
-vim.keymap.set("n", "[d", vim.diagnostic.goto_next, { desc = "[LSP] Go to Next" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, { desc = "[LSP] Go to Previous" })
-vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, { desc = "[LSP] Code Action" })
-vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, { desc = "[LSP] References" })
-vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, { desc = "[LSP] Rename" })
-vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "[LSP] Signature Help" })
-vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, { desc = "[LSP] Signature Help" })
+-- Lua
+LspConfig.lua.setup({
+    capabilities = capabilities,
+    settings = {
+    Lua = {
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+    },
+  },
+})
+
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[LSP] - Definition" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "[LSP] - Buffer Hover" })
+vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, { desc = "[LSP] - Workspace Symbol" })
+vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, { desc = "[LSP] - Open Float" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_next, { desc = "[LSP] - Go to Next" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, { desc = "[LSP] - Go to Previous" })
+vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, { desc = "[LSP] - Code Action" })
+vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, { desc = "[LSP] - References" })
+vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, { desc = "[LSP] - Rename" })
+vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "[LSP] - Signature Help" })
+vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, { desc = "[LSP] - Signature Help" })
