@@ -67,7 +67,7 @@ MasonLspConfig.setup({
 
 -- Mason automatically installs required tools for nvim-dap
 MasonNvimDap.setup({
-    ensure_installed = { "python", "stylua" },
+    ensure_installed = { "python", "stylua", "java-language-server" },
     handlers = {}, -- sets up dap in the predefined manner
 })
 
@@ -99,6 +99,7 @@ MasonToolInstaller.setup({
 })
 
 -- #############################################################################
+-- List of language servers with docs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- Managing language servers individually
 
 local capabilities = CmpNvimLsp.default_capabilities()
@@ -118,6 +119,14 @@ LspConfig.rust_analyzer.setup({
     settings = {
         ["rust-analyzer"] = {},
     },
+})
+
+-- Java
+LspConfig.java_language_server.setup({
+    capabilities = capabilities,
+})
+LspConfig.jdtls.setup({
+    capabilities = capabilities,
 })
 
 -- html
