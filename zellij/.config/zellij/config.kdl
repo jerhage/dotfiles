@@ -1,3 +1,15 @@
+default_layout "code"
 keybinds {
+    normal {
+        bind "Ctrl r" { SwitchToMode "resize"; }
+        bind "Ctrl y" { SwitchToMode "pane"; }
+        bind "Alt q" { Quit; }
+        unbind "Ctrl n"
+        unbind "Ctrl p"
+        unbind "Ctrl q"
+        }
+    pane {
+            bind "E" { TogglePaneEmbedOrFloating; ToggleFocusFullscreen; SwitchToMode "normal"; }
+        }
 }
 
