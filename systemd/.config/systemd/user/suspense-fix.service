@@ -1,0 +1,10 @@
+[Unit]
+Description=Disable services so suspense works properly
+
+[Service]
+ExecStart=/usr/bin/bash /home/jh/scripts/suspense-fix.sh
+Restart=always
+WorkingDirectory=/home/jh
+
+[Install]
+WantedBy=multi-user.target
