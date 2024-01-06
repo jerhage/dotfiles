@@ -13,6 +13,7 @@ config.window_decorations = "NONE"
 config.enable_tab_bar = false
 config.window_background_opacity = 0.7
 config.warn_about_missing_glyphs = false
+-- Needed for starship to load in new shells automatically
+-- Before had to call `exec bash` for each new shell
 config.default_prog = { "/bin/bash" }
--- config.default_prog = { "/bin/bash", "-l" }
 return config
