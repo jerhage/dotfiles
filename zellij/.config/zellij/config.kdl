@@ -1,4 +1,3 @@
-default_layout "code"
 keybinds {
     normal {
         bind "Ctrl r" { SwitchToMode "resize"; }
