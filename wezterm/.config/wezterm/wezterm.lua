@@ -7,6 +7,7 @@ end
 
 config.enable_scroll_bar = true
 config.font = wezterm.font("FiraCode Nerd Font Mono")
+config.font_size = 14.0
 -- config.font = wezterm.font("FiraMono Nerd Font")
 -- config.font = wezterm.font("JetBrains Mono")
 config.window_decorations = "NONE"
