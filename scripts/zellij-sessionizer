@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
+# Adapted from ThePrimeagen
+# source: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
-echo "running sessionizer"
+# If given a path, set as selected
 if [[ $# -eq 1 ]]; then
 	selected=$1
 else
-	# selected=$(find ~/work/builds ~/projects ~/ ~/work ~/personal ~/personal/yt -mindepth 1 -maxdepth 1 -type d | fzf)
 	selected=$(find ~/ ~/coding ~/coding/personal ~/coding/work -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
@@ -13,11 +14,9 @@ if [[ -z $selected ]]; then
 fi
 
 selected_name=$(basename "$selected" | tr . _)
-zellij_running=$(pgrep zellij)
-
-echo $selected_name
-echo "attempting to attach"
+# zellij_running=$(pgrep zellij)
 
 cd $selected
-zellij attach $selected_name --create
+# Using default layout which runs nvim automatically on load
+zellij -l $HOME/.config/zellij/layouts/default.kdl attach $selected_name --create
 exit 0
