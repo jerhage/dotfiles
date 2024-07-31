@@ -88,6 +88,9 @@ if pcall(require, 'cmp_nvim_lsp') then
   capabilities = require('cmp_nvim_lsp').default_capabilities()
 end
 
+local exlixir_ls_path = vim.fn.exepath 'elixir-ls'
+-- local lexical_path = vim.fn.exepath 'lexical'
+
 local lspconfig = require 'lspconfig'
 local servers = {
   bashls = true,
@@ -112,10 +115,20 @@ local servers = {
       },
     },
   },
+  -- lexical = {
+  --   filetypes = { 'elixir', 'eelixir', 'heex' },
+  --   cmd = { lexical_path },
+  --   settings = {},
+  -- },
+  elixirls = {
+    filetypes = { 'elixir', 'eelixir', 'heex' },
+    -- cmd = { '/var/home/jh/.local/share/nvim/mason/packages/elixir-ls/language_server.sh' },
+    cmd = { exlixir_ls_path },
+  },
   rust_analyzer = true,
-  svelte = true,
-  templ = true,
-  cssls = true,
+  -- svelte = true,
+  -- templ = true,
+  -- cssls = true,
 
   -- Probably want to disable formatting for this lang server
   tsserver = true,

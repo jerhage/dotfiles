@@ -42,6 +42,27 @@ return {
       --   },
       -- }
 
+      local elixir_ls_debugger = vim.fn.exepath 'elixir-ls-debugger'
+      if elixir_ls_debugger ~= '' then
+        dap.adapters.mix_task = {
+          type = 'executable',
+          command = elixir_ls_debugger,
+        }
+
+        -- specifically for Phoenix
+        dap.configurations.elixir = {
+          {
+            type = 'mix_task',
+            name = 'phoenix server',
+            task = 'phx.server',
+            request = 'launch',
+            projectDir = '${workspaceFolder}',
+            exitAfterTaskReturns = false,
+            debugAutoInterpretAllmodules = false,
+          },
+        }
+      end
+
       vim.keymap.set('n', '<space>b', dap.toggle_breakpoint)
       vim.keymap.set('n', '<space>gb', dap.run_to_cursor)
 
@@ -56,6 +77,7 @@ return {
       vim.keymap.set('n', '<F4>', dap.step_out)
       vim.keymap.set('n', '<F5>', dap.step_back)
       vim.keymap.set('n', '<F13>', dap.restart)
+      vim.keymap.set('n', '<leader>dd', ui.toggle)
 
       dap.listeners.before.attach.dapui_config = function()
         ui.open()
