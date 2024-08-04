@@ -125,10 +125,11 @@ local servers = {
   elixirls = {
     cmd = { exlixir_ls_path },
     filetypes = { 'elixir', 'eelixir', 'heex' },
-    capabilities = {
-      completion = false,
-      formatting = false,
-    },
+    -- need to figure out how to do this
+    -- server_capabilities = {
+    --   completion = false,
+    --   documentFormattingProvider = false,
+    -- },
     -- cmd = { '/var/home/jh/.local/share/nvim/mason/packages/elixir-ls/language_server.sh' },
   },
   rust_analyzer = true,
