@@ -8,4 +8,10 @@ layout  {
             plugin location="zellij:status-bar"
         }
     }
+
+    tab name="code" split_direction="vertical" focus=true {
+            pane name="neovim" command="nvim" focus=true {
+                args "."
+                }
+    }
 }
