@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Adapted from ThePrimeagen
+# source: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+
+starting_dir="$PWD"
+# If given a path, set as selected
+if [[ $# -eq 1 ]]; then
+	selected=$1
+else
+	selected=$(find ~/ ~/coding ~/coding/personal ~/coding/work -mindepth 1 -maxdepth 1 -type d | fzf)
+fi
+
+if [[ -z $selected ]]; then
+	return
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+# zellij_running=$(pgrep zellij)
+
+# Zellij currently has no option to specify which dir to start a session && run a command.
+# To work around this:
+# 1. we must cd to our selected dir
+# 2. Create a default layout and have it run 'nvim .' automatically on load
+cd $selected
+zellij -l $HOME/.config/zellij/layouts/default.kdl attach $selected_name --create
+cd $starting_dir

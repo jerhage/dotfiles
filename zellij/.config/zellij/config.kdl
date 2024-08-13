@@ -1,0 +1,15 @@
+keybinds {
+    normal {
+        bind "Ctrl r" { SwitchToMode "resize"; }
+        bind "Ctrl u" { SwitchToMode "pane"; }
+        bind "Alt q" { Quit; }
+        unbind "Ctrl n"
+        unbind "Ctrl p"
+        unbind "Ctrl q"
+        unbind "Ctrl h"
+        }
+    pane {
+            bind "E" { TogglePaneEmbedOrFloating; ToggleFocusFullscreen; SwitchToMode "normal"; }
+        }
+}
+
