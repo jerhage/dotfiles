@@ -82,6 +82,7 @@ outer.right =      10
 # You can uncomment this line to open up terminal with alt + enter shortcut
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 # cmd-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
+cmd-enter = 'exec-and-forget open -n com.github.wez.wezterm'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 cmd-slash = 'layout tiles horizontal vertical'
@@ -125,7 +126,6 @@ cmd-m = 'workspace M'
 cmd-n = 'workspace N'
 cmd-o = 'workspace O'
 cmd-p = 'workspace P'
-cmd-q = 'workspace Q'
 cmd-r = 'workspace R'
 cmd-s = 'workspace S'
 cmd-t = 'workspace T'
@@ -190,3 +190,15 @@ cmd-shift-h = ['join-with left', 'mode main']
 cmd-shift-j = ['join-with down', 'mode main']
 cmd-shift-k = ['join-with up', 'mode main']
 cmd-shift-l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+if.app-id = 'com.jetbrains.intellij'
+run = 'move-node-to-workspace I'
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
+if.app-id = 'org.github.wez.wezterm'
+run = 'move-node-to-workspace T'

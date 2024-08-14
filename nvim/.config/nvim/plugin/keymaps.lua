@@ -2,7 +2,8 @@ local set = vim.keymap.set
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-set('n', '<leader>pv', vim.cmd.Ex)
+-- quickly open explorer (netrw)
+-- set('n', '<leader>pv', vim.cmd.Ex)
 set('i', 'jj', '<Esc>')
 
 -- Keybinds to make split navigation easier.
@@ -44,26 +45,26 @@ set('n', ']d', vim.diagnostic.goto_next)
 set('n', '[d', vim.diagnostic.goto_prev)
 
 -- These mappings control the size of splits (height/width)
-set('n', '<M-,>', '<c-w>5<')
-set('n', '<M-.>', '<c-w>5>')
-set('n', '<M-t>', '<C-W>+')
-set('n', '<M-s>', '<C-W>-')
+-- set('n', '<M-,>', '<c-w>5<')
+-- set('n', '<M-.>', '<c-w>5>')
+-- set('n', '<M-t>', '<C-W>+')
+-- set('n', '<M-s>', '<C-W>-')
 
-set('n', '<M-j>', function()
-  if vim.opt.diff:get() then
-    vim.cmd [[normal! ]c]]
-  else
-    vim.cmd [[m .+1<CR>==]]
-  end
-end)
-
-set('n', '<M-k>', function()
-  if vim.opt.diff:get() then
-    vim.cmd [[normal! [c]]
-  else
-    vim.cmd [[m .-2<CR>==]]
-  end
-end)
+-- set('n', '<M-j>', function()
+--   if vim.opt.diff:get() then
+--     vim.cmd [[normal! ]c]]
+--   else
+--     vim.cmd [[m .+1<CR>==]]
+--   end
+-- end)
+--
+-- set('n', '<M-k>', function()
+--   if vim.opt.diff:get() then
+--     vim.cmd [[normal! [c]]
+--   else
+--     vim.cmd [[m .-2<CR>==]]
+--   end
+-- end)
 
 -- -- Set highlight on search, but clear on pressing <Esc> in normal mode
 -- vim.opt.hlsearch = true
