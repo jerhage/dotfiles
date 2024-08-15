@@ -1,3 +1,4 @@
 **/.DS_Store
 systemd/*
 tmux/.config/tmux/plugins
+yazi/.config/yazi/plugins
