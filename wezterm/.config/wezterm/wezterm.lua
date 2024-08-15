@@ -9,15 +9,16 @@ local function scheme_for_appearance(appearance)
 	if appearance:find("Dark") then
 		return "Catppuccin Mocha"
 	else
-		return "Catppuccin Latte"
+		return "Catppuccin Mocha"
+		-- return "Catppuccin Latte"
 	end
 end
 
 config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 config.font = wezterm.font_with_fallback({
 	-- "FiraCode",
-	"FiraCode Nerd Font",
-	"JetBrains Mono",
+	{ family = "FiraCode Nerd Font", scale = 1.0 },
+	{ family = "JetBrains Mono", scale = 1.0 },
 })
 config.font_size = 14.0
 
@@ -26,6 +27,7 @@ config.enable_tab_bar = true
 config.enable_scroll_bar = false
 config.window_background_opacity = 1.0
 config.warn_about_missing_glyphs = false
+config.scrollback_lines = 5000
 
 -- Needed for starship to load in new shells automatically
 -- Before had to call `exec bash` for each new shell
@@ -55,7 +57,23 @@ config.colors = {
 		},
 	},
 }
-config.scrollback_lines = 5000
+
+config.inactive_pane_hsb = {
+	saturation = 1.0,
+	brightness = 0.75,
+}
+
+config.status_update_interval = 1000
+wezterm.on("update-right-status", function(window, pane)
+	local ws = window:active_workspace()
+	-- local cwd = pane:get_current_working_dir().file_path
+	window:set_right_status(wezterm.format({
+		{ Text = wezterm.nerdfonts.dev_terminal .. " " .. ws },
+	}))
+end)
+
+-- NOTE: Smart Splits configuration
+
 -- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
 local function is_vim(pane)
 	-- this is set by the plugin, and unset on ExitPre in Neovim
@@ -90,6 +108,7 @@ local function split_nav(resize_or_move, key)
 	}
 end
 
+-- NOTE: Keybinds
 local function resize_pane(key, dir)
 	return {
 		key = key,
@@ -98,7 +117,6 @@ local function resize_pane(key, dir)
 end
 
 config.leader = { key = " ", mods = "ALT", timeout_milliseconds = 1000 }
-
 config.keys = {
 	{
 		key = "-",
@@ -129,6 +147,11 @@ config.keys = {
 		mods = "LEADER",
 		key = "m",
 		action = wezterm.action.TogglePaneZoomState,
+	},
+	{
+		mods = "LEADER",
+		key = "}",
+		action = wezterm.action.RotatePanes("Clockwise"),
 	},
 	-- activate copy mode or vim mode
 	{
@@ -197,7 +220,7 @@ config.keys = {
 	{
 		key = "s",
 		mods = "LEADER",
-		action = wezterm.action.ShowLauncherArgs({ flags = "WORKSPACES" }),
+		action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
 	},
 	-- move between split panes
 	split_nav("move", "h"),
@@ -212,6 +235,15 @@ config.keys = {
 	split_nav("resize", "l"),
 }
 
+-- For direct navigation to tab by number
+for i = 1, 9 do
+	table.insert(config.keys, {
+		key = tostring(i),
+		mods = "LEADER",
+		action = wezterm.action.ActivateTab(i - 1),
+	})
+end
+
 config.key_tables = {
 	resize_pane = {
 		resize_pane("h", "Left"),
@@ -220,7 +252,8 @@ config.key_tables = {
 		resize_pane("l", "Right"),
 	},
 }
-
+-- NOTE: Workspaces
+config.default_workspace = "home"
 config.unix_domains = {
 	{
 		name = "unix",
