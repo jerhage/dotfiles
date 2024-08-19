@@ -39,6 +39,7 @@ if is_darwin then
 	config.default_prog = { "/bin/zsh" }
 end
 
+-- NOTE: Styling
 config.window_padding = {
 	left = 0,
 	right = 0,
@@ -141,7 +142,7 @@ config.keys = {
 	{
 		key = "x",
 		mods = "LEADER",
-		action = wezterm.action.CloseCurrentPane({ confirm = true }),
+		action = wezterm.action.CloseCurrentPane({ confirm = false }),
 	},
 	{
 		mods = "LEADER",

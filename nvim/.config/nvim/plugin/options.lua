@@ -63,7 +63,7 @@ opt.splitbelow = true
 -- Sets how neovim will display certain whitespace in the editor.
 --  See :help 'list'
 --  and :help 'listchars'
-opt.list = true
+opt.list = false -- disabled because it was overriding plugin indent-blankline.lua
 opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 opt.expandtab = true
 opt.autoindent = true
@@ -72,7 +72,7 @@ opt.backspace = 'indent,eol,start'
 opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-opt.scrolloff = 10
+opt.scrolloff = 20
 opt.shiftwidth = 4
 
 -- [[ Basic Keymaps ]]
