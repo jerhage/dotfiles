@@ -2,12 +2,12 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
+	. /etc/bashrc
 fi
 
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+	PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
@@ -26,18 +26,18 @@ alias lac="eza --color=always --long --git --no-filesize --icons=always --no-tim
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
-    for rc in ~/.bashrc.d/*; do
-        if [ -f "$rc" ]; then
-            . "$rc"
-        fi
-    done
+	for rc in ~/.bashrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
 fi
 unset rc
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
 eval "$(direnv hook bash)"
-eval "$(fzf  --bash)"
+eval "$(fzf --bash)"
 #
 # --- setup fzf theme ---
 fg="#CBE0F0"
@@ -60,29 +60,29 @@ export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  fd --hidden --exclude .git . "$1"
+	fd --hidden --exclude .git . "$1"
 }
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-  fd --type=d --hidden --exclude .git . "$1"
+	fd --type=d --hidden --exclude .git . "$1"
 }
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
 # - You should make sure to pass the rest of the arguments to fzf.
 _fzf_comprun() {
-  local command=$1
-  shift
+	local command=$1
+	shift
 
-  case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --preview "eval 'echo $'{}"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
-  esac
+	case "$command" in
+	cd) fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+	export | unset) fzf --preview "eval 'echo $'{}" "$@" ;;
+	ssh) fzf --preview 'dig {}' "$@" ;;
+	*) fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
+	esac
 }
-# Yazi script to wrap the shell and allow cd-ing when exiting Yazi 
+# Yazi script to wrap the shell and allow cd-ing when exiting Yazi
 function yy() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
@@ -91,4 +91,7 @@ function yy() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# Enables shell history within iex
+export ERL_AFLAGS="-kernel shell_history enabled"
 fastfetch

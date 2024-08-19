@@ -146,7 +146,7 @@ config.keys = {
 	},
 	{
 		mods = "LEADER",
-		key = "m",
+		key = "f",
 		action = wezterm.action.TogglePaneZoomState,
 	},
 	{
