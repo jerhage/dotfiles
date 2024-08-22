@@ -2,8 +2,12 @@
 
 # Function to print usage
 print_usage() {
-    echo "Usage: $0 [-r output_name] <input_file>"
+    echo "Usage: $0 [-r output_name] [-h] <input_file>"
+    echo "Convert a file to UTF-8 encoding"
+    echo
+    echo "Options:"
     echo "  -r output_name    Specify the output file name (without extension)"
+    echo "  -h, --help        Display this help message"
     exit 1
 }
 
@@ -11,18 +15,17 @@ print_usage() {
 output_name=""
 
 # Parse command line options
-while getopts ":r:" opt; do
-    case $opt in
-    r)
-        output_name="$OPTARG"
+while [[ $# -gt 0 ]]; do
+    case $1 in
+    -r)
+        output_name="$2"
+        shift 2
         ;;
-    \?)
-        echo "Invalid option: -$OPTARG" >&2
+    -h | --help)
         print_usage
         ;;
-    :)
-        echo "Option -$OPTARG requires an argument." >&2
-        print_usage
+    *)
+        break
         ;;
     esac
 done
