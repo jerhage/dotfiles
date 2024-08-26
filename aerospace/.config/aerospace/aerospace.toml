@@ -85,7 +85,7 @@ outer.right =      10
 cmd-enter = 'exec-and-forget open -n com.github.wez.wezterm'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
-cmd-slash = 'layout tiles horizontal vertical'
+cmd-backslash = 'layout tiles horizontal vertical'
 cmd-comma = 'layout accordion horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
