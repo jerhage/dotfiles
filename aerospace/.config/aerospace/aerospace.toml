@@ -191,5 +191,5 @@ if.app-id = 'org.mozilla.firefox'
 run = 'move-node-to-workspace B'
 
 [[on-window-detected]]
-if.app-id = 'org.github.wez.wezterm'
+if.app-id = 'com.github.wez.wezterm'
 run = 'move-node-to-workspace T'

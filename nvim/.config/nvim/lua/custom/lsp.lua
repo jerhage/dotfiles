@@ -114,10 +114,11 @@ local servers = {
     filetypes = { 'html' },
   },
   -- Probably want to disable formatting for this lang server
-  tsserver = true,
+  ts_ls = true,
   marksman = {
     filetypes = { 'markdown' },
   },
+  pyright = true,
 
   jsonls = {
     settings = {
