@@ -16,9 +16,9 @@ end
 
 config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 config.font = wezterm.font_with_fallback({
-	-- "FiraCode",
-	{ family = "Input Mono", scale = 1.0 },
-	{ family = "FiraCode Nerd Font", scale = 1.0 },
+	-- "FiraCode Nerd Font",
+	-- { family = "Input Mono", scale = 1.0 },
+	-- { family = "FiraCode Nerd Font", scale = 1.0 },
 	{ family = "JetBrains Mono", scale = 1.0 },
 })
 config.font_size = 14.0
