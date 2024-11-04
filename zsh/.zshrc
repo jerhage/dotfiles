@@ -113,6 +113,9 @@ alias z="zoxide"
 ## stow command assumes target as parent dir if not specified. This ensures HOME no matter where stow is called
 alias stow="stow --target=${HOME}"
 alias zc="zellij -l ~/dotfiles/zellij/.config/zellij/layouts/code_compact.kdl"
+alias uu="darwin-rebuild switch --flake ~/nix#mydev"
+alias nn="nvim ~/nix/flake.nix"
+alias ss="source ~/.zshrc"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -142,7 +145,8 @@ export PATH="$PATH:/home/jh/.asdf/installs/python/3.11.3/bin"
 export PATH="$PATH:/home/jh/.local/bin"
 export PATH="$PATH:/home/jh/.cargo/bin"
 export PATH=$PATH:/usr/local/go/bin
-export PATH=~/.asdf/shims:$PATH
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+#export PATH=~/.asdf/shims:$PATH
 
 # export NVM_DIR=~/.nvm
 # source $(brew --prefix nvm)/nvm.sh
