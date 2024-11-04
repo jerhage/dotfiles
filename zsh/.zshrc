@@ -5,20 +5,11 @@
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+eval "$(/usr/local/bin/brew shellenv)"
 ZSH_DISABLE_COMPFIX=true
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-# export ZSH="/Users/jh/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -113,7 +104,6 @@ alias gitlog="git log --all  --decorate --oneline --graph"
 # alias update-nvim-master='asdf uninstall neovim ref:master && asdf install neovim ref:master'
 alias ch="~./tmux-ch.sh"
 # Random config
-. "$HOME/.asdf/asdf.sh"
 alias update-nvim-stable='asdf uninstall neovim stable && asdf install neovim stable'
 # alias ll="ls -lah"
 # Should make conditional incase exa isn't installed so I can use on any system (default to normal ls)
@@ -152,13 +142,18 @@ export PATH="$PATH:/home/jh/.asdf/installs/python/3.11.3/bin"
 export PATH="$PATH:/home/jh/.local/bin"
 export PATH="$PATH:/home/jh/.cargo/bin"
 export PATH=$PATH:/usr/local/go/bin
+export PATH=~/.asdf/shims:$PATH
+
 # export NVM_DIR=~/.nvm
 # source $(brew --prefix nvm)/nvm.sh
+
 
 # autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit
 # complete -o nospace -C /usr/local/bin/terraform terraform
-. "$HOME/.asdf/asdf.sh"
+
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 # . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 export OPENAI_API_KEY="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"
@@ -173,11 +168,66 @@ if [ -f '/Users/jh/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jh
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+eval "$(direnv hook zsh)"
 export PATH="$PATH:$HOME/.rvm/bin"
+#export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+#export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/opt/openssl/lib/
+export LIBRARY_PATH=$LIBRARY_PATH:/run/current-system/sw/bin/openssl
+
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+source <(fzf --zsh)
+#
+# --- setup fzf theme ---
+fg="#CBE0F0"
+bg="#011628"
+bg_highlight="#143652"
+purple="#B388FF"
+blue="#06BCE4"
+cyan="#2CF9ED"
+ 
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+# -- Use fd instead of find --
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+ 
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+ 
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+ 
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+ 
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo $'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
+  esac
+}
 
 # complete -o nospace -C /opt/homebrew/bin/terraform terraform
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+# . "$HOME/.asdf/asdf.sh"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
