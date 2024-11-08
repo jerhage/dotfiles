@@ -115,6 +115,9 @@ alias stow="stow --target=${HOME}"
 alias zc="zellij -l ~/dotfiles/zellij/.config/zellij/layouts/code_compact.kdl"
 alias uu="darwin-rebuild switch --flake ~/nix#mydev"
 alias nn="nvim ~/nix/flake.nix"
+alias nw="nvim ~/dotfiles/wezterm/.config/wezterm/wezterm.lua"
+alias na="nvim ~/dotfiles/aerospace/.config/aerospace/aerospace.toml"
+alias nz="nvim ~/dotfiles/zsh/.zshrc"
 alias ss="source ~/.zshrc"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

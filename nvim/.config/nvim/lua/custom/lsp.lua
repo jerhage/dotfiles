@@ -58,7 +58,7 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 end
 
-local exlixir_ls_path = vim.fn.exepath 'elixir-ls'
+local elixir_ls_path = vim.fn.exepath 'elixir-ls'
 local lexical_path = vim.fn.exepath 'lexical'
 
 local lspconfig = require 'lspconfig'
@@ -89,14 +89,17 @@ local servers = {
       },
     },
   },
+
   lexical = {
     cmd = { lexical_path },
+    -- cmd = { '~/.local/share/nvim/mason/packages/lexical/lexical' },
     filetypes = { 'elixir', 'eelixir', 'heex' },
     settings = {},
-    root_dir = require('lspconfig.util').root_pattern { 'mix.exs' },
+    -- root_dir = require('lspconfig.util').root_pattern { 'mix.exs' },
   },
+
   elixirls = {
-    cmd = { exlixir_ls_path },
+    cmd = { elixir_ls_path },
     filetypes = { 'elixir', 'eelixir', 'heex' },
     -- need to figure out how to do this
     -- server_capabilities = {
@@ -105,7 +108,7 @@ local servers = {
     -- },
     -- cmd = { '/var/home/jh/.local/share/nvim/mason/packages/elixir-ls/language_server.sh' },
   },
-  rust_analyzer = true,
+  -- rust_analyzer = true,
   -- svelte = true,
   -- templ = true,
   -- cssls = true,
