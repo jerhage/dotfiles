@@ -182,7 +182,8 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export LIBRARY_PATH=$LIBRARY_PATH:/run/current-system/sw/bin/openssl
 
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
+export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
+#export PATH="$(brew --prefix sqlite)/bin:${PATH}"
 source <(fzf --zsh)
 #
 # --- setup fzf theme ---
@@ -237,4 +238,4 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 fpath=(${ASDF_DIR}/completions $fpath)
 
 eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
+ eval "$(zoxide init zsh)"
