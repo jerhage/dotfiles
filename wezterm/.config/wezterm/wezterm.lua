@@ -29,6 +29,10 @@ config.enable_scroll_bar = false
 config.window_background_opacity = 1.0
 config.warn_about_missing_glyphs = false
 config.scrollback_lines = 5000
+config.max_fps = 144
+config.animation_fps = 144
+config.cursor_blink_ease_in = "Constant"
+config.cursor_blink_ease_out = "Constant"
 
 -- Needed for starship to load in new shells automatically
 -- Before had to call `exec bash` for each new shell
