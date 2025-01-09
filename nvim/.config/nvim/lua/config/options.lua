@@ -1,9 +1,12 @@
+-- Options are automatically loaded before lazy.nvim startup
+-- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
+-- Add any additional options here
 local opt = vim.opt
-vim.cmd 'let g:netrw_liststyle = 3'
+vim.cmd("let g:netrw_liststyle = 3")
 ----- Interesting Options -----
 
 -- Preview substitutions live, as you type!
-opt.inccommand = 'split'
+opt.inccommand = "split"
 
 -- Best search settings :)
 opt.smartcase = true
@@ -16,16 +19,16 @@ opt.relativenumber = true
 opt.splitbelow = true
 opt.splitright = true
 
-opt.signcolumn = 'yes'
-opt.shada = { "'10", '<0', 's10', 'h' }
+opt.signcolumn = "yes"
+opt.shada = { "'10", "<0", "s10", "h" }
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-opt.clipboard = 'unnamedplus'
+opt.clipboard = "unnamedplus"
 
 -- Don't have `o` add a comment
-opt.formatoptions:remove 'o'
+opt.formatoptions:remove("o")
 
 opt.number = true
 -- You can also add relative line numbers, for help with jumping.
@@ -33,7 +36,7 @@ opt.number = true
 -- opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-opt.mouse = 'a'
+opt.mouse = "a"
 
 -- Don't show the mode, since it's already in status line
 opt.showmode = false
@@ -49,8 +52,8 @@ opt.ignorecase = true
 opt.smartcase = true
 
 -- Keep signcolumn on by default
-opt.background = 'dark'
-opt.signcolumn = 'yes'
+opt.background = "dark"
+opt.signcolumn = "yes"
 
 -- Decrease update time
 opt.updatetime = 250
@@ -64,10 +67,10 @@ opt.splitbelow = true
 --  See :help 'list'
 --  and :help 'listchars'
 opt.list = false -- disabled because it was overriding plugin indent-blankline.lua
-opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.expandtab = true
 opt.autoindent = true
-opt.backspace = 'indent,eol,start'
+opt.backspace = "indent,eol,start"
 -- Show which line your cursor is on
 opt.cursorline = true
 
