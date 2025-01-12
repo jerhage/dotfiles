@@ -17,7 +17,8 @@ return {
     -- NOTE: by default lazyvim already includes the lazydev source, so not adding it here again
     opts.sources = vim.tbl_deep_extend("force", opts.sources or {}, {
       --  add "dadbod" later,
-      default = { "lsp", "path", "snippets", "buffer", "emoji", "dictionary" },
+      -- "dictionary"
+      default = { "lsp", "path", "snippets", "buffer", "emoji" },
       providers = {
         lsp = {
           name = "lsp",
@@ -81,16 +82,16 @@ return {
                   newText = item.insertText or item.label,
                   range = {
                     start = { line = vim.fn.line(".") - 1, character = trigger_pos - 1 },
-                    ["end"] = { line = vim.fn.line(".") - 1, character = col },
+                    ["end"] = { line = vim.fn.line(".") - 1, character = col + 1 }, -- add + 1 to stop inserting misc chatacters at the end
                   },
                 }
               end
             end
-            -- NOTE: After the transformation, I have to reload the luasnip source
-            -- Otherwise funky stuff happens.
-            vim.schedule(function()
-              require("blink.cmp").reload("snippets")
-            end)
+            -- -- NOTE: After the transformation, I have to reload the luasnip source
+            -- -- Otherwise funky stuff happens.
+            -- vim.schedule(function()
+            --   require("blink.cmp").reload("snippets")
+            -- end)
             return items
           end,
         },
@@ -110,38 +111,38 @@ return {
         -- https://github.com/Kaiser-Yang/blink-cmp-dictionary
         -- On macOS to get started with a dictionary:
         -- cp /usr/share/dict/words ~/.config/dictionaries
-        dictionary = {
-          module = "blink-cmp-dictionary",
-          name = "Dict",
-          score_offset = 20,
-          enabled = true,
-          max_items = 8,
-          min_keyword_length = 3,
-          opts = {
-            get_command = {
-              "rg",
-              "--color=never",
-              "--no-line-number",
-              "--no-messages",
-              "--no-filename",
-              "--ignore-case",
-              "--",
-              "${prefix}", -- this will be replaced by the result of 'get_prefix' function
-              vim.fn.expand("~/.config/dictionaries/words"), -- where you dictionary is
-            },
-            documentation = {
-              enable = true, -- enable documentation to show the definition of the word
-              get_command = {
-                -- For the word definitions feature
-                -- make sure "wn" is available in your system
-                -- brew install wordnet
-                "wn",
-                "${word}", -- this will be replaced by the word to search
-                "-over",
-              },
-            },
-          },
-        },
+        -- dictionary = {
+        --   module = "blink-cmp-dictionary",
+        --   name = "Dict",
+        --   score_offset = 20,
+        --   enabled = true,
+        --   max_items = 8,
+        --   min_keyword_length = 3,
+        --   opts = {
+        --     get_command = {
+        --       "rg",
+        --       "--color=never",
+        --       "--no-line-number",
+        --       "--no-messages",
+        --       "--no-filename",
+        --       "--ignore-case",
+        --       "--",
+        --       "${prefix}", -- this will be replaced by the result of 'get_prefix' function
+        --       vim.fn.expand("~/.config/dictionaries/words"), -- where you dictionary is
+        --     },
+        --     documentation = {
+        --       enable = true, -- enable documentation to show the definition of the word
+        --       get_command = {
+        --         -- For the word definitions feature
+        --         -- make sure "wn" is available in your system
+        --         -- brew install wordnet
+        --         "wn",
+        --         "${word}", -- this will be replaced by the word to search
+        --         "-over",
+        --       },
+        --     },
+        --   },
+        -- },
       },
       -- https://www.reddit.com/r/neovim/comments/1hjjf21/comment/m37fe4d/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
       cmdline = function()

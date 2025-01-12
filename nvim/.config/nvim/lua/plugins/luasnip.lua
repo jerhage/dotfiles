@@ -13,7 +13,6 @@ return {
   enabled = true,
   opts = function(_, opts)
     local ls = require("luasnip")
-    -- require("luasnip.loaders.from_vscode").lazy_load()
     local s = ls.snippet
     local t = ls.text_node
     local i = ls.insert_node
@@ -245,6 +244,82 @@ return {
       })
     )
 
+    table.insert(
+      snippets,
+      s({
+        trig = "hint",
+        name = "Add hint callout",
+        desc = "Add hint callout",
+      }, {
+        t({ "> [!HINT]", "> " }),
+      })
+    )
+
+    table.insert(
+      snippets,
+      s({
+        trig = "abstract",
+        name = "Add abstract callout",
+        desc = "Add abstract callout",
+      }, {
+        t({ "> [!ABSTRACT]", "> " }),
+      })
+    )
+
+    table.insert(
+      snippets,
+      s({
+        trig = "summary",
+        name = "Add summary callout",
+        desc = "Add summary callout",
+      }, {
+        t({ "> [!SUMMARY]", "> " }),
+      })
+    )
+
+    table.insert(
+      snippets,
+      s({
+        trig = "tldr",
+        name = "Add tldr callout",
+        desc = "Add tldr callout",
+      }, {
+        t({ "> [!TLDR]", "> " }),
+      })
+    )
+
+    table.insert(
+      snippets,
+      s({
+        trig = "info",
+        name = "Add info callout",
+        desc = "Add info callout",
+      }, {
+        t({ "> [!INFO]", "> " }),
+      })
+    )
+
+    table.insert(
+      snippets,
+      s({
+        trig = "info",
+        name = "Add info callout",
+        desc = "Add info callout",
+      }, {
+        t({ "> [!INFO]", "> " }),
+      })
+    )
+
+    table.insert(
+      snippets,
+      s({
+        trig = "success",
+        name = "Add success callout",
+        desc = "Add success callout",
+      }, {
+        t({ "> [!SUCCESS]", "> " }),
+      })
+    )
     -- Paste clipboard contents in link section, move cursor to ()
     table.insert(
       snippets,
@@ -274,34 +349,6 @@ return {
         t("]("),
         f(clipboard, {}),
         t('){:target="_blank"}'),
-      })
-    )
-
-    -- Inserting "my dotfiles" link
-    table.insert(
-      snippets,
-      s({
-        trig = "dotfiles latest",
-        name = "Adds -> [my dotfiles](https://github.com/linkarzu/dotfiles-latest)",
-        desc = "Add link to https://github.com/linkarzu/dotfiles-latest",
-      }, {
-        t("[my dotfiles](https://github.com/linkarzu/dotfiles-latest)"),
-      })
-    )
-
-    table.insert(
-      snippets,
-      s({
-        trig = "support me",
-        name = "Inserts links (Ko-fi, Twitter, TikTok)",
-        desc = "Inserts links (Ko-fi, Twitter, TikTok)",
-      }, {
-        t({
-          "Members only discord -> https://www.youtube.com/channel/UCrSIvbFncPSlK6AdwE2QboA/join",
-          "☕ Support me -> https://ko-fi.com/linkarzu",
-          "☑ My Twitter -> https://x.com/link_arzu",
-          "❤‍🔥 My tiktok -> https://www.tiktok.com/@linkarzu",
-        }),
       })
     )
 
@@ -353,32 +400,6 @@ return {
     -- #####################################################################
     --                         all the filetypes
     -- #####################################################################
-    ls.add_snippets("all", {
-      s({
-        trig = "workflow",
-        name = "Add this -> lamw25wmal",
-        desc = "Add this -> lamw25wmal",
-      }, {
-        t("lamw25wmal"),
-      }),
-
-      s({
-        trig = "lam",
-        name = "Add this -> lamw25wmal",
-        desc = "Add this -> lamw25wmal",
-      }, {
-        t("lamw25wmal"),
-      }),
-
-      s({
-        trig = "mw25",
-        name = "Add this -> lamw25wmal",
-        desc = "Add this -> lamw25wmal",
-      }, {
-        t("lamw25wmal"),
-      }),
-    })
-
     return opts
   end,
   config = function(_, opts)

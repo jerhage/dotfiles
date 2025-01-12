@@ -122,7 +122,7 @@ local function resize_pane(key, dir)
 	}
 end
 
-config.leader = { key = " ", mods = "ALT", timeout_milliseconds = 1000 }
+config.leader = { key = " ", mods = "SHIFT", timeout_milliseconds = 1000 }
 config.keys = {
 	{
 		key = "-",
@@ -203,7 +203,7 @@ config.keys = {
 		}),
 	},
 	{
-		key = "n",
+		key = "l",
 		mods = "LEADER",
 		action = wezterm.action.ActivateTabRelative(1),
 	},
@@ -218,7 +218,7 @@ config.keys = {
 		action = wezterm.action.CloseCurrentTab({ confirm = true }),
 	},
 	{
-		key = "p",
+		key = "h",
 		mods = "LEADER",
 		action = wezterm.action.ActivateTabRelative(-1),
 	},
