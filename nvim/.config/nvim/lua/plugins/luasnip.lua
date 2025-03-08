@@ -409,9 +409,14 @@ return {
     vim.tbl_map(function(type)
       require("luasnip.loaders.from_" .. type).lazy_load()
     end, { "vscode", "snipmate", "lua" })
+
+    require("luasnip").filetype_extend("typescript", { "javascript", "astro" })
+    require("luasnip").filetype_extend("javascript", { "typescript", "react" })
+    require("luasnip").filetype_extend("astro", { "typescript", "javascript", "html" })
     -- friendly-snippets - enable standardized comments snippets
-    require("luasnip").filetype_extend("typescript", { "tsdoc", "react-ts" })
-    require("luasnip").filetype_extend("javascript", { "jsdoc", "react" })
+    --
+    -- require("luasnip").filetype_extend("typescript", { "tsdoc", "react-ts" })
+    -- require("luasnip").filetype_extend("javascript", { "jsdoc", "react" })
     require("luasnip").filetype_extend("lua", { "luadoc" })
     require("luasnip").filetype_extend("python", { "pydoc" })
     require("luasnip").filetype_extend("rust", { "rustdoc" })
