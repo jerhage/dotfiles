@@ -1,6 +1,6 @@
 return {
   "mrjones2014/smart-splits.nvim",
-  lazy = false,
+  lazy = true,
   config = function(event)
     local map = function(keys, func, desc)
       vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "Smart Splits: " .. desc })
