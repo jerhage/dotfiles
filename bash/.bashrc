@@ -42,7 +42,6 @@ fi
 unset rc
 
 eval "$(starship init bash)"
-eval "$(zoxide init bash)"
 eval "$(direnv hook bash)"
 eval "$(fzf --bash)"
 #
@@ -101,4 +100,4 @@ function yy() {
 
 # Enables shell history within iex
 export ERL_AFLAGS="-kernel shell_history enabled"
-fastfetch
+eval "$(zoxide init bash)"

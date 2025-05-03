@@ -1,0 +1,34 @@
+[
+    {
+        "id": "bar-0",
+        "name": "waybar",
+        "layer": "top",
+        "position": "top",
+        "height": 32,
+        "margin": 0,
+        "spacing": 1,
+        "include": [
+            "$HOME/.config/waybar/modules.jsonc"
+        ],
+        "modules-left": [
+            "hyprland/workspaces"
+        ],
+        "modules-center": [
+            "clock"
+        ],
+        "modules-right": [
+            "tray",
+            // "privacy",
+            "custom/separator",
+            "idle_inhibitor",
+            "custom/separator",
+            "pulseaudio",
+            "custom/separator",
+            "custom/bluetooth",
+            "custom/separator",
+            "power-profiles-daemon", // via tuned and tuned-ppd
+            "battery",
+            "custom/power"
+        ]
+    }
+]

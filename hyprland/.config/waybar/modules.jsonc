@@ -1,0 +1,125 @@
+{
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "browser": "󰈹",
+            "chat": "",
+            "code": "",
+            "create": "",
+            "music": ""
+        }
+    },
+    "clock": {
+        "format": "{:%Y-%m-%d %H:%M}"
+    },
+    "battery": {
+        "full-at": 96,
+        "states": {
+            "good": 78,
+            "ok": 77,
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-time": "{H}h {M}m",
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ],
+        "tooltip": false
+    },
+    "network": {
+        "format-wifi": "󰤨",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰤭",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "headset": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "tooltip": false
+    },
+    "privacy": {
+        "icon-spacing": 4,
+        "icon-size": 15,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": false,
+                "tooltip-icon-size": 15
+            },
+            // {
+            //    "type": "audio-out",
+            //    "tooltip": false,
+            //    "tooltip-icon-size": 15
+            // },
+            {
+                "type": "audio-in",
+                "tooltip": false,
+                "tooltip-icon-size": 15
+            }
+        ]
+    },
+    "tray": {
+        "icon-size": 15,
+        "spacing": 8
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "tooltip": false
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip": false,
+        "format-icons": {
+            "default": "󰓅",
+            "performance": "󰓅",
+            "balanced": "",
+            "power-saver": "󰌪"
+        }
+    },
+    "custom/separator": {
+        "return-type": "text",
+        "interval": "once",
+        "format": "·",
+        "tooltip": false
+    },
+    "custom/bluetooth": {
+        // "format": "",
+        "format": "{}",
+        "return-type": "json",
+        "interval": 5,
+        "exec": "~/.config/waybar/scripts/blueman-status.sh",
+        "on-click": "blueman-manager",
+        "tooltip": true
+    },
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "wlogout"
+    }
+}
