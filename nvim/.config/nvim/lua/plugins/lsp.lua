@@ -23,15 +23,15 @@ return {
 				end
 
 				map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
-				map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
-				map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-				map("gri", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+				map("gra", vim.lsp.buf.code_action, "[G]o Code [A]ction", { "n", "x" })
+				map("grr", require("telescope.builtin").lsp_references, "[G]o [R]eferences")
+				map("gri", require("telescope.builtin").lsp_implementations, "[G]o [I]mplementation")
 				--  To jump back, press <C-t>.
-				map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-				map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-				map("gO", require("telescope.builtin").lsp_document_symbols, "Open Document Symbols")
-				map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
-				map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
+				map("grd", require("telescope.builtin").lsp_definitions, "[G]o [D]efinition")
+				map("grt", require("telescope.builtin").lsp_type_definitions, "[G]o [T]ype Definition")
+				map("grD", vim.lsp.buf.declaration, "[G]o [D]eclaration")
+				map("grs", require("telescope.builtin").lsp_document_symbols, "[G]o Open Document [s]ymbols")
+				map("grS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[G]o Open Workspace [S]ymbols")
 
 				-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
 				---@param client vim.lsp.Client
@@ -152,11 +152,10 @@ return {
 							-- Tells lua_ls where to find all the Lua files that you have loaded
 							-- for your neovim configuration.
 							library = {
+								vim.env.VIMRUNTIME,
 								"${3rd}/luv/library",
-								vim.api.nvim_get_runtime_file("", true),
+								-- vim.api.nvim_get_runtime_file("", true),
 							},
-							-- If lua_ls is really slow on your computer, you can try this instead:
-							-- library = { vim.env.VIMRUNTIME },
 						},
 						-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
 						diagnostics = {

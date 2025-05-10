@@ -6,6 +6,10 @@ return {
 		local db = require("dashboard")
 		local sword_art = {
 			"",
+			"",
+			"",
+			"",
+			"",
 			"   Welcome, Master Swordsman!",
 			"",
 			"",
@@ -29,14 +33,19 @@ return {
 
 				center = {
 					{ icon = "󰈔  ", desc = "New File", action = "enew", key = "n" },
-					{ icon = "󰱼  ", desc = "Find File", action = "Telescope find_files", key = "f" },
-					{ icon = "  ", desc = "Recent Files", action = "Telescope oldfiles", key = "r" },
 					{
-						icon = "  ",
-						desc = "Restore Session",
-						action = "lua require('persistence').load()",
-						key = "s",
+						icon = "󰱼  ",
+						desc = "Find File",
+						action = ":lua require('telescope.builtin').find_files({ hidden = true, no_ignore = true })",
+						key = "f",
 					},
+					{ icon = "  ", desc = "Recent Files", action = "Telescope oldfiles", key = "r" },
+					-- {
+					-- 	icon = "  ",
+					-- 	desc = "Restore Session",
+					-- 	action = "lua require('persistence').load()",
+					-- 	key = "s",
+					-- },
 					{ icon = "󰒲  ", desc = "Open Lazy", action = "Lazy", key = "l" },
 					{ icon = "  ", desc = "Quit", action = "qa", key = "q" },
 				},

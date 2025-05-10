@@ -29,7 +29,15 @@ return { -- Autocompletion
 			},
 			opts = {},
 		},
-		"folke/lazydev.nvim",
+		{
+			"folke/lazydev.nvim",
+			ft = "lua",
+			opts = {
+				library = {
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				},
+			},
+		},
 		"Kaiser-Yang/blink-cmp-dictionary",
 	},
 	--- @module 'blink.cmp'
