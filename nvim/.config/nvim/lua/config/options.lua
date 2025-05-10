@@ -14,7 +14,7 @@ opt.ignorecase = true
 
 ----- Personal Preferences -----
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
 
 opt.splitbelow = true
 opt.splitright = true
@@ -39,7 +39,7 @@ opt.number = true
 opt.mouse = "a"
 
 -- Don't show the mode, since it's already in status line
-opt.showmode = false
+opt.showmode = true
 
 -- Enable break indent
 opt.breakindent = true
@@ -73,9 +73,10 @@ opt.autoindent = true
 opt.backspace = "indent,eol,start"
 -- Show which line your cursor is on
 opt.cursorline = true
+opt.tabstop = 4
 
 -- Minimal number of screen lines to keep above and below the cursor.
-opt.scrolloff = 20
+opt.scrolloff = 10
 opt.shiftwidth = 4
 
 -- [[ Basic Keymaps ]]
