@@ -141,7 +141,6 @@ return {
 		local servers = {
 			bashls = true,
 			gopls = true,
-			nil_ls = true,
 			astro = true,
 			lua_ls = {
 				settings = {

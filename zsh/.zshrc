@@ -232,7 +232,7 @@ _fzf_comprun() {
 
 # complete -o nospace -C /opt/homebrew/bin/terraform terraform
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
-
+export MANPAGER='nvim +Man!'
 # . "$HOME/.asdf/asdf.sh"
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
