@@ -51,7 +51,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 				vimgrep_arguments = {
 					"rg",
 					"--color=never",
-					"--no-headings",
+					"--no-heading",
 					"--with-filename",
 					"--line-number",
 					"--column",
