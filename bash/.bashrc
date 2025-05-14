@@ -1,4 +1,6 @@
 # .bashrc
+export INPUT_METHOD=fcitx
+export XMODIFIERS="@im=fcitx"
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
