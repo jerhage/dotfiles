@@ -7,8 +7,9 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
-		-- Provides status updates for LSP.
-		{ "j-hui/fidget.nvim", opts = {} },
+		-- -- Provides status updates for LSP.
+		-- now using noice to render this
+		-- { "j-hui/fidget.nvim", opts = {} },
 
 		-- Enables extra capabilities
 		"saghen/blink.cmp",
