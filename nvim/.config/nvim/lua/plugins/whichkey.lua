@@ -17,6 +17,8 @@ return {
 			{ "<leader>g_", hidden = true },
 			{ "<leader>h", group = "[H]arpoon" },
 			{ "<leader>h_", hidden = true },
+			{ "<leader>l", group = "[L]sp" },
+			{ "<leader>l_", hidden = true },
 			{ "<leader>n", group = "[N]otifications" },
 			{ "<leader>n_", hidden = true },
 			{ "<leader>r", group = "[R]ename" },

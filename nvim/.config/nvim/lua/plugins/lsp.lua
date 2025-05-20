@@ -23,16 +23,16 @@ return {
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
-				map("gra", vim.lsp.buf.code_action, "[G]o Code [A]ction", { "n", "x" })
-				map("grr", require("telescope.builtin").lsp_references, "[G]o [R]eferences")
-				map("gri", require("telescope.builtin").lsp_implementations, "[G]o [I]mplementation")
-				--  To jump back, press <C-t>.
-				map("grd", require("telescope.builtin").lsp_definitions, "[G]o [D]efinition")
-				map("grt", require("telescope.builtin").lsp_type_definitions, "[G]o [T]ype Definition")
-				map("grD", vim.lsp.buf.declaration, "[G]o [D]eclaration")
-				map("grs", require("telescope.builtin").lsp_document_symbols, "[G]o Open Document [s]ymbols")
-				map("grS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[G]o Open Workspace [S]ymbols")
+				map("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
+				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+				-- map("grr", require("telescope.builtin").lsp_references, "[G]o [R]eferences")
+				-- map("gri", require("telescope.builtin").lsp_implementations, "[G]o [I]mplementation")
+				-- --  To jump back, press <C-t>.
+				-- map("grd", require("telescope.builtin").lsp_definitions, "[G]o [D]efinition")
+				-- map("grt", require("telescope.builtin").lsp_type_definitions, "[G]o [T]ype Definition")
+				-- map("grD", vim.lsp.buf.declaration, "[G]o [D]eclaration")
+				-- map("grs", require("telescope.builtin").lsp_document_symbols, "[G]o Open Document [s]ymbols")
+				-- map("grS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[G]o Open Workspace [S]ymbols")
 
 				-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
 				---@param client vim.lsp.Client
