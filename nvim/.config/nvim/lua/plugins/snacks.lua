@@ -133,14 +133,14 @@ return {
 			function()
 				Snacks.picker.grep_buffers()
 			end,
-			desc = "Grep Open Buffers",
+			desc = "[S]earch (Grep) Open Buffers",
 		},
 		{
 			"<leader>sw",
 			function()
 				Snacks.picker.grep_word()
 			end,
-			desc = "[S]earch current Word",
+			desc = "[S]earch current [W]ord",
 			mode = { "n", "x" },
 		},
 		-- search
@@ -149,21 +149,21 @@ return {
 			function()
 				Snacks.picker.registers()
 			end,
-			desc = "Registers",
+			desc = '[S]earch ["] Registers',
 		},
 		{
 			"<leader>s/",
 			function()
 				Snacks.picker.search_history()
 			end,
-			desc = "Search History",
+			desc = "[S]earch History",
 		},
 		{
 			"<leader>sa",
 			function()
 				Snacks.picker.autocmds()
 			end,
-			desc = "Autocmds",
+			desc = "[S]earch [A]utocmds",
 		},
 		{
 			"<leader>sL",
@@ -173,123 +173,123 @@ return {
 			desc = "[S]earch [L]ines",
 		},
 		{
-			"<leader>sc",
+			"<leader>:",
 			function()
 				Snacks.picker.command_history()
 			end,
-			desc = "Command History",
+			desc = "[S]earch Command [:] History",
 		},
 		{
-			"<leader>sC",
+			"<leader>sc",
 			function()
 				Snacks.picker.commands()
 			end,
-			desc = "Commands",
-		},
-		{
-			"<leader>sd",
-			function()
-				Snacks.picker.diagnostics()
-			end,
-			desc = "Diagnostics",
+			desc = "[S]earch [C]ommands",
 		},
 		{
 			"<leader>sD",
 			function()
+				Snacks.picker.diagnostics()
+			end,
+			desc = "[S]earch Workspace [Diagnostics]",
+		},
+		{
+			"<leader>sd",
+			function()
 				Snacks.picker.diagnostics_buffer()
 			end,
-			desc = "Buffer Diagnostics",
+			desc = "[S]earch [Diagnostics]",
 		},
 		{
 			"<leader>sh",
 			function()
 				Snacks.picker.help()
 			end,
-			desc = "Help Pages",
+			desc = "[S]earc [H]elp Pages",
 		},
 		{
 			"<leader>sH",
 			function()
 				Snacks.picker.highlights()
 			end,
-			desc = "Highlights",
+			desc = "[S]earc [H]ighlights",
 		},
 		{
 			"<leader>si",
 			function()
 				Snacks.picker.icons()
 			end,
-			desc = "Icons",
+			desc = "[S]earch [I]cons",
 		},
-		{
-			"<leader>sj",
-			function()
-				Snacks.picker.jumps()
-			end,
-			desc = "Jumps",
-		},
+		-- {
+		-- 	"<leader>sj",
+		-- 	function()
+		-- 		Snacks.picker.jumps()
+		-- 	end,
+		-- 	desc = "Jumps",
+		-- },
 		{
 			"<leader>sk",
 			function()
 				Snacks.picker.keymaps()
 			end,
-			desc = "Keymaps",
+			desc = "[S]earch [K]eymaps",
 		},
 		{
 			"<leader>sl",
 			function()
 				Snacks.picker.loclist()
 			end,
-			desc = "Location List",
+			desc = "[S]earch [L]ocation List",
 		},
 		{
 			"<leader>sm",
 			function()
 				Snacks.picker.marks()
 			end,
-			desc = "Marks",
+			desc = "[S]earch [M]arks",
 		},
 		{
 			"<leader>sM",
 			function()
 				Snacks.picker.man()
 			end,
-			desc = "Man Pages",
+			desc = "[S]earch [M]an Pages",
 		},
-		{
-			"<leader>sp",
-			function()
-				Snacks.picker.lazy()
-			end,
-			desc = "Search for Plugin Spec",
-		},
+		-- {
+		-- 	"<leader>sp",
+		-- 	function()
+		-- 		Snacks.picker.lazy()
+		-- 	end,
+		-- 	desc = "Search for Plugin Spec",
+		-- },
 		{
 			"<leader>sq",
 			function()
 				Snacks.picker.qflist()
 			end,
-			desc = "Quickfix List",
+			desc = "[S]earch [Q]uickfix List",
 		},
-		{
-			"<leader>sR",
-			function()
-				Snacks.picker.resume()
-			end,
-			desc = "Resume",
-		},
+		-- {
+		-- 	"<leader>sR",
+		-- 	function()
+		-- 		Snacks.picker.resume()
+		-- 	end,
+		-- 	desc = "Resume",
+		-- },
 		{
 			"<leader>su",
 			function()
 				Snacks.picker.undo()
 			end,
-			desc = "Undo History",
+			desc = "[S]earch [U]ndo History",
 		},
 		{
-			"<leader>uC",
+			"<leader>sP",
 			function()
 				Snacks.picker.colorschemes()
 			end,
-			desc = "Colorschemes",
+			desc = "[S]earch Colorschemes",
 		},
 		-- LSP
 		{
@@ -297,14 +297,14 @@ return {
 			function()
 				Snacks.picker.lsp_definitions()
 			end,
-			desc = "Goto Definition",
+			desc = "[L]SP [D]efinition",
 		},
 		{
 			"<space>lD",
 			function()
 				Snacks.picker.lsp_declarations()
 			end,
-			desc = "Goto Declaration",
+			desc = "[L]SP [D]eclaration",
 		},
 		{
 			"<space>lr",
@@ -312,35 +312,35 @@ return {
 				Snacks.picker.lsp_references()
 			end,
 			nowait = true,
-			desc = "References",
+			desc = "[L]SP [R]eferences",
 		},
 		{
 			"<space>li",
 			function()
 				Snacks.picker.lsp_implementations()
 			end,
-			desc = "Goto Implementation",
+			desc = "[L]SP [I]mplementation",
 		},
 		{
 			"<space>lt",
 			function()
 				Snacks.picker.lsp_type_definitions()
 			end,
-			desc = "Goto T[y]pe Definition",
+			desc = "[L]sp [T]ype Definition",
 		},
 		{
 			"<space>ls",
 			function()
 				Snacks.picker.lsp_symbols()
 			end,
-			desc = "LSP Symbols",
+			desc = "[L]SP [S]ymbols",
 		},
 		{
 			"<space>lS",
 			function()
 				Snacks.picker.lsp_workspace_symbols()
 			end,
-			desc = "LSP Workspace Symbols",
+			desc = "[L]SP Workspace [S]ymbols",
 		},
 		-- Other
 		{
@@ -355,7 +355,7 @@ return {
 			function()
 				Snacks.zen.zoom()
 			end,
-			desc = "Toggle Zoom",
+			desc = "Toggle [Z]oom",
 		},
 		{
 			"<leader>.",

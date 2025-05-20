@@ -1,10 +1,11 @@
 return {
 	"nvim-treesitter/nvim-treesitter-textobjects",
 	enabled = true,
+	event = "VeryLazy",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 	},
-	init = function(a, b, c)
+	init = function()
 		local config = require("nvim-treesitter.configs")
 		config.setup({
 			textobjects = {
@@ -89,10 +90,10 @@ return {
 					-- Use if you want more granular movements
 					-- Make it even more gradual by adding multiple queries and regex.
 					goto_next = {
-						["]d"] = "@conditional.outer",
+						["]e"] = "@conditional.outer",
 					},
 					goto_previous = {
-						["[d"] = "@conditional.outer",
+						["[e"] = "@conditional.outer",
 					},
 				},
 				lsp_interop = {

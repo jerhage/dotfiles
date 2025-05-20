@@ -48,7 +48,7 @@ return {
 				search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
 				filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
 				lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
-				help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
+				help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
 				input = { view = "cmdline_input", icon = "󰥻 " }, -- Used by input()
 				-- lua = false, -- to disable a format, set to `false`
 			},
@@ -223,7 +223,7 @@ return {
 			-- you can also add custom presets that you can enable/disable with enabled=true
 			bottom_search = true, -- use a classic bottom cmdline for search
 			command_palette = true, -- position the cmdline and popupmenu together
-			long_message_to_split = false, -- long messages will be sent to a split
+			long_message_to_split = true, -- long messages will be sent to a split
 			inc_rename = false, -- enables an input dialog for inc-rename.nvim
 			lsp_doc_border = false, -- add a border to hover docs and signature help
 		},
@@ -286,6 +286,7 @@ return {
 -- 		messages = {
 -- 			-- NOTE: If you enable messages, then the cmdline is enabled automatically.
 -- 			-- This is a current Neovim limitation.
+
 -- 			enabled = true, -- enables the Noice messages UI
 -- 			view = "notify", -- default view for messages
 -- 			view_error = "notify", -- view for errors

@@ -1,5 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
+	event = "VeryLazy",
 	dependencies = {
 		-- Mason must be loaded before its dependents so we need to set it up here.
 		-- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`

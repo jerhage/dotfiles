@@ -1,6 +1,4 @@
 return {
-
-	-- TODO:
 	{
 		"folke/ts-comments.nvim",
 		opts = {},
@@ -9,6 +7,9 @@ return {
 	},
 	{
 		"folke/todo-comments.nvim",
+		-- When using both opts and keys, must set lazy = false or set event for it to know when to load
+		-- Here is a list of user events Lazy provides: https://lazy.folke.io/usage#-user-events
+		event = "VeryLazy",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {
 			signs = true, -- show icons in the signs column
@@ -24,9 +25,15 @@ return {
 				TODO = { icon = " ", color = "info" },
 				HACK = { icon = " ", color = "warning" },
 				WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-				PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+				PERF = { icon = "󰓅", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
 				NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-				TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+				TEST = { icon = "󰙨", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+				-- TODO:
+				-- HACK:
+				-- WARN:
+				-- PERF:
+				-- NOTE:
+				-- TEST:
 			},
 			gui_style = {
 				fg = "NONE", -- The gui style to use for the fg highlight group.
@@ -73,6 +80,13 @@ return {
 				pattern = [[\b(KEYWORDS):]], -- ripgrep regex
 				-- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
 			},
+		},
+		keys = {
+			-- { "<leader>x", function() require("your.plugin").do_something() end, desc = "Do something" },
+			{ "<leader>sT", "<cmd>TodoTelescope<cr>", desc = "[S]earch [T]odos" },
+			{ "<leader>Tt", "<cmd>Trouble todo<cr>", desc = "[T]rouble [T]odo" },
+			{ "<leader>Tq", "<cmd>TodoQuickFix<cr>", desc = "[T]odo [Q]uick Fix" },
+			{ "<leader>Tl", "<cmd>TodoLocList<cr>", desc = "[T]odo [L]ocation List" },
 		},
 	},
 }
