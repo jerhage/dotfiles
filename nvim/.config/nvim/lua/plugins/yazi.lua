@@ -2,7 +2,6 @@
 return {
 	"mikavilpas/yazi.nvim",
 	dependencies = {
-		-- https://github.com/folke/snacks.nvim
 		"folke/snacks.nvim",
 	},
 	event = "VeryLazy",
