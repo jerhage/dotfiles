@@ -41,6 +41,11 @@ return { -- Highlight, edit, and navigate code
 					node_decremental = "<bs>",
 				},
 			},
+			-- matchup = {
+			-- 	enable = true, -- mandatory, false will disable the whole extension
+			-- 	-- disable = { "c", "ruby" },  -- optional, list of language that will be disabled
+			-- 	-- [options]
+			-- },
 		})
 
 		-- There are additional nvim-treesitter modules that you can use to interact
