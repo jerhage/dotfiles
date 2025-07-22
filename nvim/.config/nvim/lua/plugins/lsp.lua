@@ -193,6 +193,8 @@ return {
 				filetypes = { "html" },
 			},
 			-- Probably want to disable formatting for this lang server
+			-- disable if using ts-tools; consider adding automatic_enable = false to mason-config
+			-- potentially remove mason-config alltogether
 			ts_ls = true,
 			eslint_d = true,
 			prettierd = true,
