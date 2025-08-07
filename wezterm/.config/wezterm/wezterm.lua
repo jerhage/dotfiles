@@ -23,6 +23,9 @@ config.font = wezterm.font_with_fallback({
 })
 config.font_size = 14.0
 
+-- false because doesn't display properly when true for whatever reason
+config.enable_wayland = false
+
 config.window_decorations = "RESIZE"
 config.enable_tab_bar = true
 config.enable_scroll_bar = false
