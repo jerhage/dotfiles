@@ -203,7 +203,8 @@ return {
 		markdown = {
 			hover = {
 				["|(%S-)|"] = vim.cmd.help, -- vim help links
-				["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links
+				["%[.-%]%((%S-)%)"] = require("noice.util").open, -- markdown links; need to comment this line on fresh install otherwise will complain noice.util not found;
+				-- uncomment after noice is installed
 			},
 			highlights = {
 				["|%S-|"] = "@text.reference",

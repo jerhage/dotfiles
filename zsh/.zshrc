@@ -149,6 +149,7 @@ export PATH="$PATH:/home/jh/.local/bin"
 export PATH="$PATH:/home/jh/.cargo/bin"
 export PATH=$PATH:/usr/local/go/bin
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+export PATH="/opt/homebrew/opt/zig@0.14/bin:$PATH"
 #export PATH=~/.asdf/shims:$PATH
 
 # export NVM_DIR=~/.nvm

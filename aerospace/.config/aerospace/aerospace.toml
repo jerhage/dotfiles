@@ -86,7 +86,7 @@ cmd-enter = 'exec-and-forget open -n /Applications/WezTerm.app'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 cmd-backslash = 'layout tiles horizontal vertical'
-cmd-comma = 'layout accordion horizontal vertical'
+cmd-comma = 'layout tiles horizontal vertical'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 cmd-h = 'focus left'

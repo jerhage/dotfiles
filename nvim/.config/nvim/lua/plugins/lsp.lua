@@ -97,6 +97,13 @@ return {
 			end,
 		})
 
+		vim.lsp.config("expert", {
+			cmd = { "expert" },
+			root_markers = { "mix.exs", ".git" },
+			filetypes = { "elixir", "eelixir", "heex" },
+		})
+
+		vim.lsp.enable("expert")
 		-- Diagnostic Config
 		-- See :help vim.diagnostic.Opts
 		local signs = {
@@ -142,6 +149,7 @@ return {
 		--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+		local elixirls_path = vim.fn.stdpath("data") .. "/mason/packages/elixir-ls"
 		local servers = {
 			bashls = true,
 			gopls = true,
@@ -170,21 +178,37 @@ return {
 			},
 
 			-- lexical = {
-			-- 	cmd = { lexical_path },
+			-- 	cmd = { "~/coding/expert/apps/expert/burrito_out/expert_darwin_arm64" },
+			-- 	root_dir = function(fname)
+			-- 		return require("lspconfig").util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+			-- 	end,
+			-- 	filetypes = { "elixir", "eelixir", "heex" },
+			-- 	-- optional settings
+			-- 	settings = {},
+			-- },
+			-- lexical = {
+			-- 	-- cmd = { lexical_path },
 			-- 	-- cmd = { '~/.local/share/nvim/mason/packages/lexical/lexical' },
+			-- 	-- cmd = { "~/.local/share/nvim/mason/packages/expert/expert_darwin_arm64" },
+			-- 	cmd = { "expert" },
 			-- 	filetypes = { "elixir", "eelixir", "heex" },
 			-- 	settings = {},
+			-- 	root_dir = function(fname)
+			-- 		return require("lspconfig").util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
+			-- 	end,
 			-- 	-- root_dir = require('lspconfig.util').root_pattern { 'mix.exs' },
 			-- },
+			-- expert = true,
+			-- elixirls = false,
 			-- elixirls = {
-			--   cmd = { exlixir_ls_path },
-			--   filetypes = { 'elixir', 'eelixir', 'heex' },
-			--   -- need to figure out how to do this
-			--   -- server_capabilities = {
-			--   --   completion = false,
-			--   --   documentFormattingProvider = false,
-			--   -- },
-			--   -- cmd = { '/var/home/jh/.local/share/nvim/mason/packages/elixir-ls/language_server.sh' },
+			-- 	cmd = { elixirls_path },
+			-- 	filetypes = { "elixir", "eelixir", "heex" },
+			-- 	-- need to figure out how to do this
+			-- 	-- server_capabilities = {
+			-- 	--   completion = false,
+			-- 	--   documentFormattingProvider = false,
+			-- 	-- },
+			-- 	-- cmd = { '/var/home/jh/.local/share/nvim/mason/packages/elixir-ls/language_server.sh' },
 			-- },
 			-- svelte = true,
 			-- templ = true,

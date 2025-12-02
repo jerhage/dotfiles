@@ -48,7 +48,7 @@ return {
 			function()
 				Snacks.picker.grep()
 			end,
-			desc = "[S]earch within [F]iles (Grep)",
+			desc = "[S]earch files using [G]rep",
 		},
 		{
 			"<leader>sn",
@@ -62,28 +62,28 @@ return {
 			function()
 				Snacks.picker.files()
 			end,
-			desc = "[S]earch [F]iles",
+			desc = "[S]earch Files",
 		},
 		{
 			"<leader>sG",
 			function()
 				Snacks.picker.git_files()
 			end,
-			desc = "[S]earch [G]it Files",
+			desc = "[S]earch Git Files",
 		},
 		{
 			"<leader>sp",
 			function()
 				Snacks.picker.projects()
 			end,
-			desc = "[S]earch [P]rojects",
+			desc = "[S]earch Projects",
 		},
 		{
 			"<leader>sr",
 			function()
 				Snacks.picker.recent()
 			end,
-			desc = "[S]earch [R]ecent",
+			desc = "[S]earch Recent",
 		},
 		-- git
 		{
@@ -91,49 +91,49 @@ return {
 			function()
 				Snacks.picker.git_branches()
 			end,
-			desc = "[S]earch [G]it [B]ranches",
+			desc = "[S]earch Git [B]ranches",
 		},
 		{
 			"<leader>sgl",
 			function()
 				Snacks.picker.git_log()
 			end,
-			desc = "[S]earch [G]it [L]og",
+			desc = "[S]earch Git [L]og",
 		},
 		{
 			"<leader>sgL",
 			function()
 				Snacks.picker.git_log_line()
 			end,
-			desc = "[S]earch [G]it Log [L]ine",
+			desc = "[S]earch Git Log [L]ine",
 		},
 		{
 			"<leader>sgs",
 			function()
 				Snacks.picker.git_status()
 			end,
-			desc = "[S]earch [G]it [S]tatus",
+			desc = "[S]earch Git [S]tatus",
 		},
 		{
 			"<leader>sgS",
 			function()
 				Snacks.picker.git_stash()
 			end,
-			desc = "[S]earch [G]it [S]tash",
+			desc = "[S]earch Git [S]tash",
 		},
 		{
 			"<leader>sgd",
 			function()
 				Snacks.picker.git_diff()
 			end,
-			desc = "[S]earch [G]it [D]iff (Hunks)",
+			desc = "[S]earch Git [D]iff (Hunks)",
 		},
 		{
 			"<leader>sB",
 			function()
 				Snacks.picker.grep_buffers()
 			end,
-			desc = "[S]earch (Grep) Open [B]uffers",
+			desc = "[S]earch (Grep) Open Buffers",
 		},
 		{
 			"<leader>sw",
@@ -191,28 +191,28 @@ return {
 			function()
 				Snacks.picker.diagnostics()
 			end,
-			desc = "[S]earch Workspace [D]iagnostics",
+			desc = "[S]earch Workspace [Diagnostics]",
 		},
 		{
 			"<leader>sd",
 			function()
 				Snacks.picker.diagnostics_buffer()
 			end,
-			desc = "[S]earch [D]iagnostics",
+			desc = "[S]earch [Diagnostics]",
 		},
 		{
 			"<leader>sh",
 			function()
 				Snacks.picker.help()
 			end,
-			desc = "[S]earch [H]elp Pages",
+			desc = "[S]earc [H]elp Pages",
 		},
 		{
 			"<leader>sH",
 			function()
 				Snacks.picker.highlights()
 			end,
-			desc = "[S]earch [H]ighlights",
+			desc = "[S]earc [H]ighlights",
 		},
 		{
 			"<leader>si",
