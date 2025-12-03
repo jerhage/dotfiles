@@ -212,7 +212,7 @@ return {
 			-- },
 			-- svelte = true,
 			-- templ = true,
-			-- cssls = true,
+			cssls = true,
 
 			html = {
 				filetypes = { "html" },

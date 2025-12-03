@@ -43,6 +43,7 @@ return {
 				map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "[G]it [R]eset buffer" })
 				map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "[G]it [P]review hunk" })
 				map("n", "<leader>gb", gitsigns.blame_line, { desc = "[G]it [B]lame line" })
+				map("n", "<leader>gB", gitsigns.blame, { desc = "[G]it [B]lame file" })
 				map(
 					"n",
 					"<leader>gt",

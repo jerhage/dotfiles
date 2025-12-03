@@ -1,6 +1,7 @@
 clipboard-read = allow
 clipboard-write = allow
 theme = catppuccin-mocha
+custom-shader= shaders/in-game-crt.glsl
 cursor-color = #f5e0dc
 cursor-style = block
 font-family = FiraCode Nerd Font

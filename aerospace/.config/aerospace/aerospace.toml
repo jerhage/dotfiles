@@ -198,3 +198,8 @@ run = 'move-node-to-workspace T'
 if.app-id = 'com.hnc.DiscordCanary'
 run = 'move-node-to-workspace O'
 
+[[on-window-detected]]
+if.app-id="com.mitchellh.ghostty"
+run= [
+  "layout tiling",
+]
