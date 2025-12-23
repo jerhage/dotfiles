@@ -42,7 +42,7 @@ config.cursor_blink_ease_out = "Constant"
 local is_darwin = wezterm.target_triple:find("darwin") ~= nil
 -- local is_linux = wezterm.target_triple:find("linux") ~= nil
 
-config.default_prog = { "/bin/bash" }
+config.default_prog = { "env", "bash" }
 if is_darwin then
 	config.default_prog = { "/bin/zsh" }
 end
