@@ -21,7 +21,7 @@
         UserName = "jh"; 
         HostName = "nucleus";
         GitName = "Jeremy Hage";
-        GitEmail = "";
+        GitEmail = "jhage.codingkr@gmail.com";
         Bwserver = "";
       };
 
