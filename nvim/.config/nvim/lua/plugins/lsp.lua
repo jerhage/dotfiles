@@ -154,6 +154,7 @@ return {
 			bashls = true,
 			gopls = true,
 			astro = true,
+			alejandra = true,
 			lua_ls = {
 				settings = {
 					Lua = {

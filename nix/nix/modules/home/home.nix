@@ -11,7 +11,7 @@
   imports = [
     ./waybar/waybar.nix
     ./niri/niri.nix
-    #./bash.nix
+    ./bash.nix
     ./wofi.nix
     #./tmux.nix
     #./nvim.nix
