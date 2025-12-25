@@ -18,7 +18,7 @@
       system = "x86_64-linux";
       globals = {
         # this are the variables that you wanna change xd
-        UserName = "jh"; 
+        UserName = "jh";
         HostName = "nucleus";
         GitName = "Jeremy Hage";
         GitEmail = "jhage.codingkr@gmail.com";
