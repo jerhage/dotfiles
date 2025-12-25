@@ -1,3 +1,4 @@
+prefer-no-csd
 input {
     keyboard {
         xkb {
@@ -42,8 +43,10 @@ input {
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
 }
-output "HDMI-A-1" {
-    mode "3440x1440@144"
+// `niri msg outputs` to list outputs and possible configurations
+output "DP-3" {
+    mode "3440x1440@164.900"
+    variable-refresh-rate on-demand=true
     scale 1
     transform "normal"
     position x=1280 y=0
@@ -58,9 +61,17 @@ layout {
     center-focused-column "never"
     always-center-single-column
 
+    preset-column-widths {
+        proportion 0.333
+        proportion 0.5
+        proportion 0.667
+        proportion 1.0
+    }
+
+    default-column-width { proportion 0.5; }
     focus-ring {
         // Uncomment this line to disable the focus ring.
-        off
+        // off
 
         // How many logical pixels the ring extends out from the windows.
         width 2
@@ -119,7 +130,7 @@ layout {
     // You can enable drop shadows for windows.
     shadow {
         // Uncomment the next line to enable shadows.
-        on
+        // on
 
         // By default, the shadow draws only around its window, and not behind it.
         // Uncomment this setting to make the shadow draw behind its window.
@@ -176,7 +187,6 @@ window-rule {
     // since this is the default config, and we want no false positives.
     // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
@@ -202,20 +212,12 @@ workspace "8"
 workspace "9"
 
 window-rule {
-    match app-id=r#"obs"#
-    open-on-workspace "obs"
-}
-// window-rule {
-//     match app-id=r#"steam"#
-//     open-on-workspace "oss"
-// }
-window-rule {
-    match app-id=r#"^Spotify$"#
-    open-on-workspace "oss"
+    match app-id=r#"steam"#
+    open-on-workspace "9"
 }
 window-rule {
     match app-id=r#"^discord$"#
-    open-on-workspace "oss"
+    open-on-workspace "6"
 }
 // window-rule {
 //     match app-id=r#"chromium"#
@@ -224,7 +226,7 @@ window-rule {
 // }
 window-rule {
     match app-id=r#"wezterm"#
-    open-maximized true
+    // open-maximized true
     open-on-workspace "1"
 }
 
@@ -250,6 +252,8 @@ window-rule {
 spawn-at-startup "waybar"
 spawn-sh-at-startup "waypaper --random"
 spawn-at-startup "steam"
+spawn-at-startup "xdg-desktop-portal-gtk"
+spawn-at-startup "xdg-desktop-portal-wlr"
 
 
 binds {
