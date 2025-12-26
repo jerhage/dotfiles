@@ -13,82 +13,86 @@
       ta = "tmux a";
 
       nr = "nixos-rebuild switch --flake $HOME/nix#$HOSTNAME --sudo";
+      # nn = "nvim +':cd ~/dotfiles/nix/nix/'";
+      nn = "(cd ~/dotfiles/nix/nix/ && nvim)";
       nfu = "nix flake update";
       ngc = "nix store gc";
       nf = "nvim ~/nix/flake.nix";
-      nh = "nvim ~/nix/home-manager/home.nix";
-      nw = "nvim ~/dotfiles/wezterm/.config/wezterm/wezterm.lua";
-      nc = "nvim ~/dotfiles/nvim/.config/nvim";
+      # nw = "nvim ~/dotfiles/wezterm/.config/wezterm/wezterm.lua";
+      # nc = "nvim +':cd ~/dotfiles/nvim/.config/nvim/'";
+      nc = "(cd ~/dotfiles/nvim/.config/nvim/ && nvim)";
       ss = "source ~/.bashrc";
     };
 
     # Your environment variables
     initExtra = ''
-      export PATH="$HOME/.local/bin:$PATH"
-      export GOPATH=$HOME/go
-      export PATH="$PATH:$HOME/go/bin"
 
-      export EDITOR=nvim
-        # Uncomment the following line if you don't like systemctl's auto-paging feature:
-        # export SYSTEMD_PAGER=
+      export KIME_CONFIG="$HOME/.config/kime/config.yaml"
+            export PATH="$HOME/.local/bin:$PATH"
+            export GOPATH=$HOME/go
+            export PATH="$PATH:$HOME/go/bin"
 
-        # User specific aliases and functions
-        if [ -d ~/.bashrc.d ]; then
-            for rc in ~/.bashrc.d/*; do
-                if [ -f "$rc" ]; then
-                    . "$rc"
-                fi
-            done
-        fi
-        unset rc
+            export EDITOR=nvim
+              # Uncomment the following line if you don't like systemctl's auto-paging feature:
+              # export SYSTEMD_PAGER=
 
-        #
-        # --- setup fzf theme ---
-        fg="#CBE0F0"
-        bg="#011628"
-        bg_highlight="#143652"
-        purple="#B388FF"
-        blue="#06BCE4"
-        cyan="#2CF9ED"
+              # User specific aliases and functions
+              if [ -d ~/.bashrc.d ]; then
+                  for rc in ~/.bashrc.d/*; do
+                      if [ -f "$rc" ]; then
+                          . "$rc"
+                      fi
+                  done
+              fi
+              unset rc
 
-        show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-        export FZF_DEFAULT_OPTS="--color=fg:$fg,bg:$bg,hl:$purple,fg+:$fg,bg+:$bg_highlight,hl+:$purple,info:$blue,prompt:$cyan,pointer:$cyan,marker:$cyan,spinner:$cyan,header:$cyan"
-        export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
-        export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-        # -- Use fd instead of find --
-        export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-        export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+              #
+              # --- setup fzf theme ---
+              fg="#CBE0F0"
+              bg="#011628"
+              bg_highlight="#143652"
+              purple="#B388FF"
+              blue="#06BCE4"
+              cyan="#2CF9ED"
 
-        # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
-        # - The first argument to the function ($1) is the base path to start traversal
-        # - See the source code (completion.{bash,zsh}) for the details.
-        _fzf_compgen_path() {
-            fd --hidden --exclude .git . "$1"
-        }
+              show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+              export FZF_DEFAULT_OPTS="--color=fg:$fg,bg:$bg,hl:$purple,fg+:$fg,bg+:$bg_highlight,hl+:$purple,info:$blue,prompt:$cyan,pointer:$cyan,marker:$cyan,spinner:$cyan,header:$cyan"
+              export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+              export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+              # -- Use fd instead of find --
+              export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+              export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+              export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-        # Use fd to generate the list for directory completion
-        _fzf_compgen_dir() {
-            fd --type=d --hidden --exclude .git . "$1"
-        }
+              # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+              # - The first argument to the function ($1) is the base path to start traversal
+              # - See the source code (completion.{bash,zsh}) for the details.
+              _fzf_compgen_path() {
+                  fd --hidden --exclude .git . "$1"
+              }
 
-        # Advanced customization of fzf options via _fzf_comprun function
-        # - The first argument to the function is the name of the command.
-        # - You should make sure to pass the rest of the arguments to fzf.
-        _fzf_comprun() {
-            local command=$1
-            shift
+              # Use fd to generate the list for directory completion
+              _fzf_compgen_dir() {
+                  fd --type=d --hidden --exclude .git . "$1"
+              }
 
-            case "$command" in
-            cd) fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-            export | unset) fzf --preview "eval 'echo $'{}" "$@" ;;
-            ssh) fzf --preview 'dig {}' "$@" ;;
-            *) fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
-            esac
-        }
-      eval "$(starship init bash)"
-      eval "$(fzf --bash)"
-      # eval "fastfetch"
+              # Advanced customization of fzf options via _fzf_comprun function
+              # - The first argument to the function is the name of the command.
+              # - You should make sure to pass the rest of the arguments to fzf.
+              _fzf_comprun() {
+                  local command=$1
+                  shift
+
+                  case "$command" in
+                  cd) fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+                  export | unset) fzf --preview "eval 'echo $'{}" "$@" ;;
+                  ssh) fzf --preview 'dig {}' "$@" ;;
+                  *) fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
+                  esac
+              }
+            eval "$(starship init bash)"
+            eval "$(fzf --bash)"
+            # eval "fastfetch"
     '';
 
   };

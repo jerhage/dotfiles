@@ -36,7 +36,22 @@
   };
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
-
+  i18n.supportedLocales = [
+    "en_US.UTF-8/UTF-8"
+    "ko_KR.UTF-8/UTF-8"
+    "ja_JP.UTF-8/UTF-8"
+  ];
+  # Enable IME
+  # i18n.inputMethod = {
+  #   enable = true;
+  #   type = "kime";
+  # kime.iconColor = "White";
+  # fcitx5.addons = with pkgs; [
+  #   fcitx5-mozc
+  #   fcitx5-hangul
+  #   fcitx5-gtk
+  # ];
+  # };
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -96,7 +111,6 @@
     lazydocker
     wofi
     ghostty
-    vscode
     adw-gtk3
     papirus-icon-theme
     nh
@@ -117,6 +131,8 @@
     docker-compose
     xdg-desktop-portal-wlr
     xdg-desktop-portal-gtk
+    xdg-desktop-portal-gnome
+    xdg-desktop-portal
     polkit
     nixfmt-rfc-style
     obsidian
@@ -126,7 +142,9 @@
     #burpsuite
     #caido
     wireshark
+    kdePackages.kate
 
+    anki
     #wordlists
     #rockyou
     #seclists
@@ -150,10 +168,13 @@
     xwayland-satellite
     nodejs_24
 
+    dropbox
     # containers
     podman
     podman-compose
     podman-desktop
+    kime
+    adwaita-icon-theme # for fcitx icon?
   ];
 
   hardware = {
@@ -199,6 +220,12 @@
   fonts = {
     fontconfig.enable = true;
     packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      liberation_ttf
+      fira-code
+      fira-code-symbols
       nerd-fonts.jetbrains-mono
     ];
   };
@@ -259,6 +286,41 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
+
+  systemd.services.toggle-gpp-on-suspend = {
+    description = "Toggle GPP wake pins around suspend to prevent fan/spurious wake issues";
+    wantedBy = [ "sleep.target" ];
+    before = [ "sleep.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = ''
+        # Runs BEFORE suspend: disable wake pins
+        ${pkgs.bash}/bin/bash -c 'echo GPP0 > /proc/acpi/wakeup'
+        ${pkgs.bash}/bin/bash -c 'echo GPP8 > /proc/acpi/wakeup'
+      '';
+      ExecStop = ''
+        # Runs AFTER resume: restore wake pins
+        ${pkgs.bash}/bin/bash -c 'echo GPP0 > /proc/acpi/wakeup'
+        ${pkgs.bash}/bin/bash -c 'echo GPP8 > /proc/acpi/wakeup'
+      '';
+    };
+  };
+  # systemd.services.disable-acpi-wakeup = {
+  #   description = "Disable ACPI wakeup on user login";
+  #
+  #   wantedBy = [ "multi-user.target" ];
+  #   after = [ "systemd-logind.service" ];
+  #
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     ExecStart = [
+  #       "${pkgs.bash}/bin/bash -c 'echo GPP0 > /proc/acpi/wakeup'"
+  #       "${pkgs.bash}/bin/bash -c 'echo GPP8 > /proc/acpi/wakeup'"
+  #     ];
+  #   };
+  # };
 
   nix = {
     settings = {

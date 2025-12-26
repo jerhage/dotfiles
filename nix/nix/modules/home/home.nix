@@ -15,7 +15,7 @@
     ./wofi.nix
     #./tmux.nix
     #./nvim.nix
-        #./ghostty.nix
+    #./ghostty.nix
     ./git.nix
   ];
 
@@ -56,5 +56,49 @@
 
   services.swww.enable = true;
   services.swaync.enable = true;
+
+  systemd.user.services.dropbox = {
+    Unit = {
+      Description = "Dropbox service";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.dropbox}/bin/dropbox";
+      Restart = "on-failure";
+    };
+  };
+  # systemd.user.services.kime = {
+  #   Unit = {
+  #     Description = "Kime Input Method";
+  #     After = [ "wayland-session.target" ];
+  #   };
+  #
+  #   Service = {
+  #     ExecStart = "${pkgs.kime}/bin/kime";
+  #     Environment = [
+  #       "XDG_CONFIG_HOME=%h/.config"
+  #     ];
+  #     Restart = "on-failure";
+  #   };
+  #
+  #   Install = {
+  #     WantedBy = [ "wayland-session.target" ];
+  #   };
+  # };
+  # systemd.user.services.kime = {
+  #   description = "Kime Input Method";
+  #   wantedBy = [ "graphical-session.target" ];
+  #   after = [ "graphical-session.target" ];
+  #
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.kime}/bin/kime";
+  #     Restart = "on-failure";
+  #     Environment = [
+  #       "XDG_CONFIG_HOME=%h/.config"
+  #     ];
+  #   };
+  # };
 
 }
