@@ -71,6 +71,9 @@
       # chromium
       google-chrome
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKmSb03l6MOhGnJzit57QfPMBlashhIfzVRk/KXx49U personal-mb"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -167,8 +170,11 @@
     xwayland
     xwayland-satellite
     nodejs_24
+    typescript
+    pnpm
 
-    dropbox
+    calibre
+    calibre-web
     # containers
     podman
     podman-compose
@@ -233,8 +239,23 @@
     displayManager.enable = true;
     displayManager.ly.enable = true;
     blueman.enable = true;
-    # services.openssh.enable = true;
+    openssh = {
+      enable = true;
+
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+        PubkeyAuthentication = true;
+
+        # Optional hardening
+        # AllowTcpForwarding = "no";
+        # X11Forwarding = false;
+        # AllowAgentForwarding = false;
+      };
+    };
   };
+
   services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -336,7 +357,7 @@
     };
   };
 
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # networking.firewall.enable = false;
   system.stateVersion = "25.11";
