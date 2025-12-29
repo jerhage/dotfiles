@@ -17,6 +17,7 @@
     #./nvim.nix
     #./ghostty.nix
     ./git.nix
+    ./mpv.nix
   ];
 
   dconf.settings = {
@@ -39,7 +40,7 @@
     gtk.enable = true;
     package = pkgs.catppuccin-cursors.mochaSapphire;
     name = "catppuccin-mocha-sapphire-cursors";
-    size = 12;
+    size = 16;
   };
 
   ########################################
@@ -51,8 +52,43 @@
     zoxide.enable = true;
     #obs-studio.enable = true;
     #obs-studio.plugins = [ pkgs.obs-studio-plugins.wlrobs ];
+    ssh = {
+      matchBlocks = {
+        "*" = {
+          forwardAgent = false;
+          addKeysToAgent = "yes";
+        };
+      };
 
+      extraConfig = ''
+        UseKeychain no
+      '';
+      # matchBlocks = {
+      #   # nixos = {
+      #   #   hostname = "10.10.1.202";
+      #   #   user = "jh";
+      #   #   identityFile = "~/.ssh/id_ed25519_nix";
+      #   #   identitiesOnly = true;
+      #   # };
+      #   macbook = {
+      #     # hostname = "macbook-pro.local";
+      #     hostname = "10.10.1.115";
+      #     user = "jh";
+      #     identityFile = "~/.ssh/id_ed25519_nix";
+      #     identitiesOnly = true;
+      #   };
+      # };
+    };
   };
+
+  services.ssh-agent.enable = true;
+  home.file.".ssh/config".text = ''
+    Host mbp
+      HostName 10.10.1.115
+      User jh
+      IdentityFile ~/.ssh/id_ed25519_nix
+      IdentitiesOnly yes
+  '';
 
   services.swww.enable = true;
   services.swaync.enable = true;
