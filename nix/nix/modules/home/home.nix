@@ -93,18 +93,18 @@
   services.swww.enable = true;
   services.swaync.enable = true;
 
-  systemd.user.services.dropbox = {
-    Unit = {
-      Description = "Dropbox service";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.dropbox}/bin/dropbox";
-      Restart = "on-failure";
-    };
-  };
+  # systemd.user.services.dropbox = {
+  #   Unit = {
+  #     Description = "Dropbox service";
+  #   };
+  #   Install = {
+  #     WantedBy = [ "default.target" ];
+  #   };
+  #   Service = {
+  #     ExecStart = "${pkgs.dropbox}/bin/dropbox";
+  #     Restart = "on-failure";
+  #   };
+  # };
   # systemd.user.services.kime = {
   #   Unit = {
   #     Description = "Kime Input Method";

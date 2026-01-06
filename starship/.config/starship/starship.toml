@@ -116,6 +116,10 @@
 # mantle = "#181825"
 # crust = "#11111b"
 #
+add_newline = true
+[line_break]
+disabled = true
+
 format = """
 [](fg:#0969da bg:#0969da)\
 $username\
