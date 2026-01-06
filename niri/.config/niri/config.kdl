@@ -225,11 +225,16 @@ window-rule {
 //     open-on-workspace "2"
 // }
 window-rule {
-    match app-id=r#"wezterm"#
+    match app-id=r#"ghostty"#
     // open-maximized true
     open-on-workspace "1"
 }
 
+window-rule {
+    match app-id="chrome-reader.ttsu.app__manage-Profile_3"
+    // open-maximized true
+    open-on-workspace "2"
+}
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
@@ -250,7 +255,7 @@ window-rule {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 // spawn-sh-at-startup "waypaper --random"
-spawn-sh-at-startup "swww-daemon &"
+spawn-sh-at-startup "awww-daemon &"
 // spawn-at-startup "fcitx5"
 spawn-at-startup "steam"
 // spawn-at-startup "xdg-desktop-portal-gtk"
@@ -270,7 +275,7 @@ binds {
     Mod+W hotkey-overlay-title="toggle waybar" repeat=false { spawn-sh "pkill -SIGUSR1 waybar || waybar"; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "wezterm"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal" { spawn "ghostty"; }
     Mod+B hotkey-overlay-title="Open a Browser" { spawn "google-chrome-stable"; }
     // Mod+O hotkey-overlay-title="Open a Obsidian " { spawn "obsidian"; }
     Mod+Shift+S hotkey-overlay-title="Open Reader (Ttsu Reader)" { spawn-sh "google-chrome-stable --app='https://reader.ttsu.app/manage' --profile-directory='Profile 3'"; }
