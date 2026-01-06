@@ -2,20 +2,25 @@
 {
   programs.mpv = {
     enable = true;
-
-    package = (
-      pkgs.mpv-unwrapped.wrapper {
-        scripts = with pkgs.mpvScripts; [
-          uosc
-          sponsorblock
-          mpvacious
-        ];
-
-        mpv = pkgs.mpv-unwrapped.override {
-          waylandSupport = true;
-        };
-      }
-    );
+    scripts = with pkgs.mpvScripts; [
+      uosc
+      sponsorblock
+      mpvacious
+    ];
+    # package = (
+    #   pkgs.mpv-unwrapped.override {
+    #     scripts = with pkgs.mpvScripts; [
+    #       uosc
+    #       sponsorblock
+    #       mpvacious
+    #     ];
+    #
+    #     waylandSupport = true;
+    #     # mpv = pkgs.mpv-unwrapped.override {
+    #     #   waylandSupport = true;
+    #     # };
+    #   }
+    # );
 
     config = {
       profile = "high-quality";

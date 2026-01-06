@@ -2,6 +2,7 @@
   config,
   pkgs,
   globals,
+  inputs,
   ...
 }:
 
@@ -77,6 +78,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     ffmpeg
     jq
     ripgrep
@@ -173,6 +175,11 @@
     typescript
     pnpm
 
+    pv
+    zstd
+    dropbox
+    rclone
+    cryptomator
     calibre
     calibre-web
     # containers
@@ -181,6 +188,11 @@
     podman-desktop
     kime
     adwaita-icon-theme # for fcitx icon?
+
+    beancount
+    fava
+
+    gcolor3
   ];
 
   hardware = {
@@ -216,10 +228,6 @@
     options bluetooth disable_ertm=1
   '';
 
-  fileSystems."/home/jh/games" = {
-    device = "/dev/disk/by-uuid/35b98e1d-889b-46aa-87a3-818be0a6a7dc";
-    fsType = "ext4";
-  };
   services.xserver.videoDrivers = [ "nvidia" ];
 
   xdg.portal.wlr.enable = true;
@@ -342,7 +350,7 @@
   #     ];
   #   };
   # };
-
+  services.gvfs.enable = true; # enables trash for file explorer
   nix = {
     settings = {
       experimental-features = [

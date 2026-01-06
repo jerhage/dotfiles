@@ -7,3 +7,4 @@ cursor-style = block
 font-family = FiraCode Nerd Font
 font-size = 13
 shell-integration-features = no-cursor
+gtk-custom-css = tab-style.css
