@@ -13,7 +13,6 @@ local function scheme_for_appearance(appearance)
 		-- return "Catppuccin Latte"
 	end
 end
-
 config.color_scheme = scheme_for_appearance(wezterm.gui.get_appearance())
 config.font = wezterm.font_with_fallback({
 	-- "FiraCode Nerd Font",
@@ -23,17 +22,18 @@ config.font = wezterm.font_with_fallback({
 })
 config.font_size = 14.0
 
--- false because doesn't display properly when true for whatever reason
-config.enable_wayland = false
+-- false typing is slow otherwise???
+config.enable_wayland = true
 
-config.window_decorations = "RESIZE"
+config.window_decorations = "NONE"
 config.enable_tab_bar = true
 config.enable_scroll_bar = false
 config.window_background_opacity = 1.0
 config.warn_about_missing_glyphs = false
 config.scrollback_lines = 5000
-config.max_fps = 144
-config.animation_fps = 144
+-- unset these cause it was causing laggy input. I think leaving it to the compositor is better
+-- config.max_fps = 165
+-- config.animation_fps = 165
 config.cursor_blink_ease_in = "Constant"
 config.cursor_blink_ease_out = "Constant"
 
@@ -46,7 +46,6 @@ config.default_prog = { "env", "bash" }
 if is_darwin then
 	config.default_prog = { "/bin/zsh" }
 end
-
 -- NOTE: Styling
 config.window_padding = {
 	left = 0,
