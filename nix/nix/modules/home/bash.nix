@@ -21,6 +21,7 @@
       # nw = "nvim ~/dotfiles/wezterm/.config/wezterm/wezterm.lua";
       # nc = "nvim +':cd ~/dotfiles/nvim/.config/nvim/'";
       nc = "(cd ~/dotfiles/nvim/.config/nvim/ && nvim)";
+      wr = "$HOME/dotfiles/scripts/.local/awww/awww_randomize.sh";
       ss = "source ~/.bashrc";
     };
 
