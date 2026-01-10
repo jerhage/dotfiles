@@ -5,7 +5,6 @@
   inputs,
   ...
 }:
-
 {
   imports = [
     # Include the results of the hardware scan.
@@ -68,6 +67,7 @@
       "docker"
       "plugdev" # zsa moonlander udev
     ];
+
     packages = with pkgs; [
       # chromium
       google-chrome
@@ -75,6 +75,14 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMKmSb03l6MOhGnJzit57QfPMBlashhIfzVRk/KXx49U personal-mb"
     ];
+  };
+
+  # compresses ram instead of using disk for swap. Especially nice for weaker machines
+  zramSwap = {
+    enable = true;
+    priority = 100;
+    algorithm = "lz4"; # one of many algorithms
+    memoryPercent = 50; # will compress upto 50% of available memory when needed (after ram is full)
   };
 
   environment.systemPackages = with pkgs; [
@@ -192,6 +200,7 @@
     beancount
     fava
 
+    dysk
     gcolor3
   ];
 
@@ -316,26 +325,26 @@
     };
   };
 
-  systemd.services.toggle-gpp-on-suspend = {
-    description = "Toggle GPP wake pins around suspend to prevent fan/spurious wake issues";
-    wantedBy = [ "sleep.target" ];
-    before = [ "sleep.target" ];
-
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = ''
-        # Runs BEFORE suspend: disable wake pins
-        ${pkgs.bash}/bin/bash -c 'echo GPP0 > /proc/acpi/wakeup'
-        ${pkgs.bash}/bin/bash -c 'echo GPP8 > /proc/acpi/wakeup'
-      '';
-      ExecStop = ''
-        # Runs AFTER resume: restore wake pins
-        ${pkgs.bash}/bin/bash -c 'echo GPP0 > /proc/acpi/wakeup'
-        ${pkgs.bash}/bin/bash -c 'echo GPP8 > /proc/acpi/wakeup'
-      '';
-    };
-  };
+  # systemd.services.toggle-gpp-on-suspend = {
+  #   description = "Toggle GPP wake pins around suspend to prevent fan/spurious wake issues";
+  #   wantedBy = [ "sleep.target" ];
+  #   before = [ "sleep.target" ];
+  #
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     RemainAfterExit = true;
+  #     ExecStart = ''
+  #       # Runs BEFORE suspend: disable wake pins
+  #       ${pkgs.bash}/bin/bash -c 'echo GPP0 > /proc/acpi/wakeup'
+  #       ${pkgs.bash}/bin/bash -c 'echo GPP8 > /proc/acpi/wakeup'
+  #     '';
+  #     ExecStop = ''
+  #       # Runs AFTER resume: restore wake pins
+  #       ${pkgs.bash}/bin/bash -c 'echo GPP0 > /proc/acpi/wakeup'
+  #       ${pkgs.bash}/bin/bash -c 'echo GPP8 > /proc/acpi/wakeup'
+  #     '';
+  #   };
+  # };
   # systemd.services.disable-acpi-wakeup = {
   #   description = "Disable ACPI wakeup on user login";
   #

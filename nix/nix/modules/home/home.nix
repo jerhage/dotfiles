@@ -4,7 +4,6 @@
   globals,
   ...
 }:
-
 {
   home.stateVersion = "25.05";
 
@@ -43,6 +42,17 @@
     size = 16;
   };
 
+  home.packages = with pkgs; [
+    (pkgs.writeShellApplication {
+      name = "ns";
+      runtimeInputs = with pkgs; [
+        fzf
+        nix-search-tv
+      ];
+      excludeShellChecks = [ "SC2016" ]; # remove after next release
+      text = builtins.readFile "${pkgs.nix-search-tv.src}/nixpkgs.sh";
+    })
+  ];
   ########################################
   # 🧬 Git config
   ########################################
@@ -92,49 +102,5 @@
 
   services.swww.enable = true;
   services.swaync.enable = true;
-
-  # systemd.user.services.dropbox = {
-  #   Unit = {
-  #     Description = "Dropbox service";
-  #   };
-  #   Install = {
-  #     WantedBy = [ "default.target" ];
-  #   };
-  #   Service = {
-  #     ExecStart = "${pkgs.dropbox}/bin/dropbox";
-  #     Restart = "on-failure";
-  #   };
-  # };
-  # systemd.user.services.kime = {
-  #   Unit = {
-  #     Description = "Kime Input Method";
-  #     After = [ "wayland-session.target" ];
-  #   };
-  #
-  #   Service = {
-  #     ExecStart = "${pkgs.kime}/bin/kime";
-  #     Environment = [
-  #       "XDG_CONFIG_HOME=%h/.config"
-  #     ];
-  #     Restart = "on-failure";
-  #   };
-  #
-  #   Install = {
-  #     WantedBy = [ "wayland-session.target" ];
-  #   };
-  # };
-  # systemd.user.services.kime = {
-  #   description = "Kime Input Method";
-  #   wantedBy = [ "graphical-session.target" ];
-  #   after = [ "graphical-session.target" ];
-  #
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.kime}/bin/kime";
-  #     Restart = "on-failure";
-  #     Environment = [
-  #       "XDG_CONFIG_HOME=%h/.config"
-  #     ];
-  #   };
-  # };
 
 }
