@@ -1,3 +1,6 @@
+vim.cmd("packadd nvim-treesitter")
+vim.cmd("packadd nvim-treesitter-textobjects")
+
 local move = require("nvim-treesitter-textobjects.move")
 local swap = require("nvim-treesitter-textobjects.swap")
 
