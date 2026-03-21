@@ -1,0 +1,20 @@
+{
+  "plugins": {
+    "SchemaStore.nvim": {
+      "rev": "cf2b276dc88696b35d55ea4bd55dfaf7d608c9a2",
+      "src": "https://github.com/b0o/SchemaStore.nvim"
+    },
+    "blink.cmp": {
+      "rev": "62c3d54f7d739ee46f850ea6832383e3b7ca2ee1",
+      "src": "https://github.com/saghen/blink.cmp"
+    },
+    "mason-tool-installer.nvim": {
+      "rev": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc",
+      "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
+    },
+    "mason.nvim": {
+      "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
+      "src": "https://github.com/williamboman/mason.nvim"
+    }
+  }
+}
