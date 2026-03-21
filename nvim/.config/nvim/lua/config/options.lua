@@ -1,18 +1,24 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+-- Options are loaded from init.lua before plugin/ scripts.
+vim.g.have_nerd_font = true
+
+-- Match prior lazy.nvim rtp.disabled_plugins behavior where possible
+vim.g.loaded_gzip = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_tohtml = 1
+vim.g.loaded_tutor = 1
+vim.g.loaded_zipPlugin = 1
+
 local opt = vim.opt
 vim.cmd("let g:netrw_liststyle = 3")
 ----- Interesting Options -----
 
--- Preview substitutions live, as you type!
+-- Preview substitutions live
 opt.inccommand = "split"
 
--- Best search settings :)
+-- Search settings
 opt.smartcase = true
 opt.ignorecase = true
 
------ Personal Preferences -----
 opt.number = true
 opt.relativenumber = false
 
@@ -31,51 +37,35 @@ opt.clipboard = "unnamedplus"
 opt.formatoptions:remove("o")
 
 opt.number = true
--- You can also add relative line numbers, for help with jumping.
---  Experiment for yourself to see if you like it!
--- opt.relativenumber = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
 opt.mouse = "a"
 
--- Don't show the mode, since it's already in status line
 opt.showmode = true
 
--- Enable break indent
 opt.breakindent = true
 
--- Save undo history
 opt.undofile = true
 
 -- Case-insensitive searching UNLESS \C or capital in search
 opt.ignorecase = true
 opt.smartcase = true
 
--- Keep signcolumn on by default
 opt.background = "dark"
 opt.signcolumn = "yes"
 
--- Decrease update time
 opt.updatetime = 250
 opt.timeoutlen = 300
 
--- Configure how new splits should be opened
 opt.splitright = true
 opt.splitbelow = true
 
--- Sets how neovim will display certain whitespace in the editor.
---  See :help 'list'
---  and :help 'listchars'
 opt.list = false -- disabled because it was overriding plugin indent-blankline.lua
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.expandtab = true
 opt.autoindent = true
 opt.backspace = "indent,eol,start"
--- Show which line your cursor is on
 opt.cursorline = true
 opt.tabstop = 4
 
--- Minimal number of screen lines to keep above and below the cursor.
 opt.scrolloff = 10
 opt.shiftwidth = 4
 

@@ -1,10 +1,3 @@
-vim.pack.add({
-	"https://github.com/williamboman/mason.nvim",
-	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
-	"https://github.com/saghen/blink.cmp",
-	"https://github.com/b0o/SchemaStore.nvim",
-})
-
 require("mason").setup()
 
 -- LspAttach: keymaps, highlights, inlay hints
@@ -159,14 +152,14 @@ require("mason-tool-installer").setup({
 	ensure_installed = {
 		"bash-language-server",
 		"gopls",
-		"astro-ls",
-		"vscode-css-language-server",
-		"vscode-html-language-server",
+		"astro-language-server",
+		"css-lsp",
+		"html-lsp",
 		"typescript-language-server",
 		"marksman",
 		"pyright",
 		"lua-language-server",
-		"vscode-json-language-server",
+		"json-lsp",
 		"yaml-language-server",
 		"stylua",
 		"eslint_d",

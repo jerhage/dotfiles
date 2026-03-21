@@ -18,7 +18,7 @@ set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 --  See `:help wincmd` for a list of all window commands
---  Using smartsplits for this: see 'lua/plugins/smart-splits.lua'
+--  Using smartsplits for this: see plugin/smart-splits.lua
 -- set("n", "<C-h>", "<C-w>h", { desc = "Move focus to the left window" })
 -- set("n", "<C-l>", "<C-w>l", { desc = "Move focus to the right window" })
 -- set("n", "<C-j>", "<C-w>j", { desc = "Move focus to the lower window" })
