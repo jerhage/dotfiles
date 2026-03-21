@@ -11,7 +11,8 @@ alias gtsn="gt switch npo_trunk"
 alias gtsd="gt switch district_trunk"
 alias gtsc="gt switch core_trunk"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
-#eval "$(/usr/local/bin/brew shellenv)"
+# commented for work
+# eval "$(/usr/local/bin/brew shellenv)"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ZSH_DISABLE_COMPFIX=true
 
@@ -116,7 +117,10 @@ alias update-nvim-stable='asdf uninstall neovim stable && asdf install neovim st
 # Should make conditional incase exa isn't installed so I can use on any system (default to normal ls)
 alias ll="exa -lah"
 alias ls="exa -ah"
+<<<<<<< HEAD
 # alias z="zoxide"
+=======
+>>>>>>> a05f391 (for work)
 ## stow command assumes target as parent dir if not specified. This ensures HOME no matter where stow is called
 alias stow="stow --target=${HOME}"
 alias zc="zellij -l ~/dotfiles/zellij/.config/zellij/layouts/code_compact.kdl"
@@ -185,7 +189,11 @@ if [ -f '/Users/jh/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jh
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
+<<<<<<< HEAD
 # eval "$(direnv hook zsh)"
+=======
+#eval "$(direnv hook zsh)"
+>>>>>>> a05f391 (for work)
 export PATH="$PATH:$HOME/.rvm/bin"
 #export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 #export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/opt/openssl/lib/
