@@ -103,3 +103,4 @@ function yy() {
 # Enables shell history within iex
 export ERL_AFLAGS="-kernel shell_history enabled"
 eval "$(zoxide init bash)"
+. "$HOME/.cargo/env"

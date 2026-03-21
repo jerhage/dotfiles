@@ -87,6 +87,22 @@ return {
 			{ "<leader>Tt", "<cmd>Trouble todo<cr>", desc = "[T]rouble [T]odo" },
 			{ "<leader>Tq", "<cmd>TodoQuickFix<cr>", desc = "[T]odo [Q]uick Fix" },
 			{ "<leader>Tl", "<cmd>TodoLocList<cr>", desc = "[T]odo [L]ocation List" },
+			{
+				-- Customize or remove this keymap to your liking
+				"]t",
+				function()
+					require("todo-comments").jump_next()
+				end,
+				desc = "Jump to next [t]odo",
+			},
+			{
+				-- Customize or remove this keymap to your liking
+				"[t",
+				function()
+					require("todo-comments").jump_prev()
+				end,
+				desc = "Jump to previous [t]odo",
+			},
 		},
 	},
 }

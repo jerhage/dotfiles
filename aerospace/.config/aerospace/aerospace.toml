@@ -82,7 +82,7 @@ outer.right =      10
 # You can uncomment this line to open up terminal with alt + enter shortcut
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 # cmd-enter = 'exec-and-forget open -n /System/Applications/Utilities/Terminal.app'
-cmd-enter = 'exec-and-forget open -n /Applications/WezTerm.app'
+cmd-enter = 'exec-and-forget open -n /Applications/Ghostty.app'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 cmd-backslash = 'layout tiles horizontal vertical'
@@ -118,17 +118,17 @@ cmd-a = 'workspace A' # In your config, you can drop workspace bindings that you
 cmd-b = 'workspace B'
 cmd-d = 'workspace D'
 cmd-e = 'workspace E'
-cmd-f = 'workspace F'
+# cmd-f = 'workspace F'
 cmd-g = 'workspace G'
 cmd-i = 'workspace I'
 cmd-m = 'workspace M'
 cmd-n = 'workspace N'
 cmd-o = 'workspace O'
 cmd-r = 'workspace R'
-cmd-s = 'workspace S'
+# cmd-s = 'workspace S'
 cmd-t = 'workspace T'
 cmd-u = 'workspace U'
-cmd-w = 'workspace W'
+# cmd-w = 'workspace W'
 cmd-y = 'workspace Y'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -145,7 +145,7 @@ cmd-shift-a = 'move-node-to-workspace A'
 cmd-shift-b = 'move-node-to-workspace B'
 cmd-shift-d = 'move-node-to-workspace D'
 cmd-shift-e = 'move-node-to-workspace E'
-cmd-shift-f = 'move-node-to-workspace F'
+# cmd-shift-f = 'move-node-to-workspace F'
 cmd-shift-g = 'move-node-to-workspace G'
 cmd-shift-i = 'move-node-to-workspace I'
 cmd-shift-m = 'move-node-to-workspace M'
@@ -154,10 +154,10 @@ cmd-shift-o = 'move-node-to-workspace O'
 cmd-shift-p = 'move-node-to-workspace P'
 cmd-shift-q = 'move-node-to-workspace Q'
 cmd-shift-r = 'move-node-to-workspace R'
-cmd-shift-s = 'move-node-to-workspace S'
+# cmd-shift-s = 'move-node-to-workspace S'
 cmd-shift-t = 'move-node-to-workspace T'
 cmd-shift-u = 'move-node-to-workspace U'
-cmd-shift-w = 'move-node-to-workspace W'
+# cmd-shift-w = 'move-node-to-workspace W'
 cmd-shift-y = 'move-node-to-workspace Y'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
@@ -191,6 +191,10 @@ if.app-id = 'org.mozilla.firefox'
 run = 'move-node-to-workspace B'
 
 [[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace B'
+
+[[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
 run = 'move-node-to-workspace T'
 
@@ -200,6 +204,9 @@ run = 'move-node-to-workspace O'
 
 [[on-window-detected]]
 if.app-id="com.mitchellh.ghostty"
-run= [
-  "layout tiling",
-]
+run = 'move-node-to-workspace T'
+
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos'
+run = 'move-node-to-workspace 2'
+
