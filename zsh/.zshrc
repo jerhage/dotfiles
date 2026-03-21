@@ -5,7 +5,14 @@
 #   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 # fi
 
-eval "$(/usr/local/bin/brew shellenv)"
+alias gtss="gt switch supporter_trunk"
+alias gtsm="gt switch main"
+alias gtsn="gt switch npo_trunk"
+alias gtsd="gt switch district_trunk"
+alias gtsc="gt switch core_trunk"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+#eval "$(/usr/local/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 ZSH_DISABLE_COMPFIX=true
 
 # If you come from bash you might have to change your $PATH.
@@ -109,7 +116,7 @@ alias update-nvim-stable='asdf uninstall neovim stable && asdf install neovim st
 # Should make conditional incase exa isn't installed so I can use on any system (default to normal ls)
 alias ll="exa -lah"
 alias ls="exa -ah"
-alias z="zoxide"
+# alias z="zoxide"
 ## stow command assumes target as parent dir if not specified. This ensures HOME no matter where stow is called
 alias stow="stow --target=${HOME}"
 alias zc="zellij -l ~/dotfiles/zellij/.config/zellij/layouts/code_compact.kdl"
@@ -151,6 +158,8 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 export PATH="/opt/homebrew/opt/zig@0.14/bin:$PATH"
 #export PATH=~/.asdf/shims:$PATH
+export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
+export PATH=~/.asdf/shims:$PATH
 
 # export NVM_DIR=~/.nvm
 # source $(brew --prefix nvm)/nvm.sh
@@ -176,7 +185,7 @@ if [ -f '/Users/jh/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jh
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 export PATH="$PATH:$HOME/.rvm/bin"
 #export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 #export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/opt/openssl/lib/
@@ -238,5 +247,9 @@ export MANPAGER='nvim +Man!'
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
 
+if [[ ${PROMPT_COMMAND:=} != *'__zoxide_hook'* ]]; then
+    PROMPT_COMMAND="__zoxide_hook;${PROMPT_COMMAND#;}"
+fi
+export PATH="$HOME/.local/bin:$PATH"
 eval "$(starship init zsh)"
- eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh)"

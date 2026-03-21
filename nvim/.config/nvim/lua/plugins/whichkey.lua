@@ -17,6 +17,8 @@ return {
 			{ "<leader>g_", hidden = true },
 			{ "<leader>h", group = "[H]arpoon" },
 			{ "<leader>h_", hidden = true },
+			{ "[", group = "Jump backwards" },
+			{ "]", group = "Jump forwards" },
 			{ "<leader>l", group = "[L]sp" },
 			{ "<leader>l_", hidden = true },
 			{ "<leader>n", group = "[N]otifications" },
