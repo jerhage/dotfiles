@@ -1,6 +1,3 @@
-vim.cmd("packadd nvim-treesitter")
-vim.cmd("packadd nvim-ts-autotag")
-
 local install_dir = vim.fs.joinpath(vim.fn.stdpath("data") --[[@as string]], "site")
 
 require("nvim-treesitter").setup({

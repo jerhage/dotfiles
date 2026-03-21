@@ -55,6 +55,6 @@ require("blink.cmp").setup({
 		},
 	},
 	snippets = { preset = "luasnip" },
-	fuzzy = { implementation = "prefer_rust_with_warning", prebuilt_binaries.force_version = 'v1.*' },
+	fuzzy = { implementation = "prefer_rust_with_warning", prebuilt_binaries = {download = true, force_version = 'v1.*'} },
 	signature = { enabled = true },
 })

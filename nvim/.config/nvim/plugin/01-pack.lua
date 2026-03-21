@@ -7,8 +7,6 @@ if not vim.pack then
 	return
 end
 
-local blink_version = vim.version.range and vim.version.range("1") or "main"
-
 vim.pack.add({
 	"https://github.com/vhyrro/luarocks.nvim",
 	"https://github.com/catppuccin/nvim",
@@ -22,7 +20,7 @@ vim.pack.add({
 	"https://github.com/folke/snacks.nvim",
 	"https://github.com/williamboman/mason.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
-	{ src = "https://github.com/saghen/blink.cmp", version = blink_version },
+	"https://github.com/saghen/blink.cmp",
 	"https://github.com/b0o/SchemaStore.nvim",
 	"https://github.com/L3MON4D3/LuaSnip",
 	"https://github.com/rafamadriz/friendly-snippets",
