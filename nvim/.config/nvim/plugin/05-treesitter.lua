@@ -22,6 +22,7 @@ local parsers = {
 	"templ",
 	"javascript",
 	"typescript",
+	"jsx",
 	"tsx",
 }
 
