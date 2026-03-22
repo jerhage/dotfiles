@@ -4,15 +4,10 @@ require("mason").setup()
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("kimchi-lsp-attach", { clear = true }),
 	callback = function(event)
-		local map = function(keys, func, desc, mode)
-			vim.keymap.set(mode or "n", keys, func, {
-				buffer = event.buf,
-				desc = "LSP: " .. desc,
-			})
-		end
+		local map = require("utils").map
 
-		map("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
-		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
+		map("<leader>cr", vim.lsp.buf.rename, "LSP: [C]ode [R]ename", nil, { buffer = event.buf })
+		map("<leader>ca", vim.lsp.buf.code_action, "LSP: [C]ode [A]ction", { "n", "x" }, { buffer = event.buf })
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 
@@ -36,7 +31,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 					not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }),
 					{ bufnr = event.buf }
 				)
-			end, "[T]oggle Inlay [H]ints")
+			end, "LSP: [T]oggle Inlay [H]ints", nil, { buffer = event.buf })
 		end
 	end,
 })

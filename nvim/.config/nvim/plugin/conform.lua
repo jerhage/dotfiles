@@ -35,6 +35,8 @@ require("conform").setup({
 	},
 })
 
-vim.keymap.set({ "n", "v" }, "<leader>ff", function()
+local map = require("utils").map
+
+map("<leader>ff", function()
 	require("conform").format({ async = true })
-end, { desc = "Format buffer" })
+end, "Format buffer", { "n", "v" })

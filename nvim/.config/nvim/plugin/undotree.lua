@@ -1,1 +1,3 @@
-vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "UndotreeToggle" })
+local map = require("utils").map
+
+map("<leader>u", "<cmd>UndotreeToggle<cr>", "UndotreeToggle")

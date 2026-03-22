@@ -7,5 +7,7 @@ require("yazi").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>e", "<cmd>Yazi<cr>", { desc = "Open yazi at the current file" })
-vim.keymap.set("n", "<c-up>", "<cmd>Yazi toggle<cr>", { desc = "Resume the last yazi session" })
+local map = require("utils").map
+
+map("<leader>e", "<cmd>Yazi<cr>", "Open yazi at the current file")
+map("<c-up>", "<cmd>Yazi toggle<cr>", "Resume the last yazi session")
