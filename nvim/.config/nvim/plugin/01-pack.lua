@@ -41,13 +41,28 @@ vim.pack.add({
 	"https://github.com/echasnovski/mini.surround",
 	"https://github.com/echasnovski/mini.ai",
 	"https://github.com/echasnovski/mini.operators",
-	"https://github.com/mfussenegger/nvim-dap",
-	"https://github.com/rcarriga/nvim-dap-ui",
-	"https://github.com/nvim-neotest/nvim-nio",
-	"https://github.com/jay-babu/mason-nvim-dap.nvim",
-	"https://github.com/leoluz/nvim-dap-go",
-	"https://github.com/nvim-neotest/neotest",
-	"https://github.com/fredrikaverpil/neotest-golang",
+    -- neotest core and dependencies
+    'https://github.com/nvim-neotest/nvim-nio',
+    'https://github.com/nvim-lua/plenary.nvim',
+    'https://github.com/antoinemadec/FixCursorHold.nvim',
+    'https://github.com/nvim-neotest/neotest',
+   
+    -- neotest adapters
+    'https://github.com/fredrikaverpil/neotest-golang',
+    'https://github.com/nvim-neotest/neotest-python',
+    'https://github.com/marilari88/neotest-vitest',
+    'https://github.com/jfpedroza/neotest-elixir',
+   
+    -- dap core
+    'https://github.com/mfussenegger/nvim-dap',
+    'https://github.com/nvim-neotest/nvim-dap-ui',
+    'https://github.com/theHamsta/nvim-dap-virtual-text',
+   
+    -- language-specific dap adapters
+    'https://github.com/leoluz/nvim-dap-go',
+    'https://github.com/mfussenegger/nvim-dap-python',
+
+	"https://github.com/jay-babu/mason-nvim-dap.nvim", -- check
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 	"https://github.com/windwp/nvim-autopairs",
 	"https://github.com/lukas-reineke/indent-blankline.nvim",
@@ -61,6 +76,6 @@ vim.pack.add({
 	"https://github.com/kristijanhusak/vim-dadbod-completion",
 	"https://github.com/nvzone/showkeys",
 	"https://github.com/mbbill/undotree",
-}, { confirm = false })
+}, { confirm = true })
 
 require("luarocks-nvim").setup({})

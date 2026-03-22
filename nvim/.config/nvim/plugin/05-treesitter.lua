@@ -20,6 +20,9 @@ local parsers = {
 	"vimdoc",
 	"go",
 	"templ",
+	"javascript",
+	"typescript",
+	"tsx",
 }
 
 -- Install after UI is up so startup is not blocked on first run.
