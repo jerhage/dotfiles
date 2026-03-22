@@ -1,9 +1,3 @@
--- TODO: what
--- WARN: what
--- PERF: what
--- BUG: what
--- TEST: what
--- NOTE: what
 require("telescope").setup({
 	defaults = {
 		vimgrep_arguments = {
