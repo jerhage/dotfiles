@@ -129,7 +129,22 @@ do
 	local orig_build_spec = neotest_vitest_adapter.build_spec
 	neotest_vitest_adapter.build_spec = function(args)
 		local spec = orig_build_spec(args)
-		if spec and spec.strategy and spec.strategy.type == "pwa-node" then
+		if not spec then
+			return spec
+		end
+		-- Default test timeout keeps ticking while paused in the debugger; Neotest's Vitest CLI omits --test-timeout=0.
+		if args.strategy == "dap" and spec.command and #spec.command >= 2 then
+			local cmd = spec.command
+			table.insert(cmd, #cmd, "--test-timeout=0")
+			if spec.strategy and spec.strategy.type == "pwa-node" and spec.strategy.request == "launch" then
+				local dap_args = {}
+				for i = 2, #cmd do
+					dap_args[i - 1] = cmd[i]
+				end
+				spec.strategy.args = dap_args
+			end
+		end
+		if spec.strategy and spec.strategy.type == "pwa-node" then
 			spec.strategy = vim.tbl_deep_extend("force", spec.strategy, vitest_js_debug_shared)
 		end
 		return spec
@@ -137,7 +152,8 @@ do
 end
 
 -- neotest
-require("neotest").setup({
+local neotest = require("neotest")
+neotest.setup({
 	adapters = {
 		require("neotest-golang"),
 		require("neotest-python"),
@@ -154,27 +170,19 @@ local map = function(keys, func, desc)
 end
 
 -- neotest
-map("<leader>tr", function()
-	require("neotest").run.run()
-end, "Run nearest")
+map("<leader>tr", neotest.run.run, "Run nearest")
 map("<leader>tf", function()
-	require("neotest").run.run(vim.fn.expand("%"))
+	neotest.run.run(vim.fn.expand("%"))
 end, "Run file")
-map("<leader>ts", function()
-	require("neotest").summary.toggle()
-end, "Toggle summary")
+map("<leader>ts", neotest.summary.toggle, "Toggle summary")
 map("<leader>to", function()
-	require("neotest").output.open({ enter = true })
+	neotest.output.open({ enter = true })
 end, "Show output")
 map("<leader>td", function()
-	require("neotest").run.run({ strategy = "dap" })
+	neotest.run.run({ strategy = "dap" })
 end, "Debug nearest")
-map("]t", function()
-	require("neotest").jump.next()
-end, "Jump next [t]est")
-map("[t", function()
-	require("neotest").jump.prev()
-end, "Jump previous [t]est")
+map("]t", neotest.jump.next, "Jump next [t]est")
+map("[t", neotest.jump.prev, "Jump previous [t]est")
 
 -- dap
 map("<leader>db", dap.toggle_breakpoint, "Toggle breakpoint")
@@ -187,18 +195,8 @@ map("<leader>dB", function()
 	dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end, "Debug: Set Breakpoint Condition")
 
-map("<F5>", function()
-	dap.continue()
-end, "Debug: Start/Continue")
-map("<F1>", function()
-	dap.step_into()
-end, "Debug: Step Into")
-map("<F2>", function()
-	dap.step_over()
-end, "Debug: Step Over")
-map("<F3>", function()
-	dap.step_out()
-end, "Debug: Step Out")
-map("<F7>", function()
-	dapui.toggle()
-end, "Debug: See last session result.")
+map("<F5>", dap.continue, "Debug: Start/Continue")
+map("<F1>", dap.step_into, "Debug: Step Into")
+map("<F2>", dap.step_over, "Debug: Step Over")
+map("<F3>", dap.step_out, "Debug: Step Out")
+map("<F7>", dapui.toggle, "Debug: See last session result.")
