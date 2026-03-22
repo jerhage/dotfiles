@@ -21,11 +21,12 @@ pcall(require("telescope").load_extension, "fzf")
 pcall(require("telescope").load_extension, "ui-select")
 
 local builtin = require("telescope.builtin")
+local map = require("utils").map
 
-vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-vim.keymap.set("n", "<leader>/", function()
+map("<leader>ss", builtin.builtin, "[S]earch [S]elect Telescope")
+map("<leader>/", function()
 	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 		winblend = 10,
 		previewer = false,
 	}))
-end, { desc = "[/] Fuzzily search in current buffer" })
+end, "[/] Fuzzily search in current buffer")

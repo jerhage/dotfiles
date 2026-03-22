@@ -1,12 +1,14 @@
 require("neogit").setup({})
 
-vim.keymap.set("n", "<leader>gN", "<cmd>Neogit kind=floating<cr>", { desc = "Open Neogit" })
-vim.keymap.set("n", "<leader>gdo", "<cmd>DiffviewOpen<cr>", { desc = "[G]it [D]iffview [O]pen against index" })
-vim.keymap.set("n", "<leader>gdf", "<cmd>DiffviewFileHistory %<cr>", { desc = "[G]it [D]iffview [F]ile (current)" })
-vim.keymap.set("n", "<leader>gdF", "<cmd>DiffviewFileHistory<cr>", { desc = "[G]it [D]iffview [F]ile (All)" })
-vim.keymap.set("v", "<leader>gdo", function()
+local map = require("utils").map
+
+map("<leader>gN", "<cmd>Neogit kind=floating<cr>", "Open Neogit")
+map("<leader>gdo", "<cmd>DiffviewOpen<cr>", "[G]it [D]iffview [O]pen against index")
+map("<leader>gdf", "<cmd>DiffviewFileHistory %<cr>", "[G]it [D]iffview [F]ile (current)")
+map("<leader>gdF", "<cmd>DiffviewFileHistory<cr>", "[G]it [D]iffview [F]ile (All)")
+map("<leader>gdo", function()
 	local line_start = vim.fn.line("'<")
 	local line_end = vim.fn.line("'>")
 	vim.cmd(line_start .. "," .. line_end .. "DiffviewFileHistory")
-end, { desc = "[G]it [D]iffview [F]ile (selection)", silent = true })
-vim.keymap.set("n", "<leader>gdc", "<cmd>DiffviewClose<cr>", { desc = "[G]it [D]iffview [C]lose" })
+end, "[G]it [D]iffview [F]ile (selection)", "v", { silent = true })
+map("<leader>gdc", "<cmd>DiffviewClose<cr>", "[G]it [D]iffview [C]lose")

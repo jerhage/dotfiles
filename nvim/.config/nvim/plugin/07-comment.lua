@@ -56,13 +56,15 @@ require("todo-comments").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>sT", "<cmd>TodoTelescope<cr>", { desc = "[S]earch [T]odos" })
-vim.keymap.set("n", "<leader>Tt", "<cmd>Trouble todo<cr>", { desc = "[T]rouble [T]odo" })
-vim.keymap.set("n", "<leader>Tq", "<cmd>TodoQuickFix<cr>", { desc = "[T]odo [Q]uick Fix" })
-vim.keymap.set("n", "<leader>Tl", "<cmd>TodoLocList<cr>", { desc = "[T]odo [L]ocation List" })
-vim.keymap.set("n", "]h", function()
+local map = require("utils").map
+
+map("<leader>sT", "<cmd>TodoTelescope<cr>", "[S]earch [T]odos")
+map("<leader>Tt", "<cmd>Trouble todo<cr>", "[T]rouble [T]odo")
+map("<leader>Tq", "<cmd>TodoQuickFix<cr>", "[T]odo [Q]uick Fix")
+map("<leader>Tl", "<cmd>TodoLocList<cr>", "[T]odo [L]ocation List")
+map("]h", function()
 	require("todo-comments").jump_next()
-end, { desc = "Jump to next todo" })
-vim.keymap.set("n", "[h", function()
+end, "Jump to next todo")
+map("[h", function()
 	require("todo-comments").jump_prev()
-end, { desc = "Jump to previous todo" })
+end, "Jump to previous todo")
