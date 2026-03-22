@@ -42,29 +42,54 @@ dap.adapters["pwa-node"] = {
 	},
 }
 
--- Vitest-specific configuration
 local js_filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" }
+
 for _, ft in ipairs(js_filetypes) do
 	dap.configurations[ft] = {
-		-- Debug a single test file under vitest
 		{
 			type = "pwa-node",
 			request = "launch",
 			name = "Debug Vitest (current file)",
-			runtimeExecutable = "node",
-			runtimeArgs = {
-				"./node_modules/vitest/vitest.mjs",
+
+			-- Better than runtimeExecutable/node + runtimeArgs for this case
+			program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+			args = {
 				"run",
+				"${file}",
 				"--reporter=verbose",
 				"--no-file-parallelism",
 			},
-			args = { "${file}" },
-			rootDir = "${workspaceFolder}",
+
 			cwd = "${workspaceFolder}",
+			rootDir = "${workspaceFolder}",
 			console = "integratedTerminal",
+
+			autoAttachChildProcesses = true,
+			smartStep = true,
+			skipFiles = {
+				"<node_internals>/**",
+				"**/node_modules/**",
+			},
+
 			sourceMaps = true,
+
+			-- For TS/Vitest sourcemap binding
+			outFiles = {
+				"${workspaceFolder}/**/*.js",
+				"${workspaceFolder}/**/*.mjs",
+				"${workspaceFolder}/**/*.cjs",
+			},
+
+			-- Resolving broadly but can tighten up later if needed
+			resolveSourceMapLocations = {
+				"${workspaceFolder}/**",
+				"!**/node_modules/**",
+			},
+
+			-- Keep this on in case we don't resolve source maps properly
+			trace = true,
 		},
-		-- Attach to an already-running vitest process
+
 		{
 			type = "pwa-node",
 			request = "attach",
@@ -72,6 +97,21 @@ for _, ft in ipairs(js_filetypes) do
 			processId = require("dap.utils").pick_process,
 			cwd = "${workspaceFolder}",
 			sourceMaps = true,
+			smartStep = true,
+			skipFiles = {
+				"<node_internals>/**",
+				"**/node_modules/**",
+			},
+			outFiles = {
+				"${workspaceFolder}/**/*.js",
+				"${workspaceFolder}/**/*.mjs",
+				"${workspaceFolder}/**/*.cjs",
+			},
+			resolveSourceMapLocations = {
+				"${workspaceFolder}/**",
+				"!**/node_modules/**",
+			},
+			trace = true,
 		},
 	}
 end
@@ -137,4 +177,3 @@ map("<leader>di", dap.step_into, "Step into")
 map("<leader>do", dap.step_over, "Step over")
 map("<leader>dO", dap.step_out, "Step out")
 map("<leader>du", dapui.toggle, "Toggle UI")
-
