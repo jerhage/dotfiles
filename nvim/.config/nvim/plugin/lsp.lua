@@ -43,6 +43,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 vim.diagnostic.config({
 	severity_sort = true,
+	virtual_text = { source = "if_many", spacing = 2 },
 	float = { border = "rounded", source = "if_many" },
 })
 

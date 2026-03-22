@@ -41,28 +41,31 @@ vim.pack.add({
 	"https://github.com/echasnovski/mini.surround",
 	"https://github.com/echasnovski/mini.ai",
 	"https://github.com/echasnovski/mini.operators",
-    -- neotest core and dependencies
-    'https://github.com/nvim-neotest/nvim-nio',
-    'https://github.com/nvim-lua/plenary.nvim',
-    'https://github.com/antoinemadec/FixCursorHold.nvim',
-    'https://github.com/nvim-neotest/neotest',
-   
-    -- neotest adapters
-    'https://github.com/fredrikaverpil/neotest-golang',
-    'https://github.com/nvim-neotest/neotest-python',
-    'https://github.com/marilari88/neotest-vitest',
-    'https://github.com/jfpedroza/neotest-elixir',
-   
-    -- dap core
-    'https://github.com/mfussenegger/nvim-dap',
-    'https://github.com/nvim-neotest/nvim-dap-ui',
-    'https://github.com/theHamsta/nvim-dap-virtual-text',
-   
-    -- language-specific dap adapters
-    'https://github.com/leoluz/nvim-dap-go',
-    'https://github.com/mfussenegger/nvim-dap-python',
+	-- neotest core and dependencies
+	"https://github.com/nvim-neotest/nvim-nio",
+	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/antoinemadec/FixCursorHold.nvim",
+	"https://github.com/nvim-neotest/neotest",
+
+	-- neotest adapters
+	"https://github.com/fredrikaverpil/neotest-golang",
+	"https://github.com/nvim-neotest/neotest-python",
+	"https://github.com/marilari88/neotest-vitest",
+	"https://github.com/jfpedroza/neotest-elixir",
+
+	-- dap core
+	"https://github.com/mfussenegger/nvim-dap",
+	"https://github.com/nvim-neotest/nvim-dap-ui",
+	"https://github.com/theHamsta/nvim-dap-virtual-text",
+
+	-- language-specific dap adapters
+	"https://github.com/leoluz/nvim-dap-go",
+	"https://github.com/mfussenegger/nvim-dap-python",
 
 	"https://github.com/jay-babu/mason-nvim-dap.nvim", -- check
+
+	{ src = "https://github.com/mfussenegger/nvim-lint" },
+
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" },
 	"https://github.com/windwp/nvim-autopairs",
 	"https://github.com/lukas-reineke/indent-blankline.nvim",

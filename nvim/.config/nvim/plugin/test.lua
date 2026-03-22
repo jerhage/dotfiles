@@ -165,10 +165,7 @@ neotest.setup({
 })
 
 -- keymaps
-local map = function(keys, func, desc)
-	vim.keymap.set("n", keys, func, { desc = "Test: " .. desc })
-end
-
+local map = require("utils").map
 -- neotest
 map("<leader>tr", neotest.run.run, "Run nearest")
 map("<leader>tf", function()
