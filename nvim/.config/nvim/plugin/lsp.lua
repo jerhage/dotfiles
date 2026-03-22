@@ -164,5 +164,6 @@ require("mason-tool-installer").setup({
 		"stylua",
 		"eslint_d",
 		"prettierd",
+		"js-debug-adapter",
 	},
 })
