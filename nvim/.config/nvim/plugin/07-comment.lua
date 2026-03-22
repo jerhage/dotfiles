@@ -11,7 +11,8 @@ require("todo-comments").setup({
 			color = "error",
 			alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
 		},
-		TODO = { icon = " ", color = "info" },
+		-- INFO: find more icons at https://www.nerdfonts.com/cheat-sheet
+		TODO = { icon = "", color = "info" },
 		HACK = { icon = " ", color = "warning" },
 		WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
 		PERF = { icon = "󰓅", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
