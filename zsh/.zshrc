@@ -117,10 +117,6 @@ alias update-nvim-stable='asdf uninstall neovim stable && asdf install neovim st
 # Should make conditional incase exa isn't installed so I can use on any system (default to normal ls)
 alias ll="exa -lah"
 alias ls="exa -ah"
-<<<<<<< HEAD
-# alias z="zoxide"
-=======
->>>>>>> a05f391 (for work)
 ## stow command assumes target as parent dir if not specified. This ensures HOME no matter where stow is called
 alias stow="stow --target=${HOME}"
 alias zc="zellij -l ~/dotfiles/zellij/.config/zellij/layouts/code_compact.kdl"
@@ -131,7 +127,6 @@ alias na="nvim ~/dotfiles/aerospace/.config/aerospace/aerospace.toml"
 alias nz="nvim ~/dotfiles/zsh/.zshrc"
 alias ss="source ~/.zshrc"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export NINIT="~/dotfiles/.config/nvim/init.vim"
 
@@ -189,11 +184,6 @@ if [ -f '/Users/jh/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/jh
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/jh/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-<<<<<<< HEAD
-# eval "$(direnv hook zsh)"
-=======
-#eval "$(direnv hook zsh)"
->>>>>>> a05f391 (for work)
 export PATH="$PATH:$HOME/.rvm/bin"
 #export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 #export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/opt/openssl/lib/
