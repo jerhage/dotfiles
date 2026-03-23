@@ -1,5 +1,29 @@
 require("mason").setup()
 
+local lsp_info = function()
+	local clients = vim.lsp.get_clients({ bufnr = 0 })
+
+	if #clients == 0 then
+		vim.notify("No LSP clients attached to this buffer", vim.log.levels.WARN)
+		return
+	end
+
+	local lines = {}
+	for _, client in ipairs(clients) do
+		table.insert(lines, string.format("Client: %s (id: %d)", client.name, client.id))
+		table.insert(lines, string.format("  Root:  %s", client.root_dir or "none"))
+		table.insert(lines, string.format("  Cmd:   %s", table.concat(client.config.cmd or {}, " ")))
+		table.insert(lines, "")
+	end
+
+	local buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+	vim.bo[buf].filetype = "markdown"
+	vim.cmd.sbuffer(buf)
+end
+
+vim.api.nvim_create_user_command("LspInfo", lsp_info, {})
+
 -- LspAttach: keymaps, highlights, inlay hints
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("kimchi-lsp-attach", { clear = true }),
@@ -44,8 +68,6 @@ vim.diagnostic.config({
 
 local capabilities = require("blink.cmp").get_lsp_capabilities()
 
--- Each server now carries its own cmd/filetypes/root_markers
--- since nvim-lspconfig is no longer providing those defaults.
 local servers = {
 	bashls = {
 		cmd = { "bash-language-server", "start" },
@@ -129,7 +151,6 @@ local servers = {
 	},
 }
 
--- Your custom expert LSP (unchanged)
 vim.lsp.config("expert", {
 	cmd = { "expert" },
 	root_markers = { "mix.exs", ".git" },
