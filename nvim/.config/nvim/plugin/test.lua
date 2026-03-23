@@ -24,11 +24,32 @@ vim.fn.sign_define("DapStopped", {
 
 local dap = require("dap")
 local dapui = require("dapui")
-dap.listeners.before.attach.dapui_config = dapui.open
-dap.listeners.before.launch.dapui_config = dapui.open
-dap.listeners.before.event_terminated.dapui_config = dapui.close
-dap.listeners.before.event_exited.dapui_config = dapui.close
+local save_context = require("utils").save_context
+local safe_restore = require("utils").safe_restore
 
+local ctx = nil
+local isRestoring = false
+
+-- Setup dap hooks. In particular, save and restore context so I land in the buffer from which I launched the debugger
+dap.listeners.before.launch.dapui_config = function()
+	ctx = save_context()
+	dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+	safe_restore(ctx, isRestoring, dapui.close)
+end
+dap.listeners.before.event_exited.dapui_config = function()
+	safe_restore(ctx, isRestoring, dapui.close)
+end
+dap.listeners.before.attach.dapui_config = function()
+	save_context()
+	dapui.open()
+end
+
+-- INFO: consider only restoring on event_exited if safe_restore doesn't play well with current adapter
+-- dap.listeners.before.event_terminated.dapui_config = function()
+--   dapui.close()
+-- end
 dapui.setup({
 	icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
 	controls = {
@@ -113,7 +134,7 @@ for _, ft in ipairs(js_filetypes) do
 end
 
 -- inline variable values while stepping
-require("nvim-dap-virtual-text").setup()
+require("nvim-dap-virtual-text").setup({})
 
 -- language dap adapters
 require("dap-go").setup()
