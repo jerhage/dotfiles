@@ -7,7 +7,40 @@ require("snacks").setup({
 			{ section = "header" },
 			{ section = "keys", gap = 1, padding = 1 },
 		},
+		preset = {
+			-- Defaults to a picker that supports `fzf-lua`, `telescope.nvim` and `mini.pick`
+			---@type fun(cmd:string, opts:table)|nil
+			pick = nil,
+			-- Used by the `keys` section to show keymaps.
+			-- Set your custom keymaps here.
+			-- When using a function, the `items` argument are the default keymaps.
+			---@type snacks.dashboard.Item[]
+			keys = {
+				{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+				{ icon = " ", key = "F", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+				{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+				{
+					icon = " ",
+					key = "c",
+					desc = "Config",
+					action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+				},
+				{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+				{ icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
+				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+			},
+			-- Used by the `header` section
+			header = [[
+███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
+████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
+██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
+██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
+██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
+╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+		},
 	},
+	dim = { enabled = true },
 	explorer = { enabled = false },
 	indent = { enabled = true },
 	input = { enabled = false },
@@ -34,15 +67,15 @@ end, "[S]earch [F]iles [S]mart ")
 map("<leader>sb", function()
 	Snacks.picker.buffers()
 end, "[S]earch [B]uffers")
-map("<leader>sF", function()
-	Snacks.picker.grep()
-end, "[S]earch files using [G]rep")
+-- map("<leader>sF", function()
+-- 	Snacks.picker.grep()
+-- end, "[S]earch files using [G]rep")
 map("<leader>sn", function()
 	Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
 end, "[S]earch [N]eovim")
-map("<leader>sf", function()
-	Snacks.picker.files()
-end, "[S]earch Files")
+-- map("<leader>sf", function()
+-- 	Snacks.picker.files()
+-- end, "[S]earch Files")
 map("<leader>sG", function()
 	Snacks.picker.git_files()
 end, "[S]earch Git Files")
@@ -73,9 +106,9 @@ end, "[S]earch Git [D]iff (Hunks)")
 map("<leader>sB", function()
 	Snacks.picker.grep_buffers()
 end, "[S]earch (Grep) Open Buffers")
-map("<leader>sw", function()
-	Snacks.picker.grep_word()
-end, "[S]earch current [W]ord", { "n", "x" })
+-- map("<leader>sw", function()
+-- 	Snacks.picker.grep_word()
+-- end, "[S]earch current [W]ord", { "n", "x" })
 map('<leader>s"', function()
 	Snacks.picker.registers()
 end, '[S]earch ["] Registers')
@@ -192,5 +225,5 @@ vim.schedule(function()
 	Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>tw")
 	Snacks.toggle.treesitter():map("<leader>tT")
 	-- Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>tb")
-	-- Snacks.toggle.dim():map("<leader>tD")
+	Snacks.toggle.dim():map("<leader>tD")
 end)

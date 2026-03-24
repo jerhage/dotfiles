@@ -25,5 +25,9 @@ vim.api.nvim_create_autocmd("PackChanged", {
 			end
 			vim.cmd("TSUpdate")
 		end
+
+		if name == "fff.nvim" and (kind == "install" or kind == "update") then
+			require("fff.download").download_or_build_binary()
+		end
 	end,
 })

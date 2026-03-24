@@ -10,9 +10,10 @@ end
 vim.pack.add({
 	"https://github.com/vhyrro/luarocks.nvim",
 	"https://github.com/catppuccin/nvim",
-	"https://github.com/nvim-treesitter/nvim-treesitter",
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	"https://github.com/windwp/nvim-ts-autotag",
 	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/dmtrKovalenko/fff.nvim",
 	"https://github.com/nvim-telescope/telescope.nvim",
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim",
 	"https://github.com/nvim-telescope/telescope-ui-select.nvim",
