@@ -16,9 +16,9 @@ require("snacks").setup({
 			-- When using a function, the `items` argument are the default keymaps.
 			---@type snacks.dashboard.Item[]
 			keys = {
-				{ icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+				{ icon = " ", key = "f", desc = "Find File", action = ":lua require('fff').find_files()" },
 				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-				{ icon = " ", key = "F", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+				{ icon = " ", key = "F", desc = "Find Text", action = ":lua require('fff').live_grep()" },
 				{ icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
 				{
 					icon = " ",
