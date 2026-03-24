@@ -82,3 +82,11 @@ vim.pack.add({
 }, { confirm = true })
 
 require("luarocks-nvim").setup({})
+require("lazydev").setup({
+	library = {
+		{
+			path = "luvit-meta/library",
+			word = { "vim%.uv" },
+		},
+	},
+})
