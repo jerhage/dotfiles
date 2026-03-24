@@ -1,4 +1,14 @@
--- remember to run :lua require('fff.download').download_or_build_binary() on first install
+-- INFO: remember to run :lua require('fff.download').download_or_build_binary() on first install
+--
+-- Put this above/before the setup; the plugin will automatically lazy load
+vim.g.fff = {
+	lazy_sync = true, -- start syncing only when the picker is open
+	debug = {
+		enabled = true,
+		show_scores = true,
+	},
+}
+
 require("fff").setup({
 	base_path = vim.fn.getcwd(),
 	prompt = "🪿 ",
@@ -9,7 +19,7 @@ require("fff").setup({
 	layout = {
 		height = 0.8,
 		width = 0.8,
-		prompt_position = "bottom", -- or 'top'
+		prompt_position = "top", -- 'bottom' or 'top'
 		preview_position = "right", -- or 'left', 'right', 'top', 'bottom'
 		preview_size = 0.5,
 		flex = { -- set to false to disable flex layout
@@ -147,15 +157,6 @@ require("fff").setup({
 })
 
 local map = require("utils").map
-
--- the plugin will automatically lazy load
-vim.g.fff = {
-	lazy_sync = true, -- start syncing only when the picker is open
-	debug = {
-		enabled = true,
-		show_scores = true,
-	},
-}
 
 -- INFO: available methods:
 -- require('fff').find_files()                         -- Find files in current repository
