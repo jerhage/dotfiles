@@ -1,4 +1,6 @@
 require("mason").setup()
+local map = require("utils").map
+map("<leader>lR", "<cmd>lsp restart<cr>", "[L]SP [R]estart")
 
 local lsp_info = function()
 	local clients = vim.lsp.get_clients({ bufnr = 0 })
@@ -28,8 +30,6 @@ vim.api.nvim_create_user_command("LspInfo", lsp_info, {})
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("kimchi-lsp-attach", { clear = true }),
 	callback = function(event)
-		local map = require("utils").map
-
 		map("<leader>cr", vim.lsp.buf.rename, "LSP: [C]ode [R]ename", nil, { buffer = event.buf })
 		map("<leader>ca", vim.lsp.buf.code_action, "LSP: [C]ode [A]ction", { "n", "x" }, { buffer = event.buf })
 
