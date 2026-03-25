@@ -77,3 +77,13 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
 	end,
 })
 
+local map = require("utils").map
+-- INFO: eslint_d can become stale when switching between branches. Use if receiving diagnostics that seem off.
+map("<leader>lE", function()
+	local ok, err = pcall(vim.fn.system, { "eslint_d", "restart" })
+	if ok and vim.v.shell_error == 0 then
+		vim.notify("eslint_d restarted", vim.log.levels.INFO)
+	else
+		vim.notify("eslint_d restart failed: " .. (err or vim.fn.system("eslint_d restart")), vim.log.levels.ERROR)
+	end
+end, "Restart eslint_d")
