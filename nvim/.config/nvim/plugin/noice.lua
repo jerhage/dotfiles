@@ -1,26 +1,4 @@
 require("noice").setup({
-	-- lsp = {
-	-- 	override = {
-	-- 		["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-	-- 		["vim.lsp.util.stylize_markdown"] = true,
-	-- 		["cmp.entry.get_documentation"] = true,
-	-- 	},
-	-- },
-	-- ---@type NoiceRouteConfig[]
-	-- routes = {
-	-- 	{
-	-- 		filter = {
-	-- 			event = "msg_show",
-	-- 			any = {
-	-- 				{ find = "%d+L, %d+B" },
-	-- 				{ find = "; after #%d+" },
-	-- 				{ find = "; before #%d+" },
-	-- 			},
-	-- 		},
-	-- 		view = "mini",
-	-- 	},
-	-- },
-
 	cmdline = {
 		enabled = true, -- enables the Noice cmdline UI
 		view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
@@ -125,18 +103,53 @@ require("noice").setup({
 	},
 	---@type NoiceConfigViews
 	views = {
-		notify = {
-			timeout = 3000,
+		hover = {
+			border = {
+				style = "rounded",
+				padding = { 0, 1 },
+			},
+			size = {
+				max_width = 100,
+				max_height = 25,
+			},
+			win_options = {
+				wrap = true,
+				linebreak = true,
+				winhighlight = {
+					Normal = "NoicePopup",
+					FloatBorder = "NoicePopupBorder",
+				},
+			},
+		},
+		hover_up = {
+			backend = "popup",
+			relative = "cursor",
+
+			position = {
+				row = 2, -- negative = above cursor
+				col = 0,
+			},
+
+			anchor = "SW", -- anchor bottom-left of popup to cursor position
+
+			size = {
+				width = "60%",
+				height = "5%",
+				max_width = 100,
+				max_height = 20,
+			},
+
+			border = {
+				style = "rounded",
+				padding = { 0, 1 },
+			},
+
+			win_options = {
+				wrap = true,
+				linebreak = true,
+			},
 		},
 	},
-
-	-- lsp = {
-	-- 	override = {
-	-- 		["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-	-- 		["vim.lsp.util.stylize_markdown"] = true,
-	-- 		["cmp.entry.get_documentation"] = true,
-	-- 	},
-	-- },
 	lsp = {
 		progress = {
 			enabled = true,
@@ -165,7 +178,7 @@ require("noice").setup({
 			opts = {}, -- merged with defaults from documentation
 		},
 		signature = {
-			enabled = true,
+			enabled = true, -- if turned to false, turn back on in blink.cmp configuration
 			auto_open = {
 				enabled = true,
 				trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
@@ -189,9 +202,12 @@ require("noice").setup({
 			opts = {
 				lang = "markdown",
 				replace = true,
-				render = "plain",
-				format = { "{message}" },
-				win_options = { concealcursor = "n", conceallevel = 3 },
+				win_options = {
+					wrap = true,
+					linebreak = true,
+					concealcursor = "n",
+					conceallevel = 3,
+				},
 			},
 		},
 	},
@@ -220,7 +236,7 @@ require("noice").setup({
 		command_palette = true, -- position the cmdline and popupmenu together
 		long_message_to_split = true, -- long messages will be sent to a split
 		inc_rename = false, -- enables an input dialog for inc-rename.nvim
-		lsp_doc_border = false, -- add a border to hover docs and signature help
+		lsp_doc_border = true, -- add a border to hover docs and signature help
 	},
 	throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
 	---@type NoiceRouteConfig[]
@@ -230,7 +246,6 @@ require("noice").setup({
 	---@type NoiceFormatOptions
 	format = {}, --- @see section on formatting
 })
-
 local map = require("utils").map
 
 map("<S-Enter>", function()
