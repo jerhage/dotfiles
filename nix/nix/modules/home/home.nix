@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   globals,
@@ -17,6 +18,8 @@
     #./ghostty.nix
     ./git.nix
     ./mpv.nix
+
+    inputs.zen-browser.homeModules.twilight # beta (default), twilight (bleeding-edge), twilight-official
   ];
 
   dconf.settings = {
@@ -62,6 +65,7 @@
     zoxide.enable = true;
     #obs-studio.enable = true;
     #obs-studio.plugins = [ pkgs.obs-studio-plugins.wlrobs ];
+    zen-browser.enable = true;
     ssh = {
       matchBlocks = {
         "*" = {
