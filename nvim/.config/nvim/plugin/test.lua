@@ -199,99 +199,127 @@ local function count_tree_nodes(tree)
 	return count
 end
 
-local function count_braces(line)
-	local opens = 0
-	local closes = 0
-	for i = 1, #line do
-		local ch = line:sub(i, i)
-		if ch == "{" then
-			opens = opens + 1
-		elseif ch == "}" then
-			closes = closes + 1
-		end
+local function strip_wrapping_quotes(text)
+	if type(text) ~= "string" or #text < 2 then
+		return text
 	end
-	return opens, closes
+	local first = text:sub(1, 1)
+	local last = text:sub(-1)
+	if (first == "'" or first == '"' or first == "`") and first == last then
+		return text:sub(2, -2)
+	end
+	return text
 end
 
-local function extract_pattern_name(line, kind)
-	local patterns = {}
-	if kind == "namespace" then
-		patterns = {
-			"describe%.each%s*%b()%s*%(%s*['\"]([^'\"]+)['\"]",
-			"describe%s*%.[%a_]+%s*%(%s*['\"]([^'\"]+)['\"]",
-			"describe%s*%(%s*['\"]([^'\"]+)['\"]",
-		}
-	else
-		patterns = {
-			"test%.each%s*%b()%s*%(%s*['\"]([^'\"]+)['\"]",
-			"it%.each%s*%b()%s*%(%s*['\"]([^'\"]+)['\"]",
-			"test%s*%.[%a_]+%s*%(%s*['\"]([^'\"]+)['\"]",
-			"it%s*%.[%a_]+%s*%(%s*['\"]([^'\"]+)['\"]",
-			"test%s*%(%s*['\"]([^'\"]+)['\"]",
-			"it%s*%(%s*['\"]([^'\"]+)['\"]",
-		}
+local function first_named_child(node)
+	if not node then
+		return nil
 	end
-	for _, pattern in ipairs(patterns) do
-		local name = line:match(pattern)
-		if name then
-			return name
+	for child in node:iter_children() do
+		if child:named() then
+			return child
 		end
 	end
 	return nil
+end
+
+local function extract_call_name(call_node, source)
+	local args = call_node:field("arguments")[1]
+	local name_node = first_named_child(args)
+	if not name_node then
+		return nil
+	end
+	local name = vim.treesitter.get_node_text(name_node, source)
+	if not name or name == "" then
+		return nil
+	end
+	return strip_wrapping_quotes(name)
+end
+
+local function classify_vitest_call(call_node, source)
+	local func = call_node:field("function")[1]
+	if not func then
+		return nil
+	end
+	local callee = vim.treesitter.get_node_text(func, source)
+	if not callee or callee == "" then
+		return nil
+	end
+	callee = callee:gsub("%s+", "")
+	if callee == "describe" or vim.startswith(callee, "describe.") or vim.startswith(callee, "describe(") then
+		return "namespace"
+	end
+	if callee == "test" or vim.startswith(callee, "test.") or vim.startswith(callee, "test(") then
+		return "test"
+	end
+	if callee == "it" or vim.startswith(callee, "it.") or vim.startswith(callee, "it(") then
+		return "test"
+	end
+	return nil
+end
+
+local function collect_vitest_positions(node, source, file_path, positions)
+	if node:type() == "call_expression" then
+		local kind = classify_vitest_call(node, source)
+		local name = kind and extract_call_name(node, source)
+		if kind and name and name ~= "" then
+			local start_row, start_col, end_row, end_col = node:range()
+			table.insert(positions, {
+				type = kind,
+				path = file_path,
+				name = name,
+				range = { start_row, start_col, end_row, end_col },
+			})
+		end
+	end
+	for child in node:iter_children() do
+		if child:named() then
+			collect_vitest_positions(child, source, file_path, positions)
+		end
+	end
 end
 
 -- cannot for the life of me get neotest to find vitest by itself so here we are
 local function fallback_discover_positions(file_path)
 	local lib = require("neotest.lib")
 	local ok, lines = pcall(vim.fn.readfile, file_path)
-	if not ok or not lines or #lines == 0 then
+	if not ok or not lines then
 		return nil
 	end
+	local source = table.concat(lines, "\n")
+	local lang = vim.filetype.match({ filename = file_path })
+	if lang == "typescriptreact" then
+		lang = "tsx"
+	elseif lang == "javascriptreact" then
+		lang = "jsx"
+	end
+	if lang ~= "tsx" and lang ~= "jsx" and lang ~= "typescript" and lang ~= "javascript" then
+		return nil
+	end
+	local parser_ok, parser = pcall(vim.treesitter.get_string_parser, source, lang)
+	if not parser_ok or not parser then
+		return nil
+	end
+	local tree_ok, parsed = pcall(function()
+		return parser:parse()
+	end)
+	if not tree_ok or not parsed or not parsed[1] then
+		return nil
+	end
+	local root = parsed[1]:root()
+	if not root then
+		return nil
+	end
+	local _, _, end_row, end_col = root:range()
 	local positions = {
 		{
 			type = "file",
 			path = file_path,
 			name = vim.fs.basename(file_path),
-			range = { 0, 0, math.max(#lines - 1, 0), 0 },
+			range = { 0, 0, end_row, end_col },
 		},
 	}
-	local namespace_stack = {}
-	local brace_level = 0
-	for index, line in ipairs(lines) do
-		local namespace_name = extract_pattern_name(line, "namespace")
-		local test_name = extract_pattern_name(line, "test")
-		local line_no = index - 1
-		local col = (line:find("describe") or line:find("test") or line:find("it") or 1) - 1
-		if namespace_name then
-			local pos = {
-				type = "namespace",
-				path = file_path,
-				name = namespace_name,
-				range = { line_no, col, line_no, #line },
-			}
-			table.insert(positions, pos)
-			table.insert(namespace_stack, { pos = pos, closes_below = brace_level + 1 })
-		end
-		if test_name then
-			table.insert(positions, {
-				type = "test",
-				path = file_path,
-				name = test_name,
-				range = { line_no, col, line_no, #line },
-			})
-		end
-		local opens, closes = count_braces(line)
-		brace_level = brace_level + opens - closes
-		while #namespace_stack > 0 and brace_level < namespace_stack[#namespace_stack].closes_below do
-			namespace_stack[#namespace_stack].pos.range[3] = line_no
-			namespace_stack[#namespace_stack].pos.range[4] = #line
-			table.remove(namespace_stack)
-		end
-	end
-	for _, item in ipairs(namespace_stack) do
-		item.pos.range[3] = #lines - 1
-		item.pos.range[4] = #(lines[#lines] or "")
-	end
+	collect_vitest_positions(root, source, file_path, positions)
 	return lib.positions.parse_tree(positions, { nested_tests = true })
 end
 
@@ -395,6 +423,7 @@ local neotest_vitest_adapter = require("neotest-vitest")({
 		return name ~= "node_modules"
 	end,
 })
+neotest_vitest_adapter.is_test_file = is_vitest_test_file
 neotest_vitest_adapter.root = function(path)
 	return find_vitest_workspace_root(path)
 end
