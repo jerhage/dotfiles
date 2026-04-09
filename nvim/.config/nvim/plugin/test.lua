@@ -342,15 +342,17 @@ for _, ft in ipairs(js_filetypes) do
 				local vitest = root .. "/node_modules/vitest/vitest.mjs"
 				return path_exists(vitest) and vitest or "${workspaceFolder}/node_modules/vitest/vitest.mjs"
 			end,
-			args = {
-				"run",
-				function()
-					return relative_to_root(vim.api.nvim_buf_get_name(0), current_vitest_workspace_root())
-				end,
-				"--reporter=verbose",
-				"--no-file-parallelism",
-				"--test-timeout=0",
-			},
+				args = {
+					"run",
+					function()
+						return relative_to_root(vim.api.nvim_buf_get_name(0), current_vitest_workspace_root())
+					end,
+					"--reporter=verbose",
+					"--no-file-parallelism",
+					"--test-timeout=0",
+					"--hook-timeout=0",
+					"--teardown-timeout=0",
+				},
 
 			cwd = current_vitest_workspace_root,
 			rootDir = current_vitest_workspace_root,
@@ -415,6 +417,8 @@ do
 		if args.strategy == "dap" and spec.command and #spec.command >= 2 then
 			local cmd = spec.command
 			table.insert(cmd, #cmd, "--test-timeout=0")
+			table.insert(cmd, #cmd, "--hook-timeout=0")
+			table.insert(cmd, #cmd, "--teardown-timeout=0")
 			if spec.strategy and spec.strategy.type == "pwa-node" and spec.strategy.request == "launch" then
 				local dap_args = {}
 				for i = 2, #cmd do
