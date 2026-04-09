@@ -240,6 +240,7 @@ local function extract_pattern_name(line, kind)
 	return nil
 end
 
+-- cannot for the life of me get neotest to find vitest by itself so here we are
 local function fallback_discover_positions(file_path)
 	local lib = require("neotest.lib")
 	local ok, lines = pcall(vim.fn.readfile, file_path)
@@ -326,6 +327,12 @@ local vitest_js_debug_shared = {
 	resolveSourceMapLocations = {
 		"${workspaceFolder}/**",
 		"!**/node_modules/**",
+		"!**/*.css",
+		"!**/*.scss",
+		"!**/*.sass",
+		"!**/*.less",
+		"!**/*.styl",
+		"!**/*.json",
 	},
 	trace = true,
 }
@@ -342,17 +349,17 @@ for _, ft in ipairs(js_filetypes) do
 				local vitest = root .. "/node_modules/vitest/vitest.mjs"
 				return path_exists(vitest) and vitest or "${workspaceFolder}/node_modules/vitest/vitest.mjs"
 			end,
-				args = {
-					"run",
-					function()
-						return relative_to_root(vim.api.nvim_buf_get_name(0), current_vitest_workspace_root())
-					end,
-					"--reporter=verbose",
-					"--no-file-parallelism",
-					"--test-timeout=0",
-					"--hook-timeout=0",
-					"--teardown-timeout=0",
-				},
+			args = {
+				"run",
+				function()
+					return relative_to_root(vim.api.nvim_buf_get_name(0), current_vitest_workspace_root())
+				end,
+				"--reporter=verbose",
+				"--no-file-parallelism",
+				"--test-timeout=0",
+				"--hook-timeout=0",
+				"--teardown-timeout=0",
+			},
 
 			cwd = current_vitest_workspace_root,
 			rootDir = current_vitest_workspace_root,
