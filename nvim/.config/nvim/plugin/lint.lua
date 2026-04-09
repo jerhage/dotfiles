@@ -1,17 +1,19 @@
 local lint = require("lint")
 
+local jsLinter = "oxlint"
 lint.linters_by_ft = {
-	javascript = { "eslint_d" },
-	javascriptreact = { "eslint_d" },
-	typescript = { "eslint_d" },
-	typescriptreact = { "eslint_d" },
+	javascript = { jsLinter },
+	javascriptreact = { jsLinter },
+	typescript = { jsLinter },
+	typescriptreact = { jsLinter },
 	python = { "ruff" },
 	go = { "golangcilint" },
 	elixir = { "credo" },
 }
 
-local function eslint_root(bufnr)
+local function js_lint_root(bufnr)
 	return vim.fs.root(bufnr, {
+		".oxlintrc.json",
 		"eslint.config.js",
 		"eslint.config.mjs",
 		"eslint.config.cjs",
@@ -51,7 +53,7 @@ local function elixir_root(bufnr)
 end
 
 local augroup = vim.api.nvim_create_augroup("lint", { clear = true })
-local eslint_fts = {
+local js_lint_fts = {
 	javascript = true,
 	javascriptreact = true,
 	typescript = true,
@@ -63,8 +65,8 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
 	callback = function(args)
 		local ft = vim.bo[args.buf].filetype
 
-		if eslint_fts[ft] then
-			lint.try_lint("eslint_d", { cwd = eslint_root(args.buf) })
+		if js_lint_fts[ft] then
+			lint.try_lint(jsLinter, { cwd = js_lint_root(args.buf) })
 		elseif ft == "python" then
 			lint.try_lint("ruff", { cwd = python_root(args.buf) })
 		elseif ft == "go" then
@@ -76,14 +78,3 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
 		end
 	end,
 })
-
-local map = require("utils").map
--- INFO: eslint_d can become stale when switching between branches. Use if receiving diagnostics that seem off.
-map("<leader>lE", function()
-	local ok, err = pcall(vim.fn.system, { "eslint_d", "restart" })
-	if ok and vim.v.shell_error == 0 then
-		vim.notify("eslint_d restarted", vim.log.levels.INFO)
-	else
-		vim.notify("eslint_d restart failed: " .. (err or vim.fn.system("eslint_d restart")), vim.log.levels.ERROR)
-	end
-end, "Restart eslint_d")

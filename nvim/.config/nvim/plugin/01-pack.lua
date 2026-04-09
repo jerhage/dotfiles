@@ -10,6 +10,7 @@ end
 vim.pack.add({
 	"https://github.com/vhyrro/luarocks.nvim",
 	"https://github.com/catppuccin/nvim",
+	"https://github.com/xzbdmw/colorful-menu.nvim",
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
 	"https://github.com/windwp/nvim-ts-autotag",
 	"https://github.com/nvim-lua/plenary.nvim",
@@ -21,7 +22,7 @@ vim.pack.add({
 	"https://github.com/folke/snacks.nvim",
 	"https://github.com/williamboman/mason.nvim",
 	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
-	"https://github.com/saghen/blink.cmp",
+	{ src = "https://github.com/Saghen/blink.cmp", version = "v1" },
 	"https://github.com/b0o/SchemaStore.nvim",
 	"https://github.com/L3MON4D3/LuaSnip",
 	"https://github.com/rafamadriz/friendly-snippets",
