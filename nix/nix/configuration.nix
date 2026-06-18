@@ -100,7 +100,6 @@
     waypaper
     waybar
     swaylock-effects
-    swww
     nvidia-vaapi-driver
     nvidia-modprobe
     swaynotificationcenter
@@ -175,7 +174,7 @@
     unzip
     #blueman
     bluez
-    protonvpn-gui
+    proton-vpn
     #grub2
     xwayland
     xwayland-satellite

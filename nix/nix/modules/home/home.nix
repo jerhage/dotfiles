@@ -104,7 +104,7 @@
       IdentitiesOnly yes
   '';
 
-  services.swww.enable = true;
+  services.awww.enable = true;
   services.swaync.enable = true;
 
 }
