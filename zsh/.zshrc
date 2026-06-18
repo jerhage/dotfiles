@@ -10,6 +10,7 @@ alias gtsm="gt switch main"
 alias gtsn="gt switch npo_trunk"
 alias gtsd="gt switch district_trunk"
 alias gtsc="gt switch core_trunk"
+alias ff="./scripts/helpers/lint-diff-oxc.sh --deny typescript/consistent-type-imports typescript/consistent-type-exports typescript/no-import-type-side-effects typescript/ban-ts-comment --fix && pnpm format:fix"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # commented for work
 # eval "$(/usr/local/bin/brew shellenv)"
@@ -141,8 +142,10 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 #export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home
-export JAVA_HOME="/usr/lib/jvm/jdk-20"
-export PATH="$JAVA_HOME:$PATH"
+export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
+export PATH="$JAVA_HOME/bin:$PATH"
+# export JAVA_HOME="/usr/lib/jvm/jdk-20"
+# export PATH="$JAVA_HOME:$PATH"
 export PATH=$PATH:$HOME/.npm-global/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/bin
@@ -171,8 +174,6 @@ autoload -U +X compinit && compinit
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
 # . /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-export OPENAI_API_KEY="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"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

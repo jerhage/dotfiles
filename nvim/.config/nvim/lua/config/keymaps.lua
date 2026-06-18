@@ -3,8 +3,7 @@ set("i", "jj", "<Esc>")
 vim.g.mapleader = " "
 
 set("n", "<CR>", function()
-	---@diagnostic disable-next-line: undefined-field
-	if vim.opt.hlsearch:get() then
+	if vim.v.hlsearch == 1 then
 		vim.cmd.nohl()
 		return ""
 	else
