@@ -52,6 +52,26 @@
   #   fcitx5-gtk
   # ];
   # };
+i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        fcitx5-hangul
+        fcitx5-gtk
+        kdePackages.fcitx5-qt
+        kdePackages.fcitx5-configtool
+      ];
+    };
+  };
+
+  environment.sessionVariables = {
+    XMODIFIERS = "@im=fcitx";
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+  };
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -86,6 +106,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    kdePackages.fcitx5-configtool
+
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
     ffmpeg
     jq
@@ -195,7 +217,7 @@
     podman
     podman-compose
     podman-desktop
-    kime
+    # kime
     adwaita-icon-theme # for fcitx icon?
 
     beancount
