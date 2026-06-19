@@ -155,6 +155,7 @@
     #caido
     wireshark
     kdePackages.kate
+    tree-sitter
 
     anki
     #wordlists
@@ -181,6 +182,7 @@
     nodejs_24
     typescript
     pnpm
+    wev # wayland event viewer
 
     pv
     zstd

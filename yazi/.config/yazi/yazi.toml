@@ -1,7 +1,3 @@
-# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
-# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
-
 [mgr]
 ratio          = [ 1, 4, 3 ]
 sort_by        = "alphabetical"
@@ -56,7 +52,7 @@ play = [
 [open]
 rules = [
 	# Folder
-	{ name = "*/", use = [ "edit", "open", "reveal" ] },
+	{ url = "*/", use = [ "edit", "open", "reveal" ] },
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
@@ -72,7 +68,7 @@ rules = [
 	# Empty file
 	{ mime = "inode/x-empty", use = [ "edit", "reveal" ] },
 	# Fallback
-	{ name = "*", use = [ "open", "reveal" ] },
+	{ url = "*", use = [ "open", "reveal" ] },
 ]
 
 [tasks]
@@ -83,19 +79,15 @@ image_alloc      = 536870912  # 512MB
 image_bound      = [ 0, 0 ]
 suppress_preload = false
 
-[plugin]
-prepend_previewers = [
-    { name = "*.csv", run = "bat" },
-    { name = "*.md", run = "bat" },
-    { name = "*.go", run = "bat" },
-    { name = "*.lua", run = "bat" },
-    { mime = "text/*", run = "bat" },
-]
+# [plugin]
+# prepend_previewers = [
+#     { url = "*.csv", run = "bat" },
+#     { url = "*.md", run = "bat" },
+#     { url = "*.go", run = "bat" },
+#     { url = "*.lua", run = "bat" },
+#     { mime = "text/*", run = "bat" },
+# ]
 
-fetchers = [
-	# Mimetype
-	{ id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
-]
 preloaders = [
 	# Image
 	{ mime = "image/{avif,heic,jxl,svg+xml}", run = "magick" },
@@ -109,7 +101,7 @@ preloaders = [
 	{ mime = "application/vnd.ms-opentype", run = "font" },
 ]
 previewers = [
-	{ name = "*/", run = "folder", sync = true },
+	{ url = "*/", run = "folder", sync = true },
 	# Code
 	{ mime = "text/*", run = "code" },
 	{ mime = "*/{xml,javascript,x-wine-extension-ini}", run = "code" },
@@ -129,7 +121,7 @@ previewers = [
 	{ mime = "font/*", run = "font" },
 	{ mime = "application/vnd.ms-opentype", run = "font" },
 	# Fallback
-	{ name = "*", run = "file" },
+	{ url = "*", run = "file" },
 ]
 
 [input]

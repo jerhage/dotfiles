@@ -57,7 +57,7 @@ vim.pack.add({
 
 	-- dap core
 	"https://github.com/mfussenegger/nvim-dap",
-	"https://github.com/nvim-neotest/nvim-dap-ui",
+	"https://github.com/rcarriga/nvim-dap-ui",
 	"https://github.com/theHamsta/nvim-dap-virtual-text",
 
 	-- language-specific dap adapters
