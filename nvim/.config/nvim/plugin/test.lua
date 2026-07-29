@@ -178,6 +178,14 @@ do
 	end
 end
 
+-- Neotest offloads treesitter parsing to a headless child nvim for perf, but only appends
+-- bare paths to its 'runtimepath' rather than sourcing plugin/ scripts. That means
+-- nvim-treesitter's plugin/filetypes.lua (which registers the tsx -> typescriptreact and
+-- jsx -> javascriptreact parser aliases) never runs there, so every .tsx/.jsx test file
+-- fails discovery with "No parser for language 'typescriptreact'". Disable the subprocess so
+-- parsing always happens here instead, where the aliases are already registered.
+require("neotest.lib").subprocess.init = function() end
+
 -- neotest
 local neotest = require("neotest")
 neotest.setup({
