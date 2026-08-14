@@ -39,5 +39,58 @@ require("gitsigns").setup({
 		gs_map("n", "<leader>gt", gitsigns.toggle_current_line_blame, { desc = "[G]it [T]oggle - toggle blame line" })
 		gs_map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "[T]oggle git show [b]lame line" })
 		gs_map("n", "<leader>gtD", gitsigns.preview_hunk_inline, { desc = "[T]oggle git show [D]eleted" })
+		gs_map("n", "<leader>gdr", gitsigns.reset_base, { desc = "[G]it [D]iff [R]eset base" })
+		gs_map("n", "<leader>gdc", function()
+			local file = vim.api.nvim_buf_get_name(0)
+			if file == "" then
+				return
+			end
+
+			local root = vim.fs.root(file, ".git")
+			if not root then
+				return
+			end
+
+			local relpath = vim.fs.relpath(root, file)
+			if not relpath then
+				return
+			end
+
+			local result = vim.system({
+				"git",
+				"-C",
+				root,
+				"log",
+				"-1",
+				"--format=%H",
+				"--",
+				relpath,
+			}, { text = true }):wait()
+
+			if result.code ~= 0 then
+				vim.notify(result.stderr, vim.log.levels.ERROR)
+				return
+			end
+
+			local commit = vim.trim(result.stdout)
+			if commit == "" then
+				vim.notify("No commit found for current file", vim.log.levels.INFO)
+				return
+			end
+
+			gitsigns.change_base(commit .. "^")
+		end, { desc = "[G]it [D]iff Last [C]hange" })
+		gs_map("n", "<leader>gdC", function()
+			vim.ui.input({
+				prompt = "Commit: ",
+				default = "HEAD",
+			}, function(commit)
+				if not commit or commit == "" then
+					return
+				end
+
+				gitsigns.change_base(commit .. "^")
+			end)
+		end, { desc = "[G]it [D]iff [C]ommit" })
 	end,
 })
