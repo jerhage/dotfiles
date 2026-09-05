@@ -192,6 +192,9 @@ neotest.setup({
 	adapters = {
 		require("neotest-golang"),
 		require("neotest-python"),
+		-- Each JavaScript adapter verifies its runner in the nearest package.json.
+		-- This makes the choice automatic per project, including monorepos.
+		require("neotest-jest")({}),
 		neotest_vitest_adapter,
 		require("neotest-elixir"),
 	},

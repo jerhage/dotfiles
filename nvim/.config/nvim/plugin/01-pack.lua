@@ -52,6 +52,7 @@ vim.pack.add({
 	-- neotest adapters
 	"https://github.com/fredrikaverpil/neotest-golang",
 	"https://github.com/nvim-neotest/neotest-python",
+	"https://github.com/nvim-neotest/neotest-jest",
 	"https://github.com/marilari88/neotest-vitest",
 	"https://github.com/jfpedroza/neotest-elixir",
 
