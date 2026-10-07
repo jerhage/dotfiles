@@ -22,6 +22,7 @@ local parsers = {
 	"templ",
 	"javascript",
 	"typescript",
+	"svelte",
 	"jsx",
 	"tsx",
 }
@@ -53,6 +54,7 @@ local fts = {
 	"templ",
 	"javascript",
 	"typescript",
+	"svelte",
 	"javascriptreact",
 	"typescriptreact",
 }

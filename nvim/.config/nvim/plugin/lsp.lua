@@ -84,6 +84,11 @@ local servers = {
 		filetypes = { "astro" },
 		root_markers = { "package.json", "tsconfig.json", ".git" },
 	},
+	svelte = {
+		cmd = { "svelteserver", "--stdio" },
+		filetypes = { "svelte" },
+		root_markers = { "package.json", "svelte.config.js", "svelte.config.ts", ".git" },
+	},
 	cssls = {
 		cmd = { "vscode-css-language-server", "--stdio" },
 		filetypes = { "css", "less", "scss" },
@@ -94,10 +99,27 @@ local servers = {
 		filetypes = { "html" },
 		root_markers = { "package.json", ".git" },
 	},
-	ts_ls = {
-		cmd = { "typescript-language-server", "--stdio" },
+	-- ts_ls = {
+	-- 	cmd = { "typescript-language-server", "--stdio" },
+	-- 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+	-- 	root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+	-- },
+	vtsls = {
+		cmd = { "vtsls", "--stdio" },
 		filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 		root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+		settings = {
+			typescript = {
+				workspaceSymbols = {
+					scope = "allSymbols", -- Indexes type aliases, interfaces, enums, and classes across the project
+				},
+			},
+			javascript = {
+				workspaceSymbols = {
+					scope = "allSymbols",
+				},
+			},
+		},
 	},
 	marksman = {
 		cmd = { "marksman", "server" },
@@ -170,9 +192,10 @@ require("mason-tool-installer").setup({
 		"bash-language-server",
 		"gopls",
 		"astro-language-server",
+		"svelte-language-server",
 		"css-lsp",
 		"html-lsp",
-		"typescript-language-server",
+		"vtsls",
 		"marksman",
 		"pyright",
 		"lua-language-server",
