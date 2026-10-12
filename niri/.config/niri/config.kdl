@@ -1,3 +1,11 @@
+cursor {
+    // niri exports XCURSOR_THEME/XCURSOR_SIZE to every client it spawns, so this
+    // overrides environment.sessionVariables. Naming the theme directly avoids
+    // relying on ~/.icons/default/index.theme to redirect "default" somewhere.
+    xcursor-theme "catppuccin-mocha-sapphire-cursors"
+    xcursor-size 16
+}
+
 prefer-no-csd
 input {
     keyboard {
@@ -251,17 +259,19 @@ window-rule {
     geometry-corner-radius 6
     clip-to-geometry true
 }
+// The bar and notification daemon are Noctalia, started by noctalia.service.
+// Two notification daemons cannot share the org.freedesktop.Notifications name.
 
-
-// This line starts waybar, a commonly used bar for Wayland compositors.
-// spawn-sh-at-startup "waypaper --random"
-spawn-sh-at-startup "awww-daemon &"
-spawn-at-startup "fcitx5" "-d"
+// awww-daemon is owned by the awww.service user unit.
+// Do not spawn it here too: the second instance cannot bind the socket and crash-loops.
+// spawn-sh-at-startup "awww-daemon &"
+// fcitx5 is started by its own XDG autostart unit (app-org.fcitx.Fcitx5@autostart);
+// spawning it here too is redundant.
+// spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "steam"
 // spawn-at-startup "xdg-desktop-portal-gtk"
 // spawn-at-startup "xdg-desktop-portal-wlr"
 spawn-at-startup "xdg-desktop-portal"
-spawn-at-startup "waybar"
 
 
 binds {
@@ -271,8 +281,53 @@ binds {
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // ────────────────────────────────────────────────────────────────────
+    // Noctalia shell
+    //
+    // Everything here talks to the running noctalia.service over its IPC
+    // socket. `noctalia msg --help` lists the full command set; panel ids are
+    // clipboard, control-center, launcher, polkit, session, tray-drawer,
+    // wallpaper. Press Mod+Shift+Slash for the hotkey overlay.
+    // ────────────────────────────────────────────────────────────────────
+
+    // panels and session
+    Mod+Space          hotkey-overlay-title="Run an Application" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+N              hotkey-overlay-title="Control Center" { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+Y              hotkey-overlay-title="Clipboard History" { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Mod+Shift+Comma    hotkey-overlay-title="Noctalia Settings" { spawn "noctalia" "msg" "settings-open"; }
+    Mod+Shift+TAB      hotkey-overlay-title="Window Switcher" repeat=false { spawn "noctalia" "msg" "window-switcher"; }
+    Super+Ctrl+L       hotkey-overlay-title="Lock the Screen" { spawn "noctalia" "msg" "session" "lock"; }
+    Mod+Shift+Escape   hotkey-overlay-title="Logout Screen" { spawn "noctalia" "msg" "session" "logout"; }
+
+    // bar, dock, widgets
+    Mod+W              hotkey-overlay-title="Toggle the Bar" repeat=false { spawn "noctalia" "msg" "bar-toggle"; }
+    Mod+Shift+D        hotkey-overlay-title="Toggle the Dock" { spawn "noctalia" "msg" "dock-toggle"; }
+
+    // wallpaper
+    Mod+Shift+W        hotkey-overlay-title="Pick a Wallpaper" { spawn "noctalia" "msg" "panel-toggle" "wallpaper"; }
+    Mod+Ctrl+W         hotkey-overlay-title="Random Wallpaper" { spawn "noctalia" "msg" "wallpaper-random"; }
+
+    // notifications, idle, display
+    Mod+Shift+N        hotkey-overlay-title="Toggle Do Not Disturb" { spawn "noctalia" "msg" "notification-dnd-toggle"; }
+    Mod+Shift+C        hotkey-overlay-title="Toggle Caffeine (idle inhibitor)" { spawn "noctalia" "msg" "caffeine-toggle"; }
+    Mod+Ctrl+N         hotkey-overlay-title="Toggle Night Light" { spawn "noctalia" "msg" "nightlight-toggle"; }
+    Mod+Ctrl+Escape    hotkey-overlay-title="Turn Monitors Off" { spawn "noctalia" "msg" "dpms-off"; }
+
+    // volume, mic, brightness -- noctalia draws an OSD, unlike wpctl/brightnessctl
+    XF86AudioRaiseVolume  allow-when-locked=true hotkey-overlay-title="Volume Up" { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume  allow-when-locked=true hotkey-overlay-title="Volume Down" { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute         allow-when-locked=true hotkey-overlay-title="Mute Speakers" { spawn "noctalia" "msg" "volume-mute"; }
+    XF86AudioMicMute      allow-when-locked=true hotkey-overlay-title="Mute Microphone" { spawn "noctalia" "msg" "mic-mute"; }
+    XF86MonBrightnessUp   allow-when-locked=true hotkey-overlay-title="Brightness Up" { spawn "noctalia" "msg" "brightness-up"; }
+    XF86MonBrightnessDown allow-when-locked=true hotkey-overlay-title="Brightness Down" { spawn "noctalia" "msg" "brightness-down"; }
+
+    // media playback
+    XF86AudioPlay         allow-when-locked=true hotkey-overlay-title="Play/Pause" { spawn "noctalia" "msg" "media" "toggle"; }
+    XF86AudioNext         allow-when-locked=true hotkey-overlay-title="Next Track" { spawn "noctalia" "msg" "media" "next"; }
+    XF86AudioPrev         allow-when-locked=true hotkey-overlay-title="Previous Track" { spawn "noctalia" "msg" "media" "previous"; }
+    XF86AudioStop         allow-when-locked=true hotkey-overlay-title="Stop Playback" { spawn "noctalia" "msg" "media" "stop"; }
     Mod+Shift+O hotkey-overlay-title="toggle opacity" { toggle-window-rule-opacity; }
-    Mod+W hotkey-overlay-title="toggle waybar" repeat=false { spawn-sh "pkill -SIGUSR1 waybar || waybar"; }
 
     // toggle between inputs
     Mod+Shift+Space { spawn "fcitx5-remote" "-t"; }
@@ -284,9 +339,6 @@ binds {
     Mod+Shift+S hotkey-overlay-title="Open Reader (Ttsu Reader)" { spawn-sh "google-chrome-stable --app='https://reader.ttsu.app/manage' --profile-directory='Profile 3'"; }
     Mod+S hotkey-overlay-title="Open Reader (Google Books)" { spawn-sh "google-chrome-stable --app='https://play.google.com/books?hl=en_US' --profile-directory='Profile 3'"; }
     Mod+E hotkey-overlay-title="Open a FileManager" { spawn "nautilus"; }
-    Mod+Space hotkey-overlay-title="Run an Application" { spawn-sh "wofi --show drun"; }
-    Super+Ctrl+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -f -S --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --ring-color bb00cc --key-hl-color 880033 --line-color 00000000 --inside-color 00000088 --separator-color 00000000 --fade-in 0.2"; }
-    Mod+Shift+Escape hotkey-overlay-title="Logout Screen" { spawn "wlogout"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -296,25 +348,12 @@ binds {
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
     // Using spawn-sh allows to pass multiple arguments together with the command.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    Mod+M        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
 
-    // Media control keys using playerctl
-    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
-    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
     Mod+TAB repeat=false { toggle-overview; }
     // custom window selector with dmenu TODO
-    Mod+Shift+TAB repeat=false { spawn "~/.local/bin/nws.sh"; } 
 
     Mod+Q repeat=false { close-window; }
 

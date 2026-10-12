@@ -1,0 +1,20 @@
+# Hand-written Noctalia config, managed in this dotfiles repo.
+#
+# PRECEDENCE: ~/.local/state/noctalia/settings.toml is loaded AFTER this file
+# and wins on any key set in both. That file is where the settings GUI writes,
+# and it is also symlinked into this repo. So: anything you change in the GUI
+# overrides what is written here, permanently. Keep this file for things you
+# want pinned, and expect the GUI to own everything else.
+#
+# Validate changes with:  noctalia config validate
+# Apply without restart:  noctalia msg config-reload
+
+[wallpaper]
+# No `recursive` key exists, so this must point at the directory that directly
+# contains the images -- pointing at ~/wallpapers lists nothing, because the
+# images live one level down. A list of directories is also accepted, e.g.
+#   directory = [ "/home/jh/wallpapers/clean", "/home/jh/wallpapers/boo" ]
+directory = "/home/jh/wallpapers/clean"
+
+# One of: fit | stretch | center
+fill_mode = "fit"

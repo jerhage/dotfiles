@@ -1,37 +1,73 @@
 # .bashrc
-export INPUT_METHOD=fcitx
-export XMODIFIERS="@im=fcitx"
+# Managed in ~/dotfiles/bash; symlinked into $HOME by my.dotfiles.links.
 
-# Source global definitions
+# Source global definitions (NixOS provides PATH and bash completion here).
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-# User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-export PATH
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-
+########################################
+# environment
+########################################
 export EDITOR=nvim
-alias nn="home-manager switch --flake $HOME/nix#$USER"
-alias nfu="nix flake update"
-alias ngc="nix store gc"
-alias ihm="nix run nixpkgs#home-manager -- switch --flake $HOME/nix/#$USER"
-alias nf="nvim ~/nix/flake.nix"
-alias nh="nvim ~/nix/home-manager/home.nix"
-alias nw="nvim ~/dotfiles/wezterm/.config/wezterm/wezterm.lua"
-alias nn="nvim ~/dotfiles/nvim/.config/nvim"
-alias ss="source ~/.bashrc"
+export INPUT_METHOD=fcitx          # XMODIFIERS/GTK_IM_MODULE/QT_IM_MODULE come from modules/i18n.nix
+export KIME_CONFIG="$HOME/.config/kime/config.yaml"
+export GOPATH="$HOME/go"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+export ERL_AFLAGS="-kernel shell_history enabled"   # shell history inside iex
 
-alias ls="eza --color=always --long --git --no-filesize --icons=always"
-alias la="eza --color=always --long --git --no-filesize --icons=always --all"
-# 'c' for "clean" look
-alias lsc="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
-alias lac="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions --all"
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
+
+########################################
+# aliases
+########################################
+alias grep='grep --color=auto'
+alias ll='ls -l'
+alias la='ls -lAtr'
+alias cat='bat'
+alias ta='tmux a'
+
+alias nr='nixos-rebuild switch --flake ~/nixos-conf --sudo'
+alias nn='(cd ~/nixos-conf/ && nvim)'
+alias nc='(cd ~/dotfiles/nvim/.config/nvim/ && nvim)'
+alias nf='nvim ~/nixos-conf/flake.nix'
+alias nfu='nix flake update'
+alias ngc='nix store gc'
+alias wr="$HOME/dotfiles/scripts/.local/awww/awww_randomize.sh"
+alias ss='source ~/.bashrc'
+
+########################################
+# functions
+########################################
+compress() {
+    local dir="${1%/}"
+    local size
+    size=$(du -sb "$dir" | awk '{print $1}')
+
+    tar -cf - "$dir" | pv -s "$size" | zstd -T0 - > "${dir}.tar.zst"
+}
+
+decompress() {
+    local archive="$1"
+    local size
+    size=$(stat -c%s "$archive")
+
+    pv -s "$size" "$archive" | zstd -d - | tar -xf -
+}
+
+# Wrap yazi so that exiting it cd's to the last directory.
+yy() {
+    local tmp
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd" || return
+    fi
+    rm -f -- "$tmp"
+}
 
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
@@ -43,11 +79,9 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-eval "$(starship init bash)"
-eval "$(direnv hook bash)"
-eval "$(fzf --bash)"
-#
-# --- setup fzf theme ---
+########################################
+# fzf
+########################################
 fg="#CBE0F0"
 bg="#011628"
 bg_highlight="#143652"
@@ -56,7 +90,7 @@ blue="#06BCE4"
 cyan="#2CF9ED"
 
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
+export FZF_DEFAULT_OPTS="--color=fg:$fg,bg:$bg,hl:$purple,fg+:$fg,bg+:$bg_highlight,hl+:$purple,info:$blue,prompt:$cyan,pointer:$cyan,marker:$cyan,spinner:$cyan,header:$cyan"
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
 # -- Use fd instead of find --
@@ -64,21 +98,14 @@ export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
 
-# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
     fd --hidden --exclude .git . "$1"
 }
 
-# Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
     fd --type=d --hidden --exclude .git . "$1"
 }
 
-# Advanced customization of fzf options via _fzf_comprun function
-# - The first argument to the function is the name of the command.
-# - You should make sure to pass the rest of the arguments to fzf.
 _fzf_comprun() {
     local command=$1
     shift
@@ -90,17 +117,10 @@ _fzf_comprun() {
     *) fzf --preview "bat -n --color=always --line-range :500 {}" "$@" ;;
     esac
 }
-# Yazi script to wrap the shell and allow cd-ing when exiting Yazi
-function yy() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-    yazi "$@" --cwd-file="$tmp"
-    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd"
-    fi
-    rm -f -- "$tmp"
-}
 
-# Enables shell history within iex
-export ERL_AFLAGS="-kernel shell_history enabled"
+########################################
+# prompt and integrations
+########################################
+eval "$(starship init bash)"
+eval "$(fzf --bash)"
 eval "$(zoxide init bash)"
-. "$HOME/.cargo/env"
