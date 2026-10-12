@@ -535,9 +535,14 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    Print hotkey-overlay-title="Screenshot a Region" { screenshot; }
+    Ctrl+Print hotkey-overlay-title="Screenshot the Screen" { screenshot-screen; }
+    Alt+Print hotkey-overlay-title="Screenshot a Window" { screenshot-window; }
+
+    // Same three without a Print key
+    Mod+Ctrl+S hotkey-overlay-title="Screenshot a Region" { screenshot; }
+    Mod+Ctrl+Alt+S hotkey-overlay-title="Screenshot the Screen" { screenshot-screen; }
+    Mod+Alt+S hotkey-overlay-title="Screenshot a Window" { screenshot-window; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here

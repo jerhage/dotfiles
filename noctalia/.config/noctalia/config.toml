@@ -8,6 +8,12 @@
 #
 # Validate changes with:  noctalia config validate
 # Apply without restart:  noctalia msg config-reload
+#
+# `noctalia config validate` is a usable schema oracle: it reports
+# "unknown section" / "unknown setting" / "unknown value". Valid top-level
+# sections in 5.0.1 are: bar, dock, notification, osd, theme, wallpaper,
+# lockscreen, lockscreen_widgets, desktop_widgets, audio, brightness,
+# nightlight, weather, calendar, plugins. Note there is NO clipboard section.
 
 [wallpaper]
 # No `recursive` key exists, so this must point at the directory that directly
@@ -16,5 +22,13 @@
 #   directory = [ "/home/jh/wallpapers/clean", "/home/jh/wallpapers/boo" ]
 directory = "/home/jh/wallpapers/clean"
 
-# One of: fit | stretch | center
+# Accepted values: fit, stretch, center
 fill_mode = "fit"
+
+[weather]
+# The schema accepts only `enabled` and `unit`. There is no location key, so
+# set the location in the settings GUI (Mod+Shift+Comma); it persists to
+# ~/.local/state/noctalia/settings.toml, which is also tracked in this repo.
+# `unit` is NOT value-validated, so a wrong string fails silently rather than
+# erroring -- set it in the GUI if the reading looks wrong.
+enabled = true

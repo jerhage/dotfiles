@@ -1,5 +1,24 @@
 config_version = 14
 
+[bar.default]
+end = [
+    "caffeine",
+    "media",
+    "tray",
+    "notifications",
+    "clipboard",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "session"
+]
+
+[location]
+address = "Fort Worth, United States"
+
 [lockscreen_widgets]
 enabled = false
 schema_version = 2
@@ -36,6 +55,10 @@ widget_order = [ "lockscreen-login-box@DP-3" ]
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
+
+[shell.greeter_sync]
+auto_sync = true
+privilege_command = "ghostty -e pkexec"
 
 [theme]
 builtin = "Noctalia"
