@@ -1,6 +1,7 @@
 config_version = 14
 
 [bar.default]
+center = [ "clock", "date" ]
 end = [
     "caffeine",
     "media",
